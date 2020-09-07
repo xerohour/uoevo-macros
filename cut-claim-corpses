@@ -1,0 +1,41 @@
+/////////////////////////
+//Author: Maelune
+//Title: [claim -c w/ Master Keys
+//
+//Usage: If you don't have master keys, change macro to use
+//       your storage key(s) or use a bank crystal!
+//
+//       Do Not Loop!
+/////////////////////////
+//Master Keys
+if not timerexists 'ffp'
+  createtimer 'ffp'
+  settimer 'ffp' 1000
+endif
+//Skin corpse using [claim -c
+while @findtype 0x2006 'any' 'ground' 'any' 2
+  setalias 'corpse' 'found'
+  msg '[claim -c'
+  waitfortarget 1200
+  @target 'corpse'
+  ignoreobject 'corpse'
+  if timer 'ffp' > 1000 //also Master Keys
+    msg '[ffp'
+    settimer 'ffp' 0
+  endif
+endwhile
+//gold vacuum
+while @findtype 0xeed '0' 'backpack' or @findtype 0xeed '0' 'ground'
+  useobject 'found'
+  ignoreobject 'found'
+endwhile
+pause 200
+@target 'self' //clears target cursor
+//final Master Key sub
+while @findtype 0x1079 'any' 'backpack'
+  pause 150
+  while @findtype 0x1079 'any' 'backpack'
+    msg '[ffp'
+  endwhile
+endwhile
+clearignorelist
