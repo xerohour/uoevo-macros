@@ -30,12 +30,4 @@ while @findtype 0xeed '0' 'backpack' or @findtype 0xeed '0' 'ground'
   ignoreobject 'found'
 endwhile
 pause 200
-@target 'self' //clears target cursor
-//final Master Key sub
-while @findtype 0x1079 'any' 'backpack'
-  pause 150
-  while @findtype 0x1079 'any' 'backpack'
-    msg '[ffp'
-  endwhile
-endwhile
 clearignorelist
