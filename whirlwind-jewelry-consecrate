@@ -1,0 +1,89 @@
+//Title: Simple Champion Attack
+//Version: 1.0
+//Purpose: easy Battle champions
+//Requirements: A Double Axe
+// ###### INSTALL
+// - Copy this entire text into a UOSteam Macro.
+// - Check the 'Loop' button
+// - Assign a hotkey for it
+// - Assing a hotkey to stop macros
+// ###### FEATURES
+// - Will continue attacking and whirlwind while there's opponents on your screen
+while @getenemy 'murderer' 'enemy' 'gray' 'criminal' 'closest'
+  @setability 'secondary' 'on'
+  pause 300
+  attack! 'enemy'
+  if not timerexists 'ConsecrateWeaponTimer'
+    createtimer 'ConsecrateWeaponTimer'
+    settimer 'ConsecrateWeaponTimer' 0
+  elseif timer 'ConsecrateWeaponTimer' > 9000
+    cast 'Consecrate Weapon'
+    pause 600
+    //uncomment this to loot periodically
+    //msg '[grab'
+    settimer 'ConsecrateWeaponTimer' 0
+  endif
+  if not @findobject 'LootBag'
+    promptalias 'LootBag'
+  endif
+  if not listexists 'Jewelry'
+    @createlist 'Jewelry'
+  endif
+  if list 'Jewelry' == 0
+    @pushlist 'Jewelry' 0x108a
+    @pushlist 'Jewelry' 0x1f09
+    @pushlist 'Jewelry' 0x1086
+    @pushlist 'Jewelry' 0x1f06
+  endif
+  //Find Corpse
+  if not @findtype '0x2006' 'any' 'ground' '1' '1'
+  endif
+  @setalias '0' 'found'
+  @useobject '0'
+  //Locate Jewelry
+  for 0 to Jewelry
+    for 2
+      if @findtype Jewelry[] 0 '0'
+        @setalias 'Skills' 'found'
+        waitforproperties 'Skills' 3000
+        if @property 'Swordsmanship' 'Skills' >= 10
+          sysmsg 'Swords!' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 1000
+        endif
+        if @property 'Parry' 'Skills' >= 10
+          sysmsg 'Parry!' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 1000
+        endif
+        if @property 'Tactics' 'Skills' >= 10
+          sysmsg 'Tactics' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 1000
+        endif
+        if @property 'macefighting' 'Skills' >= 10
+          sysmsg 'macefighting' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 1000
+        endif
+        if @property 'anatomy' 'Skills' >= 10
+          sysmsg 'anatomy' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 1000
+        endif
+        if @property 'Evaluating Intelligence ' 'Skills' >= 10
+          sysmsg 'Evaluating Intelligence ' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 1000
+        endif
+        if @property 'Archery' 'Skills' >= 10
+          sysmsg 'Archery' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 1000
+        endif
+      endif
+    endfor
+  endfor
+  //Close Corpse
+  ignoreobject '0'
+endwhile //end while there's an enemy here
