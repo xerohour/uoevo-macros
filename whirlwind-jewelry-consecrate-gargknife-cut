@@ -1,0 +1,260 @@
+//Champ macro with GARG KNIFE By Merlina - UO Evolution
+//Set LootBag serial (use OBJECT INSPECTOR)
+@setalias 'LootBag' 0x43164e1f
+//Set RingBag serial
+@setalias 'JewBag' 0x43164e1c
+//Gargy knife skinner setup (can be a common knife)
+if not @findobject 'gargyknife'
+  headmsg 'Knife not found. Please Select Gargoyle Skinning Knife' 391 'self'
+  promptalias 'gargyknife'
+endif
+//If you are hidden or dead, it doesnt attack.
+while 'hidden' 'self' or 'dead' 'self'
+  pause 10
+endwhile
+if not timerexists 'casttime'
+  createtimer 'casttime'
+  settimer 'casttime' 15000
+endif
+if not timerexists 'castimmov'
+  createtimer 'castimmov'
+  settimer 'castimmov' 20000
+endif
+if not timerexists 'castconcentrate'
+  createtimer 'castconcentrate'
+  settimer 'castconcentrate' 100000
+endif
+@getenemy 'murderer' 'enemy' 'criminal' 'gray' 'closest'
+if @findobject 'enemy'
+  @setability 'secondary' 'on'
+  attack! 'enemy'
+endif
+//To prevent SPAM
+if @inrange 'enemy' 1
+  //Buffs
+  if not buffexists "Consecrate Weapon" and timer 'casttime' > 1600
+    if timer 'castconcentrate' > 9000
+      cast 'Consecrate Weapon'
+      settimer 'casttime' 0
+      settimer 'castconcentrate' 0
+    endif
+  endif
+  if not buffexists "Immolating Weapon" and timer 'casttime' > 1600
+    if timer 'castimmov' > 15000
+      //cast 'Immolating Weapon'
+      settimer 'casttime' 0
+      settimer 'castimmov' 0
+    endif
+  endif
+  if not buffexists "Divine Fury" and timer 'casttime' > 1600
+    cast 'Divine Fury'
+    settimer 'casttime' 0
+  endif
+endif
+//Blood Oath
+if buffexists "Blood Oath"
+  cast 'Remove Curse'
+  waitfortarget 15000
+  target! 'self'
+  pause 500
+endif
+//Shield of Spikes
+if @injournal 'Shield of Spikes!' 'system'
+  replygump 0x4239a64f 1004
+  waitforgump 0x4239a64f 15000
+  sysmsg 'SOS Rearmed' '1950'
+endif
+if @injournal 'You failed the augment skill check' 'system'
+  replygump 0x4239a64f 1004
+  waitforgump 0x4239a64f 15000
+  sysmsg 'SOS Rearmed' '1950'
+endif
+@clearjournal
+//Jewelry list
+if not listexists 'Jewelry'
+  @createlist 'Jewelry'
+endif
+if list 'Jewelry' == 0
+  @pushlist 'Jewelry' 0x1085     // Necklace [Gold Beads]
+  @pushlist 'Jewelry' 0x1086     // Bracelet [Gold]
+  @pushlist 'Jewelry' 0x1087     // Earrings [Gold w/ Pear]
+  @pushlist 'Jewelry' 0x1088     // Necklace [Gold w/ Pearl]
+  @pushlist 'Jewelry' 0x1089     // Necklace [Gold Luxury]
+  @pushlist 'Jewelry' 0x108a     // Ring [Gold]
+  @pushlist 'Jewelry' 0x108b     // Beads
+  @pushlist 'Jewelry' 0x1f05     // Bead Necklace [Silver]
+  @pushlist 'Jewelry' 0x1f06     // Bracelet [Silver]
+  @pushlist 'Jewelry' 0x1f07     // Earrings [Silver]
+  @pushlist 'Jewelry' 0x1f08     // Necklace [Silver w/ Pearl]
+  @pushlist 'Jewelry' 0x1f09     // Ring [Silver]
+  @pushlist 'Jewelry' 0x1f0a     // Silver Necklace [Luxury]
+  @pushlist 'Jewelry' 0x4210     // Gargish Necklace
+  @pushlist 'Jewelry' 0x4211     // Gargish Bracelet
+  @pushlist 'Jewelry' 0x4212     // Gargish Ring
+  @pushlist 'Jewelry' 0x4213     // Gargish Earrings
+endif
+//Find Corpse
+if @findtype '0x2006' 'any' 'ground' '1' '2'
+  @setalias 'CorpseToLoot' 'found'
+  @setalias '0' 'CorpseToLoot'
+  @useobject '0'
+  //Locate Jewelry
+  for 0 to Jewelry
+    for 2
+      if @findtype Jewelry[] 0 '0'
+        @setalias 'Skills' 'found'
+        waitforproperties 'Skills' 3000
+        if @property 'Anatomy' 'Skills' >= 13
+          sysmsg 'Anatomy' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 500
+        endif
+        if @property 'Animal Lore' 'Skills' >= 13
+          sysmsg 'Animal Lore' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 500
+        endif
+        if @property 'Animal Taming' 'Skills' >= 13
+          sysmsg 'Taming' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 500
+        endif
+        if @property 'Archery' 'Skills' >= 13
+          sysmsg 'Archery' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 500
+        endif
+        if @property 'Bushido' 'Skills' >= 13
+          sysmsg 'Bushido' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 500
+        endif
+        if @property 'Discordance' 'Skills' >= 13
+          sysmsg 'Discor' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 500
+        endif
+        if @property 'Evaluating Intelligence' 'Skills' >= 13
+          sysmsg 'Evaluating Intelligence' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 500
+        endif
+        if @property 'Fencing' 'Skills' >= 13
+          sysmsg 'Fencing' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 500
+        endif
+        if @property 'Focus' 'Skills' >= 13
+          sysmsg 'Focus' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 500
+        endif
+        if @property 'Healing' 'Skills' >= 13
+          sysmsg 'Healing' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 500
+        endif
+        if @property 'Mace Fighting' 'Skills' >= 13
+          sysmsg 'Mace' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 500
+        endif
+        if @property 'Magery' 'Skills' >= 13
+          sysmsg 'Magery' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 500
+        endif
+        if @property 'Necromancy' 'Skills' >= 13
+          sysmsg 'Necromancy' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 500
+        endif
+        if @property 'Ninjitsu' 'Skills' >= 13
+          sysmsg 'Ninjitsu' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 500
+        endif
+        if @property 'Parrying' 'Skills' >= 13
+          sysmsg 'Parry!' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 500
+        endif
+        if @property 'Provocation' 'Skills' >= 13
+          sysmsg 'Provo!' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 500
+        endif
+        if @property 'Spirit Speak' 'Skills' >= 13
+          sysmsg 'SS!' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 500
+        endif
+        if @property 'Stealing' 'Skills' >= 13
+          sysmsg 'Steal!' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 500
+        endif
+        if @property 'Swordsmanship' 'Skills' >= 13
+          sysmsg 'Swords!' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 500
+        endif
+        if @property 'Tactics' 'Skills' >= 13
+          sysmsg 'Tactics' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 500
+        endif
+        if @property 'Veterinary' 'Skills' >= 13
+          sysmsg 'Vet!' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 500
+        endif
+      endif
+    endfor
+  endfor
+  // Finds a corpse, uses gargoyle knife on it, and opens it.
+  @canceltarget
+  @useobject! 'gargyknife'
+  waitfortarget 500
+  target! 'CorpseToLoot'
+  pause 1000
+  // To claim and cut the corpse
+  if @inrange 'CorpseToLoot' 2
+    @msg "[claim -c"
+    waitfortarget 500
+    target! 'CorpseToLoot'
+    pause 100
+    @canceltarget
+    @unsetalias 'CorpseToLoot'
+  endif
+endif
+@canceltarget
+//Bag Checks (SET SERIAL OF EACH KEY IF YOU DONT HAVE MASTER KEY TO DO ALL AT ONCE)
+if @weight >= 550 or @contents 'backpack' >= 70
+  waitforcontext 0x4413989e 2 15000
+  waitforgump 0x6abce12 15000
+  waitforcontext 0x41ae059f 2 15000
+  waitforgump 0x6abce12 15000
+  waitforcontext 0x42d87f74 2 15000
+  waitforgump 0x6abce12 15000
+  waitforcontext 0x40c03749 2 15000
+  waitforgump 0x6abce12 15000
+  waitforcontext 0x4263a651 2 15000
+  waitforgump 0x6abce12 15000
+  waitforcontext 0x457ae381 2 15000
+  waitforgump 0x6abce12 15000
+  waitforcontext 0x40c41f34 2 15000
+  waitforgump 0x6abce12 15000
+  waitforcontext 0x4288d264 2 15000
+  waitforgump 0x6abce12 15000
+  waitforcontext 0x4138a95a 2 15000
+  waitforgump 0x6abce12 15000
+  waitforcontext 0x42636f8c 2 15000
+  waitforgump 0x6abce12 15000
+endif
+pause 100
+//Click gold in backpack
+while @findtype 0xeed 'any' 'backpack'
+  useobject! 'found'
+  ignoreobject 'found'
+endwhile
