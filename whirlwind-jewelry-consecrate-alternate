@@ -1,0 +1,220 @@
+////******************************************************////
+//Title: Champion Attack with Jewelry Autolooter
+//Author: Guilherme Campos (Enkil) by hacking together some other macros. I didn't create anything, just build from existing pieces of code.
+//Version: 1.0
+//Purpose: Battle champions while searching for valuable Jewels and organizing your backup
+//
+//Requirements: A Double Axe, a bag and a Reagent Key
+//
+// ###### INSTALL
+//    - Copy this entire text into a UOSteam Macro.
+//    - Check the 'Loop' button
+//    - Replace the serial ID of your Axe at the beginning of the macro
+//            @findobject XXXXXXX and equipitem XXXXXX 1
+//    - Replace the ID of your reagents key at the end of the macro
+//            useobject XXXXX
+//    - Play the macro and follow the instructions
+//    - To toggle the AutoClaim feature, say clon or cloff ingame.
+//        : Note - This feature is not very useful anymore.
+//    - Assign a hotkey for it
+//    - Assing a hotkey to stop macros
+// ###### HOW DO I USE
+// My hotkey is my middle mouse button. When I'm about to start a battle (champion or anything, PvM only) I'll press the hotkey button (in my case the middle mouse button) and... that's it! It will start to battle and whirlwind and looting corpses. Be sure to walk from time to time to be able to loot corpses, for the search range is not very far (2 titles only).
+// When there's lots of corpses on the ground and I think my macro has searched most of it, i'll [grab manually the corpses.
+// Also even after autoloot the corpses, it will leave the corpse open i case you want to check it by yourself too.
+// When the battle is over, hit your stop macro hotkey to stop attacking.
+// ###### WARNING
+// This macro can add a sligh delay between the whirlwind attacks, what can dminish your hp leech when attacking. So use it with caution and ajust it to your gameplay. Also make sure to payattention on the battle and heal yourself. So far I didn't had problem with this small delay.
+// USE THIS MACRO AT YOUR OWN RISKS
+// ###### FEATURES
+//    - Will continue attacking and whirlwind while there's opponents on your screen
+//    - If by any means you get disarmed, it will requip your weapon instantly
+//    - will open an inrange corpse and loot any ring or bracelet with some skills greater than 10.
+//    - will also loot gold coins, in case you're in a party and the gold won't be claimed/looted by the gold ledger.
+//    - will also open your reagent key and click the 'fill from backpack' button on a regular timer.
+////******************************************************////
+if not @findobject 'LootBag'
+  promptalias 'LootBag'
+endif
+if not listexists 'Jewelry'
+  @createlist 'Jewelry'
+endif
+if list 'Jewelry' == 0
+  @pushlist 'Jewelry' 0x108a
+  @pushlist 'Jewelry' 0x1f09
+  @pushlist 'Jewelry' 0x1086
+  @pushlist 'Jewelry' 0x1f06
+endif
+@setalias 'shieldID' 0x40e36590
+////******************************************************////
+clearignorelist
+while @getenemy 'murderer' 'enemy' 'gray' 'criminal' 'closest'
+  warmode 'on'
+  if @injournal '!pada'
+    sysmsg 'usando espada'
+    createtimer 'sword'
+    removetimer 'axe'
+    removetimer 'bow'
+    setalias 'armaID' 0x41842c88
+  elseif @injournal '!arco'
+    sysmsg 'usando arco'
+    createtimer 'bow'
+    removetimer 'axe'
+    removetimer 'sword'
+    setalias 'armaID' 0x410240c5
+  elseif @injournal '!axe'
+    sysmsg 'usando machado'
+    createtimer 'axe'
+    removetimer 'sword'
+    removetimer 'bow'
+    setalias 'armaID' 0x4393dfbd
+  endif
+  clearjournal
+  if @findobject 'armaID' 'any' 'backpack'
+    if timerexists 'bow'
+      clearhands both //Uncomment this one if 1handed axe
+      equipitem 'armaID' 1
+    else
+      clearhands both //Uncomment this one if 1handed axe
+      equipitem 'armaID' 1
+      equipitem 'shieldID' 2
+    endif
+    pause 300
+    // CHANGE ME! Set your axe ID
+  endif
+  if timerexists 'sword' or timerexists 'bow'
+    @setability 'primary' 'on'
+  else
+    @setability 'secondary' 'on'
+  endif
+  pause 300
+  attack! 'enemy'
+  //***Self Buffs. Comment or uncomment to your liking!***//
+  if not timerexists 'ConsecrateWeaponTimer'
+    createtimer 'ConsecrateWeaponTimer'
+    settimer 'ConsecrateWeaponTimer' 0
+  elseif timer 'ConsecrateWeaponTimer' > 9000
+    cast 'Consecrate Weapon'
+    pause 600
+    settimer 'ConsecrateWeaponTimer' 0
+  endif
+  // Find a valid corpse in range
+  if @findtype '0x2006' 'any' 'ground' '2' '2'
+    @setalias 'corpse' 'found'
+    @useobject 'corpse'
+    // Loot gold, if it's not being autolooted by the ledger. Sysmsg commented to avoid spamming.
+    //    if @movetype 0xeed 'corpse' 'backpack' 'any' 'any' 'any'
+    //      sysmsg 'gold' 2415
+    //      pause 600
+    //    endif
+    while @findtype 0xeed 'any' 'corpse'
+      @setalias 'gold' 'found'
+      @useobject! 'gold'
+      @ignoreobject 'gold'
+      // sysmsg 'gold' 2415
+    endwhile
+    //Locate Jewelry
+    for 0 to Jewelry
+      // it will search up to 5 jewels
+      for 5
+        if @findtype Jewelry[] 0 'corpse'
+          @setalias 'Jewelry' 'found'
+          waitforproperties 'Jewelry' 3000
+          if @property 'Swordsmanship' 'Jewelry' >= 13
+            sysmsg 'yay, Swords!' '1990'
+            @moveitem 'Jewelry' 'LootBag'
+            pause 600
+          endif
+          if @property 'Parry' 'Jewelry' >= 13
+            sysmsg 'yay, Parry!' '1990'
+            @moveitem 'Jewelry' 'LootBag'
+            pause 600
+          endif
+          if @property 'Tactics' 'Jewelry' >= 13
+            sysmsg 'yay, Tactics!' '1990'
+            @moveitem 'Jewelry' 'LootBag'
+            pause 600
+          endif
+          if @property 'Animal Taming' 'Jewelry' >= 13
+            sysmsg 'yay, Taming!' '1990'
+            @moveitem 'Jewelry' 'LootBag'
+            pause 600
+          endif
+          if @property 'Animal Lore' 'Jewelry' >= 13
+            sysmsg 'yay, Animal Lore!' '1990'
+            @moveitem 'Jewelry' 'LootBag'
+            pause 600
+          endif
+          if @property 'Evaluating Intelligence ' 'Jewelry' >= 13
+            sysmsg 'yay, Eval!' '1990'
+            @moveitem 'Jewelry' 'LootBag'
+            pause 600
+          endif
+          if @property 'Archery' 'Jewelry' >= 13
+            sysmsg 'yay, Archery!' '1990'
+            @moveitem 'Jewelry' 'LootBag'
+            pause 600
+          endif
+          if @property 'Stealth' 'Jewelry' >= 13
+            sysmsg 'yay, Stealth!' '1990'
+            @moveitem 'Jewelry' 'LootBag'
+            pause 600
+          endif
+          if @property 'Provocation' 'Jewelry' >= 13
+            sysmsg 'yay, Provocation!' '1990'
+            @moveitem 'Jewelry' 'LootBag'
+            pause 600
+          endif
+          if @property 'Mace Fighting' 'Jewelry' >= 13
+            sysmsg 'yay, Mace!' '1990'
+            @moveitem 'Jewelry' 'LootBag'
+            pause 600
+          endif
+          if @property 'Stealing' 'Jewelry' >= 13
+            sysmsg 'yay, Stealing!' '1990'
+            @moveitem 'Jewelry' 'LootBag'
+            pause 600
+          endif
+          if @property 'Discordance' 'Jewelry' >= 13
+            sysmsg 'yay, Discordance!' '1990'
+            @moveitem 'Jewelry' 'LootBag'
+            pause 600
+          endif
+          if @property 'Musicianship' 'Jewelry' >= 13
+            sysmsg 'yay, Musicianship!' '1990'
+            @moveitem 'Jewelry' 'LootBag'
+            pause 600
+          endif
+          if @property 'Bushido' 'Jewelry' >= 13
+            sysmsg 'yay, Bushido!' '1990'
+            @moveitem 'Jewelry' 'LootBag'
+            pause 600
+          endif
+          if @property 'Necromancy' 'Jewelry' >= 13
+            sysmsg 'yay, Necromancy!' '1990'
+            @moveitem 'Jewelry' 'LootBag'
+            pause 600
+          endif
+          if @property 'Resisting Spells' 'Jewelry' >= 13
+            sysmsg 'yay, Resisting Spells!' '1990'
+            @moveitem 'Jewelry' 'LootBag'
+            pause 600
+          endif
+          if @property 'Magery' 'Jewelry' >= 13
+            sysmsg 'yay, Magery !' '1990'
+            @moveitem 'Jewelry' 'LootBag'
+            pause 600
+          endif
+          if @property 'Luck' 'Jewelry' >= 99
+            sysmsg 'yay, Luck !' '1990'
+            @moveitem 'Jewelry' 'LootBag'
+            pause 600
+          endif
+        endif
+      endfor
+    endfor
+    ignoreobject 'corpse'
+    @canceltarget
+    @cancelautotarget
+  endif // end 'if there is a corpse here'
+endwhile //end while there's an enemy here
