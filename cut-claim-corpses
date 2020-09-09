@@ -20,7 +20,26 @@ while @findtype 0x2006 'any' 'ground' 'any' 2
   @target 'corpse'
   ignoreobject 'corpse'
   if timer 'ffp' > 1000 //also Master Keys
-    msg '[ffp'
+  waitforcontext 0x4413989e 2 15000
+  waitforgump 0x6abce12 15000
+  waitforcontext 0x41ae059f 2 15000
+  waitforgump 0x6abce12 15000
+  waitforcontext 0x42d87f74 2 15000
+  waitforgump 0x6abce12 15000
+  waitforcontext 0x40c03749 2 15000
+  waitforgump 0x6abce12 15000
+  waitforcontext 0x4263a651 2 15000
+  waitforgump 0x6abce12 15000
+  waitforcontext 0x457ae381 2 15000
+  waitforgump 0x6abce12 15000
+  waitforcontext 0x40c41f34 2 15000
+  waitforgump 0x6abce12 15000
+  waitforcontext 0x4288d264 2 15000
+  waitforgump 0x6abce12 15000
+  waitforcontext 0x4138a95a 2 15000
+  waitforgump 0x6abce12 15000
+  waitforcontext 0x42636f8c 2 15000
+  waitforgump 0x6abce12 15000
     settimer 'ffp' 0
   endif
 endwhile
