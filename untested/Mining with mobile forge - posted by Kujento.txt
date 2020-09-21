@@ -1,0 +1,697 @@
+//Alamiester's Easy Miner V0.1
+//03Nov2017
+//Edited by Blarog on December 27, 2017
+//You need 3 things for this script to work : a Tinkering Tool Box, a metal key with atleast 10 ingots in it and a portable (Orcish) forge.
+//After finding your tools and keys in your bag add // in front of the unsetalias to keep from targeting everytime.
+unsetalias 'Forge'
+unsetalias 'metalkeys'
+//***********************
+// For selecting your mobile forge.
+//***********************
+if not findalias 'Forge'
+  headmsg 'Select a Mobile Forge'
+  promptalias 'Forge'
+endif
+//***********************
+// For adding to Metal Workers keys.
+//***********************
+if not findalias 'metalkeys'
+  headmsg 'Select Metal Workers Keys'
+  promptalias 'metalkeys'
+endif
+//***********************
+// To start the digging.
+//***********************
+msg 'Hi Ho, Hi Ho, Off to work we go!' 15
+@clearjournal
+//***********//
+//Position 00//
+//***********//
+headmsg 'Checking for ore... ' 24
+while not @injournal 'no metal here'
+  if @injournal 'mine that' or @injournal 'target cannot be seen.'
+    break
+  endif
+  if @injournal 'mine there' or @injournal 'no metal here'
+    break
+  endif
+  if @counttype 0x1eb8 'any' 'backpack' < 2
+    useobject 'metalkeys'
+    pause 500
+    replygump 0x6abce12 1
+    pause 500
+    replygump 0x6abce12 0
+    if usetype 0x1eb8
+      waitforgump 0x6abce12 15000
+      replygump 0x6abce12 8
+    else
+      headmsg 'You need 1 tool box minimum in your backpack.' 24
+      headmsg 'The macro will then create a second one to ensure' 24
+      headmsg 'You never run out of them. Same with the shovel.' 24
+      stop
+    endif
+  endif
+  if @counttype 0xf39 'any' 'backpack' < 2
+    useobject 'metalkeys'
+    pause 500
+    replygump 0x6abce12 1
+    pause 500
+    replygump 0x6abce12 0
+    if usetype 0x1eb8
+      waitforgump 0x38920abd 15000
+      replygump 0x38920abd 72
+      waitforgump 0x38920abd 15000
+      replygump 0x38920abd 0
+    endif
+  endif
+  while @targettype! '0x1bf2' 'any' 'backpack' //put back metal in key
+    useobject 'metalkeys'
+    pause 500
+    replygump 0x6abce12 31
+      pause 500
+    replygump 0x6abce12 0
+    pause 500
+    @canceltarget!
+  endwhile
+  if weight <= '430'
+    if @findtype 0xe86 'any' 'backpack' or @findtype 0xf39 'any' 'backpack'
+      useobject 'found'
+    else
+      sysmsg "You do not have any digging tools!"
+      stop
+    endif
+    waitfortarget 500
+    targettileoffset  0 0 0
+    pause 1000
+  else
+    while @targettype! '0x19b9' 'any' '0'
+      pause 1000
+      if findalias 'Forge'
+        @usetype!  '0x19b9' 'any' 'backpack' '0'
+        waitfortarget 800
+        @target! 'Forge'
+      endif
+      pause 800
+      @canceltarget!
+    endwhile
+    while @targettype! '0x1bf2' 'any' 'backpack'
+      useobject 'metalkeys'
+      pause 500
+      replygump 0x6abce12 31
+      pause 500
+      replygump 0x6abce12 0
+      pause 500
+      @canceltarget!
+    endwhile
+  endif
+endwhile
+@clearjournal
+//***********//
+//Position 01//
+//***********//
+headmsg 'Checking for ore... ' 24
+while not @injournal 'no metal here'
+  if @injournal 'mine that' or @injournal 'target cannot be seen.'
+    break
+  endif
+  if @injournal 'mine there' or @injournal 'no metal here'
+    break
+  endif
+  if @counttype 0x1eb8 'any' 'backpack' < 2
+    useobject 'metalkeys'
+    pause 500
+    replygump 0xfb1e68cb 1
+    pause 500
+    replygump 0xfb1e68cb 0
+    if usetype 0x1eb8
+      waitforgump 0x38920abd 15000
+      replygump 0x38920abd 8
+      waitforgump 0x38920abd 15000
+      replygump 0x38920abd 23
+      waitforgump 0x38920abd 15000
+    endif
+  endif
+  if @counttype 0xf39 'any' 'backpack' < 2
+    useobject 'metalkeys'
+    pause 500
+    replygump 0x6abce12 1
+    pause 500
+    replygump 0x6abce12 0
+    if usetype 0x1eb8
+      waitforgump 0x38920abd 15000
+      replygump 0x38920abd 72
+      waitforgump 0x38920abd 15000
+      replygump 0x38920abd 0
+    endif
+  endif
+  while @targettype! '0x1bf2' 'any' 'backpack' //put back metal in key
+    useobject 'metalkeys'
+  pause 500
+    replygump 0xfb1e68cb 0
+    pause 500
+    @canceltarget!
+  endwhile
+  if weight <= '430'
+    if @findtype 0xe86 'any' 'backpack' or @findtype 0xf39 'any' 'backpack'
+      useobject 'found'
+    else
+      sysmsg "You do not have any digging tools!"
+      stop
+    endif
+    waitfortarget 500
+    targettileoffset  -1 -1 0
+    pause 1000
+  else
+    while @targettype! '0x19b9' 'any' '0'
+      pause 1000
+      if findalias 'Forge'
+        @usetype!  '0x19b9' 'any' 'backpack' '0'
+        waitfortarget 800
+        @target! 'Forge'
+      endif
+      pause 800
+      @canceltarget!
+    endwhile
+    while @targettype! '0x1bf2' 'any' 'backpack'
+      useobject 'metalkeys'
+      pause 500
+      replygump 0xfb1e68cb 15
+      waitforgump 4213074123 1500
+      waitfortarget 800
+      @targettype! '0x1bf2' 'any'
+      pause 500
+      replygump 0xfb1e68cb 0
+      pause 500
+      @canceltarget!
+    endwhile
+  endif
+endwhile
+@clearjournal
+//***********//
+//Position 02//
+//***********//
+headmsg 'Checking for ore...' 24
+while not @injournal 'no metal here'
+  if @injournal 'mine that' or @injournal 'target cannot be seen.'
+    break
+  endif
+  if @injournal 'mine there' or @injournal 'no metal here'
+    break
+  endif
+  if @counttype 0x1eb8 'any' 'backpack' < 2
+    useobject 'metalkeys'
+    pause 500
+    replygump 0xfb1e68cb 1
+    pause 500
+    replygump 0xfb1e68cb 0
+    if usetype 0x1eb8
+      waitforgump 0x38920abd 15000
+      replygump 0x38920abd 8
+      waitforgump 0x38920abd 15000
+      replygump 0x38920abd 23
+      waitforgump 0x38920abd 15000
+    endif
+  endif
+  if @counttype 0xf39 'any' 'backpack' < 2
+    useobject 'metalkeys'
+    pause 500
+    replygump 0xfb1e68cb 1
+    pause 500
+    replygump 0xfb1e68cb 0
+    if usetype 0x1eb8
+      waitforgump 0x38920abd 15000
+      replygump 0x38920abd 72
+      waitforgump 0x38920abd 15000
+      replygump 0x38920abd 0
+    endif
+  endif
+  while @targettype! '0x1bf2' 'any' 'backpack' //put back metal in key
+    useobject 'metalkeys'
+    pause 500
+    replygump 0xfb1e68cb 15
+    waitforgump 4213074123 1500
+    waitfortarget 800
+    @targettype! '0x1bf2' 'any'
+    pause 500
+    replygump 0xfb1e68cb 0
+    pause 500
+    @canceltarget!
+  endwhile
+  if weight <= '430'
+    if @findtype 0xe86 'any' 'backpack' or @findtype 0xf39 'any' 'backpack'
+      useobject 'found'
+    else
+      sysmsg "You do not have any digging tools!"
+      stop
+    endif
+    waitfortarget 500
+    targettileoffset  0 -1 0
+    pause 1000
+  else
+    while @targettype! '0x19b9' 'any' '0'
+      pause 1000
+      if findalias 'Forge'
+        @usetype!  '0x19b9' 'any' 'backpack' '0'
+        waitfortarget 800
+        @target! 'Forge'
+      endif
+      pause 800
+      @canceltarget!
+    endwhile
+    while @targettype! '0x1bf2' 'any' 'backpack'
+      useobject 'metalkeys'
+      pause 500
+      replygump 0xfb1e68cb 15
+      waitforgump 4213074123 1500
+      waitfortarget 800
+      @targettype! '0x1bf2' 'any'
+      pause 500
+      replygump 0xfb1e68cb 0
+      pause 500
+      @canceltarget!
+    endwhile
+  endif
+endwhile
+@clearjournal
+//***********//
+//Position 03//
+//***********//
+headmsg 'Checking for ore...' 24
+while not @injournal 'no metal here'
+  if @injournal 'mine that' or @injournal 'target cannot be seen.'
+    break
+  endif
+  if @injournal 'mine there' or @injournal 'no metal here'
+    break
+  endif
+  if @counttype 0x1eb8 'any' 'backpack' < 2
+    useobject 'metalkeys'
+    pause 500
+    replygump 0xfb1e68cb 1
+    pause 500
+    replygump 0xfb1e68cb 0
+    if usetype 0x1eb8
+      waitforgump 0x38920abd 15000
+      replygump 0x38920abd 8
+      waitforgump 0x38920abd 15000
+      replygump 0x38920abd 23
+      waitforgump 0x38920abd 15000
+    endif
+  endif
+  if @counttype 0xf39 'any' 'backpack' < 2
+    useobject 'metalkeys'
+    pause 500
+    replygump 0xfb1e68cb 1
+    pause 500
+    replygump 0xfb1e68cb 0
+    if usetype 0x1eb8
+      waitforgump 0x38920abd 15000
+      replygump 0x38920abd 72
+      waitforgump 0x38920abd 15000
+      replygump 0x38920abd 0
+    endif
+  endif
+  while @targettype! '0x1bf2' 'any' 'backpack' //put back metal in key
+    useobject 'metalkeys'
+    pause 500
+    replygump 0xfb1e68cb 15
+    waitforgump 4213074123 1500
+    waitfortarget 800
+    @targettype! '0x1bf2' 'any'
+    pause 500
+    replygump 0xfb1e68cb 0
+    pause 500
+    @canceltarget!
+  endwhile
+  if weight <= '430'
+    if @findtype 0xe86 'any' 'backpack' or @findtype 0xf39 'any' 'backpack'
+      useobject 'found'
+    else
+      sysmsg "You do not have any digging tools!"
+      stop
+    endif
+    waitfortarget 500
+    targettileoffset  1 -1 0
+    pause 1000
+  else
+    while @targettype! '0x19b9' 'any' '0'
+      pause 1000
+      if findalias 'Forge'
+        @usetype!  '0x19b9' 'any' 'backpack' '0'
+        waitfortarget 800
+        @target! 'Forge'
+      endif
+      pause 800
+      @canceltarget!
+    endwhile
+    while @targettype! '0x1bf2' 'any' 'backpack'
+      useobject 'metalkeys'
+      pause 500
+      replygump 0xfb1e68cb 15
+      waitforgump 4213074123 1500
+      waitfortarget 800
+      @targettype! '0x1bf2' 'any'
+      pause 500
+      replygump 0xfb1e68cb 0
+      pause 500
+      @canceltarget!
+    endwhile
+  endif
+endwhile
+@clearjournal
+//***********//
+//Position 04//
+//***********//
+headmsg 'Checking for ore...' 24
+while not @injournal 'no metal here'
+  if @injournal 'mine that' or @injournal 'target cannot be seen.'
+    break
+  endif
+  if @injournal 'mine there' or @injournal 'no metal here'
+    break
+  endif
+  if @counttype 0x1eb8 'any' 'backpack' < 2
+    useobject 'metalkeys'
+    pause 500
+    replygump 0xfb1e68cb 1
+    pause 500
+    replygump 0xfb1e68cb 0
+    if usetype 0x1eb8
+      waitforgump 0x38920abd 15000
+      replygump 0x38920abd 8
+      waitforgump 0x38920abd 15000
+      replygump 0x38920abd 23
+      waitforgump 0x38920abd 15000
+    endif
+  endif
+  if @counttype 0xf39 'any' 'backpack' < 2
+    useobject 'metalkeys'
+    pause 500
+    replygump 0xfb1e68cb 1
+    pause 500
+    replygump 0xfb1e68cb 0
+    if usetype 0x1eb8
+      waitforgump 0x38920abd 15000
+      replygump 0x38920abd 72
+      waitforgump 0x38920abd 15000
+      replygump 0x38920abd 0
+    endif
+  endif
+  while @targettype! '0x1bf2' 'any' 'backpack' //put back metal in key
+    useobject 'metalkeys'
+    pause 500
+    replygump 0xfb1e68cb 15
+    waitforgump 4213074123 1500
+    waitfortarget 800
+    @targettype! '0x1bf2' 'any'
+    pause 500
+    replygump 0xfb1e68cb 0
+    pause 500
+    @canceltarget!
+  endwhile
+  if weight <= '350'
+    if @findtype 0xe86 'any' 'backpack' or @findtype 0xf39 'any' 'backpack'
+      useobject 'found'
+    else
+      sysmsg "You do not have any digging tools!"
+      stop
+    endif
+    waitfortarget 500
+    targettileoffset  -1 0 0
+    pause 1000
+  else
+    while @targettype! '0x19b9' 'any' '0'
+      pause 1000
+      if findalias 'Forge'
+        @usetype!  '0x19b9' 'any' 'backpack' '0'
+        waitfortarget 800
+        @target! 'Forge'
+      endif
+      pause 800
+      @canceltarget!
+    endwhile
+    while @targettype! '0x1bf2' 'any' 'backpack'
+      useobject 'metalkeys'
+      pause 500
+      replygump 0xfb1e68cb 15
+      waitforgump 4213074123 1500
+      waitfortarget 800
+      @targettype! '0x1bf2' 'any'
+      pause 500
+      replygump 0xfb1e68cb 0
+      pause 500
+      @canceltarget!
+    endwhile
+  endif
+endwhile
+@clearjournal
+//***********//
+//Position 05//
+//***********//
+headmsg 'Checking for ore...' 24
+while not @injournal 'no metal here'
+  if @injournal 'mine that' or @injournal 'target cannot be seen.'
+    break
+  endif
+  if @injournal 'mine there' or @injournal 'no metal here'
+    break
+  endif
+  if @counttype 0x1eb8 'any' 'backpack' < 2
+    useobject 'metalkeys'
+    pause 500
+    replygump 0xfb1e68cb 1
+    pause 500
+    replygump 0xfb1e68cb 0
+    if usetype 0x1eb8
+      waitforgump 0x38920abd 15000
+      replygump 0x38920abd 8
+      waitforgump 0x38920abd 15000
+      replygump 0x38920abd 23
+      waitforgump 0x38920abd 15000
+    endif
+  endif
+  if @counttype 0xf39 'any' 'backpack' < 2
+    useobject 'metalkeys'
+    pause 500
+    replygump 0xfb1e68cb 1
+    pause 500
+    replygump 0xfb1e68cb 0
+    if usetype 0x1eb8
+      waitforgump 0x38920abd 15000
+      replygump 0x38920abd 72
+      waitforgump 0x38920abd 15000
+      replygump 0x38920abd 0
+    endif
+  endif
+  while @targettype! '0x1bf2' 'any' 'backpack' //put back metal in key
+    useobject 'metalkeys'
+    pause 500
+    replygump 0xfb1e68cb 15
+    waitforgump 4213074123 1500
+    waitfortarget 800
+    @targettype! '0x1bf2' 'any'
+    pause 500
+    replygump 0xfb1e68cb 0
+    pause 500
+    @canceltarget!
+  endwhile
+  if weight <= '430'
+    if @findtype 0xe86 'any' 'backpack' or @findtype 0xf39 'any' 'backpack'
+      useobject 'found'
+    else
+      sysmsg "You do not have any digging tools!"
+      stop
+    endif
+    waitfortarget 500
+    targettileoffset  1 0 0
+    pause 1000
+  else
+    while @targettype! '0x19b9' 'any' '0'
+      pause 1000
+      if findalias 'Forge'
+        @usetype!  '0x19b9' 'any' 'backpack' '0'
+        waitfortarget 800
+        @target! 'Forge'
+      endif
+      pause 800
+      @canceltarget!
+    endwhile
+    while @targettype! '0x1bf2' 'any' 'backpack'
+      useobject 'metalkeys'
+      pause 500
+      replygump 0xfb1e68cb 15
+      waitforgump 4213074123 1500
+      waitfortarget 800
+      @targettype! '0x1bf2' 'any'
+      pause 500
+      replygump 0xfb1e68cb 0
+      pause 500
+      @canceltarget!
+    endwhile
+  endif
+endwhile
+@clearjournal
+//***********//
+//Position 06//
+//***********//
+headmsg 'Checking for ore...' 24
+while not @injournal 'no metal here'
+  if @injournal 'mine that' or @injournal 'target cannot be seen.'
+    break
+  endif
+  if @injournal 'mine there' or @injournal 'no metal here'
+    break
+  endif
+  if @counttype 0x1eb8 'any' 'backpack' < 2
+    useobject 'metalkeys'
+    pause 500
+    replygump 0xfb1e68cb 1
+    pause 500
+    replygump 0xfb1e68cb 0
+    if usetype 0x1eb8
+      waitforgump 0x38920abd 15000
+      replygump 0x38920abd 8
+      waitforgump 0x38920abd 15000
+      replygump 0x38920abd 23
+      waitforgump 0x38920abd 15000
+    endif
+  endif
+  if @counttype 0xf39 'any' 'backpack' < 2
+    useobject 'metalkeys'
+    waitforgump 0x6abce12 15000
+    replygump 0x6abce12 1
+    pause 500
+    replygump 0x6abce12 0
+    if usetype 0x1eb8
+      waitforgump 0x38920abd 15000
+      replygump 0x38920abd 72
+      waitforgump 0x38920abd 15000
+      replygump 0x38920abd 0
+    endif
+  endif
+  while @targettype! '0x1bf2' 'any' 'backpack' //put back metal in key
+    useobject 'metalkeys'
+    pause 500
+    replygump 0xfb1e68cb 15
+    waitforgump 4213074123 1500
+    waitfortarget 800
+    @targettype! '0x1bf2' 'any'
+    pause 500
+    replygump 0xfb1e68cb 0
+    pause 500
+    @canceltarget!
+  endwhile
+  if weight <= '430'
+    if @findtype 0xe86 'any' 'backpack' or @findtype 0xf39 'any' 'backpack'
+      useobject 'found'
+    else
+      sysmsg "You do not have any digging tools!"
+      stop
+    endif
+    waitfortarget 500
+    targettileoffset  -1 1 0
+    pause 1000
+  else
+    while @targettype! '0x19b9' 'any' '0'
+      pause 1000
+      if findalias 'Forge'
+        @usetype!  '0x19b9' 'any' 'backpack' '0'
+        waitfortarget 800
+        @target! 'Forge'
+      endif
+      pause 800
+      @canceltarget!
+    endwhile
+    while @targettype! '0x1bf2' 'any' 'backpack'
+      useobject 'metalkeys'
+      pause 500
+      replygump 0x6abce12 31
+      pause 500
+      replygump 0x6abce12 0
+      pause 500
+      @canceltarget!
+    endwhile
+  endif
+endwhile
+@clearjournal
+//***********//
+//Position 07//
+//***********//
+headmsg 'Checking for ore...' 24
+while not @injournal 'no metal here'
+  if @injournal 'mine that' or @injournal 'target cannot be seen.'
+    break
+  endif
+  if @injournal 'mine there' or @injournal 'no metal here'
+    break
+  endif
+  if @counttype 0x1eb8 'any' 'backpack' < 2
+    useobject 'metalkeys'
+    pause 500
+    replygump 0xfb1e68cb 1
+    pause 500
+    replygump 0xfb1e68cb 0
+    if usetype 0x1eb8
+      waitforgump 0x38920abd 15000
+      replygump 0x38920abd 8
+      waitforgump 0x38920abd 15000
+      replygump 0x38920abd 23
+      waitforgump 0x38920abd 15000
+    endif
+  endif
+  if @counttype 0xf39 'any' 'backpack' < 2
+    useobject 'metalkeys'
+    pause 500
+    replygump 0xfb1e68cb 1
+    pause 500
+    replygump 0xfb1e68cb 0
+    if usetype 0x1eb8
+      waitforgump 0x38920abd 15000
+      replygump 0x38920abd 72
+      waitforgump 0x38920abd 15000
+      replygump 0x38920abd 0
+    endif
+  endif
+  while @targettype! '0x1bf2' 'any' 'backpack' //put back metal in key
+    useobject 'metalkeys'
+    pause 500
+    replygump 0x6abce12 31
+     pause 500
+    replygump 0x6abce12 0
+    pause 500
+    @canceltarget!
+  endwhile
+  if weight <= '430'
+    if @findtype 0xe86 'any' 'backpack' or @findtype 0xf39 'any' 'backpack'
+      useobject 'found'
+    else
+      sysmsg "You do not have any digging tools!"
+      stop
+    endif
+    waitfortarget 500
+    targettileoffset  0 1 0
+    pause 1000
+  else
+    while @targettype! '0x19b9' 'any' '0' or @findtype 0x19b8 'any' 'backpack'
+      pause 1000
+      if findalias 'Forge'
+        @usetype!  '0x19b8' 'any' 'backpack' '0'
+        waitfortarget 800
+        @target! 'Forge'
+      endif
+      pause 800
+      @canceltarget!
+    endwhile
+    while @targettype! '0x1bf2' 'any' 'backpack'
+      useobject 'metalkeys'
+      pause 500
+      replygump 0x6abce12 31
+      pause 500
+      replygump 0x6abce12 0
+      pause 500
+      @canceltarget!
+    endwhile
+  endif
+endwhile
+@clearjournal
+headmsg 'There is no more ore here, move to the next vien.' 24

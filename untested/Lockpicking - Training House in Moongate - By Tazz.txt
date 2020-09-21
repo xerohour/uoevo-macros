@@ -1,0 +1,42 @@
+if not @findobject 'lockpick'
+  headmsg 'select Lockpicks' 391 'self'
+  promptalias 'lockpick'
+endif
+if skill 'lockpicking' < 30
+  useobject 'lockpick'
+  waitfortarget 15000
+  target! 0x422a6716
+elseif skill 'lockpicking' < 40
+  useobject 'lockpick'
+  waitfortarget 15000
+  target! 0x404b8cc1
+elseif skill 'lockpicking' < 50
+  useobject 'lockpick'
+  waitfortarget 15000
+  target! 0x405ceb71
+elseif skill 'lockpicking' < 60
+  useobject 'lockpick'
+  waitfortarget 15000
+  target! 0x405ced38
+elseif skill 'lockpicking' < 70
+  useobject 'lockpick'
+  waitfortarget 15000
+  target! 0x405cee53
+elseif skill 'lockpicking' < 80
+  useobject 'lockpick'
+  waitfortarget 15000
+  target! 0x405cef6e
+elseif skill 'lockpicking' < 90
+  useobject 'lockpick'
+  waitfortarget 15000
+  target! 0x405cf09f
+elseif skill 'lockpicking' < 100
+  useobject 'lockpick'
+  waitfortarget 15000
+  target! 0x405cf1c4
+else
+  headmsg 'Lockpicking complete!'
+  stop
+endif
+pause 4000
+//you have to move one tile west or east to reach the outer boxes

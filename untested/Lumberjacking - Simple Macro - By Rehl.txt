@@ -1,0 +1,18 @@
+if weight >= 500
+  @canceltarget
+//Change 0xf49 to your axe's ID and 0x2328b5 to your container's ID
+  usetype 0xf49 'any' 0x2328b5
+  waitfortarget 1500
+  targettype 0x1bdd 'any'
+  pause 500
+  replay
+else
+  @canceltarget
+//Change 0xf49 to your axe's ID and 0x2328b5 to your container's ID
+  usetype 0xf49 'any' 0x2328b5
+  waitfortarget 1500
+  targettileoffset -1 0 0
+  //Target left side
+  pause 1000
+  replay
+endif

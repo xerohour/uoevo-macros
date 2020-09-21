@@ -1,0 +1,39 @@
+//cuts tree directly in front and cuts logs into boards
+//be sure to equip your axe
+//Create an organizer named Wood (case sensitive) and add logs to it.
+//unsetalias 'Axe'
+//Set Container for Logs
+if not findalias 'woodbag'
+  promptalias 'woodbag'
+endif
+if not findalias 'Axe'
+  promptalias 'Axe'
+endif
+if not listexists 'Logs'
+  createlist 'Logs'
+  pushlist 'Logs' 0x1bdd
+endif
+while weight >= 520
+  headmsg 'Time to Unload'
+  msg 'bank'
+  organizer 'Wood' 'backpack' 'woodbag'
+endwhile
+useobject 'Axe'
+waitfortarget 15000
+if direction == 0
+  targettileoffset 0 -1 0
+elseif direction == 1
+  targettileoffset 1 -1 0
+elseif direction == 2
+  targettileoffset 1 0 0
+elseif direction == 3
+  targettileoffset 1 1 0
+elseif direction == 4
+  targettileoffset 0 1 0
+elseif direction == 5
+  targettileoffset -1 1 0
+elseif direction == 6
+  targettileoffset -1 0 0
+elseif direction == 7
+  targettileoffset -1 -1 0
+endif

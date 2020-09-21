@@ -1,0 +1,14 @@
+while findtype 0x1374 '0' 'backpack'
+  useobject 0x156
+  waitforgump 0x4c4c6db0 15000
+  replygump 0x4c4c6db0 4
+  waitforcontext 'self' 5 15000
+  waitfortarget 15000
+  target! 'found'
+  waitfortarget 15000
+  useobject 0x156
+  waitforgump 0x4c4c6db0 15000
+  replygump 0x4c4c6db0 8
+  waitforgump 0x4c4c6db0 15000
+  replygump 0x4c4c6db0 5
+endwhile

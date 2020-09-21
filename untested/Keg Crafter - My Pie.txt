@@ -1,0 +1,55 @@
+///Make Pot Kegs :smiley: w.i.p.
+///make sure to have nails  tink tool iron wood bottles....evo and spell keys helps 
+//need higher carp and tink skills
+///also make organizer agent name it Move New Kegs with the caps ...SRY
+///set the containers for that also
+usetype '0x1eb8' '0'
+pause 3000
+replygump 0x38920abd 15
+waitforgump 0x38920abd 15000
+pause 3000
+replygump 0x38920abd 16
+waitforgump 0x38920abd 15000
+pause 3000
+replygump 0x38920abd 37
+waitforgump 0x38920abd 15000
+pause 3000
+replygump 0x38920abd 0
+pause 3000
+usetype '0x102e''0'
+pause 3000
+replygump 0x38920abd 1
+waitforgump 0x38920abd 15000
+pause 3000
+replygump 0x38920abd 2
+waitforgump 0x38920abd 15000
+pause 3000
+replygump 0x38920abd 2
+waitforgump 0x38920abd 15000
+pause 3000
+replygump 0x38920abd 2
+waitforgump 0x38920abd 15000
+pause 3000
+replygump 0x38920abd 9
+waitforgump 0x38920abd 15000
+pause 3000
+replygump 0x38920abd 9
+waitforgump 0x38920abd 15000
+pause 3000
+replygump 0x38920abd 15
+waitforgump 0x38920abd 15000
+pause 3000
+replygump 0x38920abd 135
+waitforgump 0x38920abd 15000
+pause 3000
+replygump 0x38920abd 0
+pause 1000
+usetype '0x1eb8' '0'
+pause 3000
+replygump 0x38920abd 43
+waitforgump 0x38920abd 15000
+pause 3000
+replygump 0x38920abd 51
+waitforgump 0x38920abd 15000
+pause 3000
+organizer 'Move New Kegs'

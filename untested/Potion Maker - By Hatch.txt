@@ -1,0 +1,166 @@
+if counttype '0xe9b' '0' 'backpack' <= 0
+  //MortarMaker
+  usetype '0x1eb8'
+  waitforgump 0x38920abd 1500
+  replygump 0x38920abd 8
+  waitforgump 0x38920abd 1500
+  replygump 0x38920abd 9
+  pause 200
+else
+  usetype '0xe9b'
+  if skill 'Alchemy' <= 45
+    //Agility Potion
+    waitforgump 0x38920abd 1500
+    replygump 0x38920abd 8
+    waitforgump 0x38920abd 1500
+    replygump 0x38920abd 2
+    pause 200
+  else
+    if skill 'Alchemy' <= 55
+      //Strength Potion
+      waitforgump 0x38920abd 1500
+      replygump 0x38920abd 29
+      waitforgump 0x38920abd 1500
+      replygump 0x38920abd 2
+      pause 200
+    else
+      if skill 'Alchemy' <= 65
+        //Greater Agility Potion
+        waitforgump 0x38920abd 1500
+        replygump 0x38920abd 8
+        waitforgump 0x38920abd 1500
+        replygump 0x38920abd 9
+      else
+        if skill 'Alchemy' <= 75
+          //Greater Strength Potion
+          waitforgump 0x38920abd 1500
+          replygump 0x38920abd 29
+          waitforgump 0x38920abd 1500
+          replygump 0x38920abd 9
+        else
+          if skill 'Alchemy' <= 85
+            //Greater Heal Potion
+            waitforgump 0x38920abd 1500
+            replygump 0x38920abd 22
+            waitforgump 0x38920abd 1500
+            replygump 0x38920abd 16
+          else
+            if skill 'Alchemy' <= 95
+              //Greater Cure Potion
+              waitforgump 0x38920abd 1500
+              replygump 0x38920abd 43
+              waitforgump 0x38920abd 1500
+              replygump 0x38920abd 16
+            else
+              //Greater Conflagration Potion
+              waitforgump 0x38920abd 1500
+              replygump 0x38920abd 57
+              waitforgump 0x38920abd 1500
+              replygump 0x38920abd 9
+            endif
+          endif
+        endif
+      endif
+    endif
+  endif
+endif
+if counttype '0x1940' '0' 'backpack' < 1
+if counttype '0xe7f' '0' 'backpack' < 1
+  //Open Tinkering
+  usetype '0x1eb8'
+  pause 500
+  //Goto Tinker Page "Parts"
+  waitforgump 0x38920abd 1500
+  replygump 0x38920abd 15
+  pause 500
+  //Barrel Hoops
+  while counttype '0x1db7' '0' 'backpack' < 1
+    waitforgump 0x38920abd 1500
+    replygump 0x38920abd 37
+    pause 500
+  endwhile
+  //Make froe, if needed
+  while counttype '0x10e5' '0' 'backpack' < 1
+    //Open Tinkering
+    pause 500
+    usetype '0x1eb8'
+    //Goto Tinker Page "Tools"
+    waitforgump 0x38920abd 1500
+    replygump 0x38920abd 8
+    pause 500
+    //Make froe
+    pause 500
+    waitforgump 0x38920abd 1500
+    replygump 0x38920abd 65
+  endwhile
+  pause 1000
+  //Open Carpentry via froe
+  usetype '0x10e5'
+  pause 500
+  waitforgump 0x38920abd 1500
+  //Goto Carp Page "Other"
+  replygump 0x38920abd 1
+  waitforgump 0x38920abd 1500
+  pause 500
+  //Barrel Staves
+  while counttype '0x1eb1' '0' 'backpack' < 3
+    replygump 0x38920abd 2
+    waitforgump 0x38920abd 1500
+    pause 500
+  endwhile
+  //Barrel Lid
+  while counttype '0x1db8' '0' 'backpack' < 2
+    replygump 0x38920abd 9
+    pause 500
+    waitforgump 0x38920abd 1500
+    pause 500
+  endwhile
+  //Goto Carp Page "Containers"
+  pause 500
+  waitforgump 0x38920abd 1500
+  replygump 0x38920abd 15
+  //Make Keg
+  pause 500
+  waitforgump 0x38920abd 1500
+  replygump 0x38920abd 135
+  pause 2000
+endif
+//Barrel Tap
+while counttype '0x1004' '0' 'backpack' < 1
+  //Open Tinkering
+  usetype '0x1eb8'
+  pause 500
+  //Goto Tinker Page "Parts"
+  waitforgump 0x38920abd 1500
+  replygump 0x38920abd 15
+  pause 500
+  waitforgump 0x38920abd 1500
+  replygump 0x38920abd 16
+  pause 500
+endwhile
+//Barrel Lid
+while counttype '0x1db8' '0' 'backpack' < 1
+  //Open Carpentry via froe
+  usetype '0x10e5'
+  pause 500
+  waitforgump 0x38920abd 1500
+  //Goto Carp Page "Other"
+  replygump 0x38920abd 1
+  waitforgump 0x38920abd 1500
+  pause 500
+  replygump 0x38920abd 9
+  pause 500
+  waitforgump 0x38920abd 1500
+endwhile
+//Open Tinkering
+usetype '0x1eb8'
+pause 500
+//Goto Tinker Page "Assemblies"
+waitforgump 0x38920abd 1500
+replygump 0x38920abd 43
+pause 500
+//Make Potion Keg
+waitforgump 0x38920abd 1500
+replygump 0x38920abd 51
+pause 500
+//endif

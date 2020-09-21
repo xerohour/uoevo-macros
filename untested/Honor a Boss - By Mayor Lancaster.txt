@@ -1,0 +1,20 @@
+If not listexists 'bossbodies'
+createlist 'bossbodies'
+@pushlist 'bossbodies' >insert graphic<
+// repeat as needed for boss body types
+endif
+if not timerexists 'honor'
+createtimer 'honor'
+settimer 'honor' 2500
+endif
+for 'any' in 'bossbodies'
+while @findtype 'bossbodies []' 'any' 'ground' 'any' 15
+if @diffhits 'found' == 0 and timer 'honor' >= 2500
+virtue 'honor'
+waitfortarget 200
+target! 'found'
+settimer 'honor' 0
+endif
+attack 'enemy'
+endwhile
+endfor

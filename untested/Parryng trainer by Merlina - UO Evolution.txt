@@ -1,0 +1,34 @@
+//Parryng trainer by Merlina - UO Evolution
+//Buy 5 cats-dogs-bunnies
+//Be nacked and with a shiled with self repair
+warmode 'on'
+warmode 'off'
+pause 200
+//Edit skillcap and hits
+while skill 'parrying' < 115
+  if hits 'self' < 200
+    msg 'all stay'
+    pause 2500
+    warmode 'on'
+    warmode 'off'
+    useskill 'spirit speak'
+    pause 500
+    warmode 'on'
+    warmode 'off'
+    while hits < maxhits
+    endwhile
+  endif
+  pause 500
+  warmode 'on'
+  warmode 'off'
+  pause 200
+  if hits 'self' == maxhits
+    msg 'all kill'
+    warmode 'on'
+    warmode 'off'
+    pause 200
+    target! 'self'
+  endif
+  warmode 'on'
+  warmode 'off'
+  pause 200

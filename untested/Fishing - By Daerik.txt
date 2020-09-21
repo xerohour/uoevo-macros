@@ -1,0 +1,49 @@
+@setalias 'Pole' 0x40815660
+@createlist 'CoordsX'
+if list 'CoordsX' == 0
+  pushlist 'CoordsX' 4
+  pushlist 'CoordsX' 2
+  pushlist 'CoordsX' 0
+  pushlist 'CoordsX' -2
+  pushlist 'CoordsX' -4
+endif
+while list 'CoordsX' > 0
+  @createlist 'CoordsY'
+  if list 'CoordsY' == 0
+    pushlist 'CoordsY' 4
+    pushlist 'CoordsY' 2
+    pushlist 'CoordsY' 0
+    pushlist 'CoordsY' -2
+    pushlist 'CoordsY' -4
+  endif
+  while list 'CoordsY' > 0
+    @clearjournal
+    @canceltarget
+    while not @injournal "The fish don't seem to be biting here."
+      if useobject 'Pole'
+        @clearjournal
+        waitfortarget 2000
+        targettileoffset! CoordsX[0] CoordsY[0] 0
+        pause 2000
+        if not @injournal "The fish don't seem to be biting here."
+          if not @injournal "Target cannot be seen"
+            pause 7000
+          else
+            break
+          endif
+        else
+          break
+        endif
+      endif
+    endwhile
+    @clearjournal
+    poplist 'CoordsY' CoordsY[0]
+  endwhile
+  poplist 'CoordsX' CoordsX[0]
+endwhile
+for 16
+  msg 'forward one'
+  pause 1750
+endfor
+
+//Here is my fishing macro. I tell it forward one and the tiller goes forward one.

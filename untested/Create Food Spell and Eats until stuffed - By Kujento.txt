@@ -1,0 +1,84 @@
+//Uses Create Food spell and eats until stuffed
+//
+@clearjournal
+if not listexists 'fooditem'
+  createlist 'fooditem'
+endif
+if list 'fooditem' == 0
+  //Other
+  //Muffin
+  pushlist 'fooditem' '0x9eb'
+  //Cheese
+  pushlist 'fooditem' '0x97d'
+  //Fish
+  //Fish Steak
+  pushlist 'fooditem' '0x97b'
+  //Fruits and Vegetables
+  //Honeydew Melon
+  pushlist 'fooditem' '0xc74'
+  //Yellow Gourd
+  pushlist 'fooditem' '0xc64'
+  //Green Gourd
+  pushlist 'fooditem' '0xc66'
+  //Banana
+  pushlist 'fooditem' '0x171f'
+  //Lemon
+  pushlist 'fooditem' '0x1728'
+  //Lime
+  pushlist 'fooditem' '0x172a'
+  //Grape
+  pushlist 'fooditem' '0x9d1'
+  //Peach
+  pushlist 'fooditem' '0x9d2'
+  //Pear
+  pushlist 'fooditem' '0x994'
+  //Apple
+  pushlist 'fooditem' '0x9d0'
+  //Watermelon
+  pushlist 'fooditem' '0xc5c'
+  //Squash
+  pushlist 'fooditem' '0xc72'
+  //Cantaloupe
+  pushlist 'fooditem' '0xc79'
+  //Carrot
+  pushlist 'fooditem' '0xc78'
+  //Cabbage
+  pushlist 'fooditem' '0xc7b'
+  //Onion
+  pushlist 'fooditem' '0xc6d'
+  //Lettuce
+  pushlist 'fooditem' '0xc70'
+  //Pumpkin
+  pushlist 'fooditem' '0xc6a'
+  //Meat
+  //Bacon
+  pushlist 'fooditem' '0x979'
+  //Cooked Bird
+  pushlist 'fooditem' '0x9b7'
+  //Sausage
+  pushlist 'fooditem' '0x9c0'
+  //Ham
+  pushlist 'fooditem' '0x9c9'
+  //Ribs
+  pushlist 'fooditem' '0x9f2'
+  //Lamb Leg
+  pushlist 'fooditem' '0x160a'
+  //Chicken Leg
+  pushlist 'fooditem' '0x1608'
+endif
+//Start
+cast 'Create Food'
+pause 3000
+for 0 to 'fooditem'
+  if @findtype 'fooditem[]' 'any' 'backpack' 'any' '3'
+    usetype 'fooditem[]'
+    pause 1000
+  endif
+  if @injournal 'you are stuff'
+    headmsg 'You are Stuffed'
+    @clearjournal
+    stop
+  endif
+endfor
+@removelist 'fooditem'
+replay

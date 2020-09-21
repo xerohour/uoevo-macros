@@ -1,0 +1,46 @@
+// smelt ore's V0.1
+if not findalias 'ingotkey'
+  promptalias 'ingotkey'
+endif
+if not findalias 'mobileforge'
+  promptalias 'mobileforge'
+endif
+while @findtype 0x1bf2 'any' 'ground' 'any' '2'
+  moveitem 'found' 'backpack'
+endwhile
+if weight > maxweight
+  //ingot key
+  useobject 'ingotkey'
+  waitforgump 0x6abce12 1000
+  replygump 0x6abce12 31
+  waitforgump 0x6abce12 1000
+  replygump 0x6abce12 0
+elseif @usetype! 0x19b9 'any' 'backpack'
+  waitfortarget 500
+  @targettype 0xfb1
+elseif @usetype! 0x19b8 'any' 'backpack'
+  waitfortarget 500
+  @targettype 0xfb1
+elseif @usetype! 0x19ba 'any' 'backpack'
+  waitfortarget 500
+  @targettype 0xfb1
+elseif @findtype 0x19b7
+  if amount 'found' < 2
+    @ignoreobject 'found'
+  else
+    @useobject 'found'
+    waitfortarget 500
+    @targettype 0xfb1
+  endif
+else
+  @useobject 'ingotkey'
+  waitforgump 0x6abce12 1000
+  replygump 0x6abce12 31
+  waitforgump 0x6abce12 1000
+  replygump 0x6abce12 0
+  @clearignorelist
+  stop
+endif
+
+
+//thats my smeling macro but i use a key to stick the ingots in   u can replace the use ingot to move items to bag or bank the ingotkey  line anyways

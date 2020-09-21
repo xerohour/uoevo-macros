@@ -1,0 +1,72 @@
+if dead
+  playsound 'dead.wav'
+  stop
+endif
+@setalias 'instrument' 0x46440aed
+if not timerexists 'Consecrate Weapon Timer'
+  createtimer 'Consecrate Weapon Timer'
+  settimer 'Consecrate Weapon Timer' 5000
+elseif timer 'Consecrate Weapon Timer' > 5000 and mana >= 50
+  cast 'Consecrate Weapon'
+  pause 1000
+  settimer 'Consecrate Weapon Timer' 0
+endif
+if mana >= 5
+  if @injournal 'You attack' 'system'
+    cast 'Lightning Strike'
+    cast 'Counter Attack'
+    if @injournal 'you defend with Shield of Spikes!'
+      replygump 0x4239a64f 1004
+    endif
+    clearjournal
+  endif
+endif
+if not timerexists 'Alert Timer'
+  createtimer 'Alert Timer'
+  settimer 'Alert Timer' 2000
+elseif timer 'Alert Timer' > 2000 and hits <= 100
+  playsound 'alert.wav'
+  settimer 'Alert Timer' 0
+endif
+@getenemy 'murderer' 'enemy' 'gray' 'criminal' 'closest'
+if @findobject 'enemy' and @inrange 'enemy' 10
+  if graphic 'found' == '0x10f'
+    ignoreobject 'found'
+    replay
+  endif
+  if hits 'enemy' == maxhits 'enemy'
+    virtue 'honor'
+    waitfortarget 5000
+    target! 'enemy'
+    pause 300
+  endif
+  if @findtype 0xfc7 1126 'backpack' 1 'main'
+    if not timerexists 'Fire Horn Timer'
+      createtimer 'Fire Horn Timer'
+      settimer 'Fire Horn Timer' 5000
+    elseif timer 'Fire Horn Timer' > 5000 and @inrange 'enemy' 2
+      useobject 'found'
+      waitfortarget 3000
+      target! 'enemy'
+      settimer 'Fire Horn Timer' 0
+    endif
+  endif
+  if not timerexists 'Disco Timer'
+    createtimer 'Disco Timer'
+    settimer 'Disco Timer' 13000
+  elseif timer 'Disco Timer' >= 13000 and @findobject 'instrument'
+    headmsg 'Disco!' 1963 'enemy'
+    useskill 'Discordance'
+    waitfortarget 2000
+    target! 'enemy'
+    settimer 'Disco Timer' 0
+  endif
+  pause 100
+  attack! 'enemy'
+else
+  if not buffexists 'Bless' and dex < 165
+    cast 'Bless'
+    waitfortarget 3000
+    target! 'self'
+  endif
+endif

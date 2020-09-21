@@ -1,0 +1,241 @@
+//THIS IS JUST AN EXAMPLE OF HOW YOU COULD SET UP YOUR GOLD PANNING MACRO IN UOSTEAM.
+//YOU WILL NEED TO INPUT YOUR OWN PANNING LOCATIONS FOR THIS TO WORK!
+//pan1
+useobject 0x43dd98e0 // panning runebook
+waitforgump 0x554b87f3 15000
+replygump 0x554b87f3 5
+pause 2000
+for 3
+  clearjournal
+  usetype 0x9d7 'any' 'backpack'
+  waitfortarget 15000
+  targettile 1392 1774 -5
+  waitforjournal 'You pan around until your pan is full' 10000 'system'
+  pause 150
+  usetype 0x9d8 'any' 'backpack'
+endfor
+//pan2
+pause 500
+useobject 0x43dd98e0
+waitforgump 0x554b87f3 15000
+replygump 0x554b87f3 11
+pause 2000
+for 3
+  clearjournal
+  usetype 0x9d7 'any' 'backpack'
+  waitfortarget 15000
+  targettile 1409 1776 -5
+  waitforjournal 'You pan around until your pan is full' 10000 'system'
+  pause 150
+  usetype 0x9d8 'any' 'backpack'
+endfor
+//pan3
+pause 500
+useobject 0x43dd98e0
+waitforgump 0x554b87f3 15000
+replygump 0x554b87f3 17
+pause 2000
+for 3
+  clearjournal
+  usetype 0x9d7 'any' 'backpack'
+  waitfortarget 15000
+  targettile 1437 1792 -5
+  waitforjournal 'You pan around until your pan is full' 10000 'system'
+  pause 150
+  usetype 0x9d8 'any' 'backpack'
+endfor
+//pan4
+pause 500
+useobject 0x43dd98e0
+waitforgump 0x554b87f3 15000
+replygump 0x554b87f3 23
+pause 2000
+for 3
+  clearjournal
+  usetype 0x9d7 'any' 'backpack'
+  waitfortarget 15000
+  targettile 1444 1801 -5
+  waitforjournal 'You pan around until your pan is full' 10000 'system'
+  pause 150
+  usetype 0x9d8 'any' 'backpack'
+endfor
+//pan5
+pause 500
+useobject 0x43dd98e0
+waitforgump 0x554b87f3 15000
+replygump 0x554b87f3 29
+pause 2000
+for 3
+  clearjournal
+  usetype 0x9d7 'any' 'backpack'
+  waitfortarget 15000
+  targettile 1451 1820 -5
+  waitforjournal 'You pan around until your pan is full' 10000 'system'
+  pause 150
+  usetype 0x9d8 'any' 'backpack'
+endfor
+//pan6
+pause 500
+useobject 0x43dd98e0
+waitforgump 0x554b87f3 15000
+replygump 0x554b87f3 35
+pause 2000
+for 3
+  clearjournal
+  usetype 0x9d7 'any' 'backpack'
+  waitfortarget 15000
+  targettile 1440 1832 -5
+  waitforjournal 'You pan around until your pan is full' 10000 'system'
+  pause 150
+  usetype 0x9d8 'any' 'backpack'
+endfor
+//pan7
+pause 500
+useobject 0x43dd98e0
+waitforgump 0x554b87f3 15000
+replygump 0x554b87f3 41
+pause 2000
+for 3
+  clearjournal
+  usetype 0x9d7 'any' 'backpack'
+  waitfortarget 15000
+  targettile 1429 1845 -5
+  waitforjournal 'You pan around until your pan is full' 10000 'system'
+  pause 150
+  usetype 0x9d8 'any' 'backpack'
+endfor
+//pan8
+pause 500
+useobject 0x43dd98e0
+waitforgump 0x554b87f3 15000
+replygump 0x554b87f3 47
+pause 2000
+for 3
+  clearjournal
+  usetype 0x9d7 'any' 'backpack'
+  waitfortarget 15000
+  targettile 1430 1858 -5
+  waitforjournal 'You pan around until your pan is full' 10000 'system'
+  pause 150
+  usetype 0x9d8 'any' 'backpack'
+endfor
+//pan9
+pause 500
+useobject 0x43dd98e0
+waitforgump 0x554b87f3 15000
+replygump 0x554b87f3 53
+pause 2000
+for 3
+  clearjournal
+  usetype 0x9d7 'any' 'backpack'
+  waitfortarget 15000
+  targettile 1445 1871 -5
+  waitforjournal 'You pan around until your pan is full' 10000 'system'
+  pause 150
+  usetype 0x9d8 'any' 'backpack'
+endfor
+//pan10
+pause 500
+useobject 0x43dd98e0
+waitforgump 0x554b87f3 15000
+replygump 0x554b87f3 59
+pause 2000
+for 3
+  clearjournal
+  usetype 0x9d7 'any' 'backpack'
+  waitfortarget 15000
+  targettile 1497 1862 -5
+  waitforjournal 'You pan around until your pan is full' 10000 'system'
+  pause 150
+  usetype 0x9d8 'any' 'backpack'
+endfor
+//pan11
+pause 500
+useobject 0x43dd98e0
+waitforgump 0x554b87f3 15000
+replygump 0x554b87f3 65
+pause 2000
+for 3
+  clearjournal
+  usetype 0x9d7 'any' 'backpack'
+  waitfortarget 15000
+  targettile 1511 1867 -5
+  waitforjournal 'You pan around until your pan is full' 10000 'system'
+  pause 150
+  usetype 0x9d8 'any' 'backpack'
+endfor
+//pan12
+pause 500
+useobject 0x43dd98e0
+waitforgump 0x554b87f3 15000
+replygump 0x554b87f3 71
+pause 2000
+for 3
+  clearjournal
+  usetype 0x9d7 'any' 'backpack'
+  waitfortarget 15000
+  targettile 1554 1877 -5
+  waitforjournal 'You pan around until your pan is full' 10000 'system'
+  pause 150
+  usetype 0x9d8 'any' 'backpack'
+endfor
+//pan13
+pause 500
+useobject 0x43dd98e0
+waitforgump 0x554b87f3 15000
+replygump 0x554b87f3 77
+pause 2000
+for 3
+  clearjournal
+  usetype 0x9d7 'any' 'backpack'
+  waitfortarget 15000
+  targettile 1567 1877 -5
+  waitforjournal 'You pan around until your pan is full' 10000 'system'
+  pause 150
+  usetype 0x9d8 'any' 'backpack'
+endfor
+//pan14
+pause 500
+useobject 0x43dd98e0
+waitforgump 0x554b87f3 15000
+replygump 0x554b87f3 83
+pause 2000
+for 3
+  clearjournal
+  usetype 0x9d7 'any' 'backpack'
+  waitfortarget 15000
+  targettile 1589 1866 -5
+  waitforjournal 'You pan around until your pan is full' 10000 'system'
+  pause 150
+  usetype 0x9d8 'any' 'backpack'
+endfor
+//pan15
+pause 500
+useobject 0x43dd98e0
+waitforgump 0x554b87f3 15000
+replygump 0x554b87f3 89
+pause 2000
+for 3
+  clearjournal
+  usetype 0x9d7 'any' 'backpack'
+  waitfortarget 15000
+  targettile 1603 1874 -5
+  waitforjournal 'You pan around until your pan is full' 10000 'system'
+  pause 150
+  usetype 0x9d8 'any' 'backpack'
+endfor
+//pan16
+pause 500
+useobject 0x43dd98e0
+waitforgump 0x554b87f3 15000
+replygump 0x554b87f3 95
+pause 2000
+for 3
+  clearjournal
+  usetype 0x9d7 'any' 'backpack'
+  waitfortarget 15000
+  targettile 1604 1890 -5
+  waitforjournal 'You pan around until your pan is full' 10000 'system'
+  pause 150
+  usetype 0x9d8 'any' 'backpack'
+endfor

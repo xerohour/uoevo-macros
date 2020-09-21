@@ -1,0 +1,13 @@
+useobject 0x4647cc2f  <----Object id for rune book
+waitforgump 0x554b87f3 15000
+replygump 0x554b87f3 5 <--------Gump Button to recall to first location in book
+pause 2000
+dress 'Fishing/Luck' <--Dress set to reequip a fishing pole and shield if you are using them
+usetype '0x9d7'
+pause 1000
+targettile 3499 2715 -5 <------Tile ID for where you want to pan
+pause 9000
+usetype '0x9d8'
+pause 1000
+//Repeat for each location changing the Gump Button and Tile ID to fit the new location
+//You will need to get the object ID for your own runebook as well

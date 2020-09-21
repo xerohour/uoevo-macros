@@ -1,0 +1,28 @@
+if not @findobject 'lootbag'
+  headmsg 'Select Loot Bag' 391
+  promptalias 'lootbag'
+endif
+if not @findobject 'Lootsource'
+  headmsg 'Lootsource' 391
+  promptalias 'Lootsource'
+endif
+if not listexists 'Jewelry'
+  @createlist 'Jewelry'
+endif
+if list 'Jewelry' == 0
+  @pushlist 'Jewelry' 0x108a
+  @pushlist 'Jewelry' 0x1f09
+  @pushlist 'Jewelry' 0x1086
+  @pushlist 'Jewelry' 0x1f06
+endif
+for 0 to Jewelry
+  if @findtype Jewelry[] 'any' 'Lootsource'
+    @setalias 'scanner' 'found'
+    if @property 'Luck' 'scanner' > 1
+      sysmsg 'Test'
+      @moveitem 'scanner' 'lootbag'
+      pause 600
+    endif
+  endif
+endfor
+@unsetalias "Lootsource"

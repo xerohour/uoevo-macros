@@ -1,0 +1,122 @@
+setability 'secondary' 'on'
+getenemy 'murderer' 'enemy' 'criminal' 'gray' 'closest'
+attack 'enemy'
+pause 1490
+@setability 'secondary'
+getenemy 'murderer' 'enemy' 'criminal' 'gray' 'closest'
+attack 'enemy'
+pause 1490
+if not buffexists "Consecrate Weapon"
+  cast 'Consecrate Weapon'
+  pause 1490
+endif
+@setability 'secondary' 'on'
+getenemy 'murderer' 'enemy' 'criminal' 'gray' 'closest'
+attack 'enemy'
+pause 1490
+if not buffexists "Immolating Weapon"
+  cast 'Immolating Weapon'
+  pause 1490
+endif
+@setability 'primary' 'on'
+getenemy 'murderer' 'enemy' 'criminal' 'gray' 'closest'
+attack 'enemy'
+pause 1490
+@setability 'primary' 'on'
+getenemy 'murderer' 'enemy' 'criminal' 'gray' 'closest'
+attack 'enemy'
+pause 1490
+if not buffexists "divine fury"
+  cast 'divine fury'
+  pause 1490
+endif
+@setability 'secondary' 'on'
+getenemy 'murderer' 'enemy' 'criminal' 'gray' 'closest'
+attack 'enemy'
+pause 1490
+@setability 'secondary' 'on'
+getenemy 'murderer' 'enemy' 'criminal' 'gray' 'closest'
+attack 'enemy'
+pause 1490
+@setability 'primary' 'on'
+getenemy 'murderer' 'enemy' 'criminal' 'gray' 'closest'
+attack 'enemy'
+pause 1490
+@setability 'primary' 'on'
+getenemy 'murderer' 'enemy' 'criminal' 'gray' 'closest'
+attack 'enemy'
+pause 1490
+//Set LootBag
+if not @findobject 'LootBag'
+  promptalias 'LootBag'
+endif
+if not listexists 'Jewelry'
+  @createlist 'Jewelry'
+endif
+if list 'Jewelry' == 0
+  @pushlist 'Jewelry' 0x108a
+  @pushlist 'Jewelry' 0x1f09
+  @pushlist 'Jewelry' 0x1086
+  @pushlist 'Jewelry' 0x1f06
+endif
+//Find Corpse
+if not @findtype '0x2006' 'any' 'ground' '1' '1'
+endif
+@setalias '0' 'found'
+@useobject '0'
+//Locate Jewelry
+for 0 to Jewelry
+  for 2
+    if @findtype Jewelry[] 0 '0'
+      @setalias 'Skills' 'found'
+      waitforproperties 'Skills' 3000
+      if @property 'Swordsmanship' 'Skills' >= 10
+        sysmsg 'Swords!' '1990'
+        @moveitem 'Skills' 'LootBag'
+        pause 1000
+      endif
+      if @property 'Parry' 'Skills' >= 10
+        sysmsg 'Parry!' '1990'
+        @moveitem 'Skills' 'LootBag'
+        pause 1000
+      endif
+      if @property 'Tactics' 'Skills' >= 10
+        sysmsg 'Tactics' '1990'
+        @moveitem 'Skills' 'LootBag'
+        pause 1000
+      endif
+      if @property 'Animal Taming' 'Skills' >= 10
+        sysmsg 'Taming' '1990'
+        @moveitem 'Skills' 'LootBag'
+        pause 1000
+      endif
+      if @property 'Archery' 'Skills' >= 10
+        sysmsg 'Archery' '1990'
+        @moveitem 'Skills' 'LootBag'
+        pause 1000
+      endif
+      if @property 'Anatomy' 'Skills' >= 10
+        sysmsg 'Anatomy' '1990'
+        @moveitem 'Skills' 'LootBag'
+        pause 1000
+      endif
+      if @property 'Animal Lore' 'Skills' >= 10
+        sysmsg 'Animal Lore' '1990'
+        @moveitem 'Skills' 'LootBag'
+        pause 1000
+      endif
+      if @property 'Bushido' 'Skills' >= 10
+        sysmsg 'Animal Lore' '1990'
+        @moveitem 'Skills' 'LootBag'
+        pause 1000
+      endif
+      if @property 'Evaluating Intelligence ' 'Skills' >= 10
+        sysmsg 'Evaluating Intelligence ' '1990'
+        @moveitem 'Skills' 'LootBag'
+        pause 1000
+      endif
+    endif
+  endfor
+endfor
+//Close Corpse
+ignoreobject '0'

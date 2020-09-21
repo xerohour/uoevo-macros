@@ -1,0 +1,82 @@
+if not timerexists 'goldmarktimer'
+  createtimer 'goldmarktimer'
+  settimer 'goldmarktimer' 30000
+endif
+@clearjournal
+if not @findalias 'Blank Runebook'
+  promptalias 'Blank Runebook'
+endif
+if not @findalias 'trash'
+  headmsg 'SELECT your trash bag' 24 'self'
+  promptalias 'trash'
+endif
+if not @findlayer 'self' '1'
+  dress 'Fishing'
+  while dressing
+    pause 100
+  endwhile
+endif
+if @findtype 0x9d8 '0'
+  @usetype '0x9d8' '0' 'backpack'
+  pause 700
+endif
+@usetype 0x9d7 '0' 'backpack'
+waitingfortarget 2000
+pause 2000
+targettile 'last'
+pause 1500
+if @injournal 'seem to be any nuggets left here' 'system'
+  stop
+endif
+pause 8000
+if @findtype 0x9d8 '0'
+  @usetype '0x9d8' '0' 'backpack'
+  pause 700
+endif
+//marks a rune if you find a large gold nugget
+if @injournal 'large gold nugget' 'system'
+  headmsg ' FOUND ONE SUCKA' 24
+  msg '[e Woohoo'
+  if @findtype 0x1f14 0 'backpack' 1 and timer 'goldmarktimer' >= 40000
+    cast "Mark"
+    waitingfortarget 10000
+    autotargetobject 'found'
+    pause 800
+    moveitem 'found' 'Blank Runebook'
+    pause 1000
+    if @injournal 'runebook is full' 'system'
+      headmsg 'Pick a new book ITS FULL WE DID IT REDDIT'
+      promptalias 'Blank Runebook'
+      pause 700
+      moveitem 'found' 'Blank Runebook'
+    endif
+    waitforcontext 0x442454bc 2 15000
+    waitforgump 0x6abce12 15000
+    replygump 0x6abce12 4
+    waitforgump 0x6abce12 15000
+    replygump 0x6abce12 0
+  else
+    for 5
+      headmsg 'can not mark this rune' 24
+      pause 2000
+    endfor
+  endif
+endif
+pause 200
+if @injournal 'have found' 'system'
+  waitforcontext 0x4153aee4 2 1000
+  waitforgump 0x6abce12 1000
+  @replygump 0x6abce12 0
+elseif @injournal 'find a bottle' 'system' and @findtype 0x99f '0' 'backpack'
+  @useobject 'found'
+  pause 500
+  waitforcontext 0x481d199c 2 15000
+  waitforgump 0x6abce12 15000
+  replygump 0x6abce12 0
+  pause 500
+endif
+if @findtype 0x170f '0' 'backpack '1' '0'
+  headmsg 'found crap shoes'
+  moveitem 'found' 'trash'
+  pause 1000
+endif

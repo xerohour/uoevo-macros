@@ -1,0 +1,268 @@
+requirements:
+fishing pole, several boats, 65 chivalry skill for sacred journey, and no icons from cleric or druid books as they are GUMPS, so will have to disable gump alert if you want those icons open.
+
+notes:
+for best results boats need placed where mast is beside one of the 8x8 grids. (use uoam or uomap in uos, look at coordinates, if evenly divisible by 8 you are good.  example one of my boats is 848, 2520 BOTH multiples of 8) if you want your boats all close to each other, they must be 16 tiles away from each other to not be fishing in same grid which would empty them faster.  i suggest 6 boats to not run dry but 4 should be ok, but WARNING more than 10 boats can cause you to become overweight prior to part that moves fish (you can move the fish mover section to part labeled just before end nextboat section)
+
+description:
+if you do not have a normal pole, nothing.
+if you have an ancient pole, disarms what you have and equips best ancient you have on you, then equips fever fall shield for extra luck if you have.
+dismounts if mounted, eats fishsteak if you have.
+finds boat keys in pack or BANK incase you wish to fish in FEL, will go to a boat, refresh it, and will go to next after fishing 16 times from it (4 times per each of the 4 8x8 spot)
+if you have a BoR, BoH or bank crystal will skin corpse and move hides to it.
+if you have a fish bucket will put fish in it or will drop/stack to boat deck.
+if you have treasure hunter storage, converts sos-mibs puts up maps/nets/mibs.
+even plays a sound if you have a GUMP open (like PM or power hour notice)
+***
+best part is ALL of that is automatic, you do not have to edit anything to assign your containers or poles.
+
+*** copy/paste everything below to a UOS macro ***
+
+// fishing
+@clearignorelist
+@clearjournal
+// sets containers needed if my LOGIN macro not used
+if not @findobject 'BOR'
+  sysmsg 'choose bag of resources, press escape for none' 1
+  // rem prev/next line to not get notice if you do not have one
+  promptalias 'BOR'
+endif
+if not @findobject 'BOH'
+  sysmsg 'choose bag of holding, press escape for none' 1
+  // rem prev/next line to not get notice if you do not have one
+  promptalias 'BOH'
+endif
+if not @findobject 'bank crystal'
+  sysmsg 'choose bank crystal, press escape for none' 1
+  // rem prev/next line to not get notice if you do not have one
+  promptalias 'bank crystal'
+endif
+if not @findobject 'loot bag'
+  sysmsg 'choose loot bag, press escape for none' 1
+  // rem prev/next line to not get notice if you do not have one
+  promptalias 'loot bag'
+endif
+// finds ancient pole
+while @findtype 0xdc0 'any' 'self'
+  if @property '+ 75' 'found' >= ""
+    @setalias 'AP75' 'found'
+    ignoreobject 'found'
+  elseif @property '+ 60' 'found' >= ""
+    @setalias 'AP60' 'found'
+    ignoreobject 'found'
+  elseif @property '+ 30' 'found' >= ""
+    @setalias 'AP30' 'found'
+    ignoreobject 'found'
+  elseif @property '+ 15' 'found' >= ""
+    @setalias 'AP15' 'found'
+    ignoreobject 'found'
+  else
+    @setalias 'pole' 'found'
+  endif
+  ignoreobject found
+endwhile
+clearignorelist
+// breaks if no normal pole
+if @findobject 'pole' 'any' 'backpack'
+else
+  headmsg 'you need a fishing pole' 127
+  break
+endif
+// equip ancient pole if you have after checking you do not have ANY pole equipped already
+if not @findtype 0xdc0 'any' 'self' 1 0
+  if @findobject 'AP75'
+    setalias 'APole' 'found'
+  elseif @findobject 'AP60'
+    setalias 'APole' 'found'
+  elseif @findobject 'AP30'
+    setalias 'APole' 'found'
+  elseif @findobject 'AP15'
+    setalias 'APole' 'found'
+  endif
+  if @findobject 'APole'
+    @moveitem lefthand 'backpack'
+    pause 500
+    @moveitem righthand 'backpack'
+    pause 500
+    equipitem 'APole' 2
+    pause 1000
+    // equips fever fall for more luck with the AP if you have
+    while @findtype 0x1bc4 'any' 'self'
+      if @property 'Fever Fall' 'found' >= ""
+        equipitem 'found' 1
+        pause 1000
+        ignoreobject 'found'
+      endif
+      ignoreobject 'found'
+    endwhile
+  endif
+endif
+// finds boat keys i suggest 6+
+// MUST open container if keys are inside a container in bank.
+@removelist 'boatkey'
+useobject 'bank crystal'
+pause 500
+if not listexists 'boatkey'
+  createlist 'boatkey'
+  while @findtype 0x100f 'any' 'self'
+    pushlist 'boatkey' 'found'
+    ignoreobject 'found'
+  endwhile
+endif
+// unmount if mounted
+if mounted
+  useobject 'self'
+  pause 500
+endif
+// sets fishing spots to +/- 2 away from you
+@removelist X
+if not listexists 'X'
+  createlist 'X'
+  @pushlist 'X' -2
+  @pushlist 'X' 2
+endif
+@removelist Y
+if not listexists 'Y'
+  createlist 'Y'
+  @pushlist 'Y' -2
+  @pushlist 'Y' 2
+endif
+// eat fishsteak
+@usetype 0x97b
+pause 500
+// go to a boat
+for 0 to boatkey
+  // attempts to grab those outside skinning/loot range
+  msg '[grab'
+  @canceltarget
+  pause 500
+  cast 'sacred journey'
+  waitfortarget 5000
+  target! boatkey[]
+  pause 1000
+  // refresh boat
+  usetype '0x3eb2' 'any' 'ground' 2
+  // fishing starts
+  for 4
+    for 0 to X
+      for 0 to Y
+        @canceltarget
+        useobject pole
+        waitfortarget 2000
+        targettileoffset X[] Y[] 0
+        pause 500
+        // alert for PM or power hour notices
+        if @gumpexists 'any'
+          playsound 'CHIMES.WAV'
+        endif
+        // moves to next target if empty
+        if @injournal "The fish don't seem to be biting here."
+          clearjournal
+        else
+          pause 8888
+        endif
+        // ends Y
+      endfor
+      // ends X
+    endfor
+    // takes care of corpses if any per 4 spots
+    // claims hides if you have BoR, BoH or bank crystal
+    if @findobject 'BOR' or @findobject 'BOH'
+      while @findtype 0x2006 'any' 'ground' 'any' 3
+        msg '[claim -c'
+        waitfortarget 1000
+        @target 'found'
+        pause 500
+        @canceltarget
+      endwhile
+      // move hides
+      @movetype 0x1079 'loot bag' 'BOR'
+      pause 500
+      @movetype 0x1079 'loot bag' 'BOH'
+      pause 500
+      // move scales
+      @movetype 0x26b4 'loot bag' 'BOH'
+      pause 500
+    endif
+    // moves to bank if no BOH or BOR
+    if @findobject 'bank crystal'
+      while @findtype 0x2006 'any' 'ground' 'any' 3
+        msg '[claim -c'
+        waitfortarget 1000
+        @target 'found'
+        pause 500
+        @canceltarget
+      endwhile
+      // move hides and scales to bank
+      if @findtype 0x1079 'any' 'loot bag' 'any' 0
+        useobject 'bank crystal'
+        pause 500
+        @movetype 0x1079 'loot bag' 'bank'
+        pause 500
+        @movetype 0x26b4 'loot bag' 'BOH'
+        pause 500
+      endif
+    endif
+    // ends 4 loops
+  endfor
+  // opens bank if you have in case boat keys in bank
+  if @findobject 'bank crystal'
+    useobject 'found'
+    pause 500
+  endif
+  // if you have more than 10 boats copy move fish
+  // to this area or manually move them
+  // to prevent overweight issues from happening.
+  // next boat
+endfor
+// find fish bucket
+if @findtype 0xffa 1388 'backpack'
+  useobject 'found'
+  waitforgump 0x6abce12 2000
+  replygump 0x6abce12 11
+  waitforgump 0x6abce12 2000
+  replygump 0x6abce12 0
+  pause 1000
+  // moves fish to ground if no bucket, BoH or bank
+else
+  @removelist 'fish'
+  if not listexists 'fish'
+    createlist 'fish'
+    pushlist 'fish' 0x9cc
+    pushlist 'fish' 0x9cd
+    pushlist 'fish' 0x9ce
+    pushlist 'fish' 0x9cf
+  endif
+  for 0 to fish
+    if @findobject 'BOH'
+      movetype fish[] 'backpack' BOH 0 0 0 0 'any' 0
+    elseif @findobject 'bank crystal'
+      movetype fish[] 'backpack' bank 0 0 0 0 'any' 0
+    elseif @findtype fish[] 0 'ground'
+      setalias 'pile' 'found'
+      movetype fish[] 'backpack' 'pile' 0 'any' 0
+    else
+      movetypeoffset fish[] 'backpack' 'ground' 1 -1 0 0 'any' 0
+    endif
+  endfor
+  pause 500
+endif
+// convert MIB to sos
+while @findtype 0x99f
+  // rem next line if you want to keep SOS'
+  useobject 'found'
+  pause 1000
+  ignoreobject 'found'
+endwhile
+pause 500
+// find treasure hunters key
+if @findtype 0x14ee 1861 'backpack'
+  useobject 'found'
+  waitforgump 0x6abce12 2000
+  replygump 0x6abce12 13
+  waitforgump 0x6abce12 2000
+  replygump 0x6abce12 0
+endif
+// sound for set done
+playsound 'CHIMES.WAV'
+headmsg 'set done' 127

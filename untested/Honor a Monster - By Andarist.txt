@@ -1,0 +1,5 @@
+virtue 'Honor'
+waitfortarget 15000
+target 'enemy'
+pause 1000
+attack 'enemy'

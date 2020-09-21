@@ -1,0 +1,23 @@
+if not listexists 'instru'
+  createlist 'instru'
+  @pushlist 'instru' 0xe9e //Tambourine with red tassle
+  @pushlist 'instru' 0x2805 //Flute
+  @pushlist 'instru' 0xe9d //Tambourine
+  @pushlist 'instru' 0xe9c //Drum
+  @pushlist 'instru' 0xeb3 //Lute
+  @pushlist 'instru' 0xeb2 //Lap Harp
+  @pushlist 'instru' 0xeb1 //Standing Harp
+endif
+useskill 'Discordance'
+settimer 'discotimer' 0
+waitfortarget 2000
+if @injournal 'What instrument shall'
+  for 0 to 'instru'
+    if @findtype instru[] 'any' 'backpack'
+      setalias 'instrument' 'found'
+      useobject 'instrument'
+    endif
+  endfor
+endif
+getenemy 'murderer' 'enemy' 'criminal' 'gray' 'closest'
+target! 'enemy'

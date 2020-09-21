@@ -1,0 +1,73 @@
+//go to training house, put 4 pets in the cots. Release them all
+//hit play and follow instruction. Dont forget to check for instuments
+//
+//setting 4 pets
+//
+if not findalias 'pet1'
+  headmsg 'Now select your pet 1'
+  promptalias 'pet1'
+endif
+if not findalias 'pet2'
+  headmsg 'Now select your pet 2'
+  promptalias 'pet2'
+endif
+if not findalias 'pet3'
+  headmsg 'Now select your pet 3'
+  promptalias 'pet3'
+endif
+if not findalias 'pet4'
+  headmsg 'Now select your pet 4'
+  promptalias 'pet4'
+endif
+//
+//discordance
+//
+waitfortarget 500
+while not @injournal 'jarring'
+  useskill 'Discordance'
+  waitfortarget 500
+  target! 'pet1'
+  pause 300
+  if @injournal 'already in discord'
+    break
+  endif
+  pause 13000
+endwhile
+clearjournal
+while not @injournal 'jarring'
+  useskill 'Discordance'
+  waitfortarget 500
+  target! 'pet2'
+  pause 300
+  if @injournal 'already in discord'
+    break
+  endif
+  pause 13000
+endwhile
+clearjournal
+while not @injournal 'jarring'
+  useskill 'Discordance'
+  waitfortarget 500
+  target! 'pet3'
+  pause 300
+  if @injournal 'already in discord'
+    break
+  endif
+  pause 13000
+endwhile
+clearjournal
+while not @injournal 'jarring'
+  useskill 'Discordance'
+  waitfortarget 500
+  target! 'pet4'
+  pause 300
+  if @injournal 'already in discord'
+    break
+  endif
+  pause 13000
+endwhile
+clearjournal
+while not buffexists 'Hiding'
+  useskill 'Hiding'
+endwhile
+pause 17000

@@ -1,0 +1,9 @@
+if not findalias 'mount1'
+  headmsg 'Select mount'
+  promptalias 'mount1'
+endif
+if mounted 'self'
+  useobject! 'self'
+else
+  useobject! 'mount1'
+endif

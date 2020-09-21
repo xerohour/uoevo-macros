@@ -1,0 +1,19 @@
+while skill 'ninjitsu' < 100
+  if mana < 30
+    undress 'trainingbow'
+    pause 2000
+    useskill 'meditation'
+    while mana < maxmana
+    endwhile
+    dress 'trainingbow'
+    pause 2000
+  else
+    if skill 'ninjitsu' < 85
+      cast 'Focus Attack'
+      pause 3000
+    elseif skill 'ninjitsu' < 100
+      cast 'Death Strike'
+      pause 3000
+    endif
+  endif
+endwhile

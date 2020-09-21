@@ -1,0 +1,49 @@
+//Kegmaking Macro
+//You will need "Nails" (the carpentry tool from the tool kit)
+//And a Tinker tool in your inventory.
+//This macro will ask you to target a container for kegs to be placed in.
+//And will craft 10 kegs at a time by default, this can be changed.
+//Sets Container to drop Kegs in.
+if not @findobject 'KegDrop'
+  headmsg 'Select a container for Kegs'
+  setalias 'KegDrop'
+endif
+//Change this number to set the amount of Kegs.
+for 10
+  // tinker
+  usetype 0x1eb8
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 15
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 16
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 37
+  waitforgump 0x38920abd 15000
+  // saw
+  usetype 0x102e
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 1
+  waitforgump 0x38920abd 15000
+  // 3 staves
+  for 3
+    replygump 0x38920abd 2
+    waitforgump 0x38920abd 15000
+  endfor
+  // 2 lids
+  for 2
+    replygump 0x38920abd 9
+    waitforgump 0x38920abd 15000
+  endfor
+  replygump 0x38920abd 15
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 135
+  waitforgump 0x38920abd 15000
+  // tinker
+  usetype 0x1eb8
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 43
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 51
+  waitforgump 0x38920abd 15000
+  movetype 0x1940 'backpack' 'KegDrop'
+endfor

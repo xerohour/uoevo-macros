@@ -1,0 +1,60 @@
+//Ninjitsu trainer. Need GM hiding and stealth. Don't wear any armor, just equip one of the 2h training weapons for the extra hp and mana regen. You'll also need to stand on the south side of a training dummy within melee range.
+while skill 'Ninjitsu' < 100
+  if skill 'Ninjitsu' < 30
+    cast 'Animal Form'
+    waitforgump 3027724650 15000
+    pause 500
+    replygump 0xb477696a 1 110
+    pause 3000
+    cast 'Animal Form'
+    pause 3000
+  elseif skill 'Ninjitsu' < 60
+    cast 'focus attack'
+    @getenemy 'murderer' 'enemy' 'criminal' 'gray' 'closest'
+    attack 'enemy'
+    pause 2000
+    if mana 'self' < 30
+      while mana 'self' < maxmana
+        pause 500
+        useskill 'Meditation'
+        while mana 'self' < maxmana and @injournal 'You enter a meditative trance'
+        endwhile
+      endwhile
+    endif
+    //To be used when standing on the south side of the training dummy.
+  elseif skill 'Ninjitsu' < 85
+    while skill 'Ninjitsu' < 85
+      clearjournal
+      turn "South"
+      pause 150
+      walk "South"
+      pause 150
+      if mana 'self' < 30
+        while mana 'self' < maxmana
+          pause 500
+          useskill 'Meditation'
+          while mana 'self' < maxmana and @injournal 'You enter a meditative trance'
+          endwhile
+        endwhile
+      endif
+      turn "North"
+      cast "Invisibility"
+      waitfortarget 5000
+      target! 'self'
+      pause 3000
+      walk "North"
+      pause 250
+      cast "Surprise Attack"
+      pause 1000
+      @getenemy 'murderer' 'enemy' 'criminal' 'gray' 'closest'
+      attack 'enemy'
+      pause 500
+    endwhile
+  elseif skill 'Ninjitsu' < 100
+    cast 'Death Strike'
+    pause 3000
+  elseif skill 'Ninjitsu' >= 100
+    headmsg 'Finished Ninjitsu!'
+    stop
+  endif
+endwhile

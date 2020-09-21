@@ -1,0 +1,30 @@
+IF skill "Bushido" < 60
+cast "Confidence"
+pause 5000
+useskill "Spirit Speak"
+pause 5000
+cast "Mana Vampire"
+pause 1000
+target "self"
+pause 10000
+ELSEIF skill "Bushido" < 75
+cast "Counter Attack"
+pause 5000
+useskill "Spirit Speak"
+pause 5000
+cast "Mana Vampire"
+pause 1000
+target "self"
+pause 10000
+ELSEIF skill "Bushido" < 97.5
+cast "Evasion"
+pause 5000
+useskill "Spirit Speak"
+pause 5000
+cast "Mana Vampire"
+pause 1000
+target "self"
+pause 10000
+ENDIF
+
+//the time on the pauses is to help with mana regen so you shouldn't have to med as long as you have decent mana regen ... mine was 21 at the time i created this

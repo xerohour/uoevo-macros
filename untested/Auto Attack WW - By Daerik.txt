@@ -1,0 +1,51 @@
+if dead
+  playsound 'dead.wav'
+  stop
+endif
+if not timerexists 'Alert Timer'
+  createtimer 'Alert Timer'
+  settimer 'Alert Timer' 2000
+elseif timer 'Alert Timer' > 2000 and hits <= 100
+  playsound 'alert.wav'
+  settimer 'Alert Timer' 0
+endif
+if not timerexists 'Consecrate Weapon Timer'
+  createtimer 'Consecrate Weapon Timer'
+  settimer 'Consecrate Weapon Timer' 5000
+elseif timer 'Consecrate Weapon Timer' > 5000
+  cast 'Consecrate Weapon'
+  pause 1000
+  settimer 'Consecrate Weapon Timer' 0
+endif
+if @serial 'righthand' == 0x428781a1
+  if buffexists 'Polymorph'
+    cast 'Polymorph'
+    pause 1000
+    dress 'MeleeAxe'
+  endif
+  @getenemy 'murderer' 'enemy' 'gray' 'criminal' 'closest'
+  if @findobject 'enemy' and @inrange 'enemy' 2
+    if @findtype 0xfc7 1126 'backpack' 1 'main'
+      if not timerexists 'Fire Horn Timer'
+        createtimer 'Fire Horn Timer'
+        settimer 'Fire Horn Timer' 5000
+      elseif timer 'Fire Horn Timer' > 5000
+        useobject 'found'
+        waitfortarget 3000
+        target! 'enemy'
+        settimer 'Fire Horn Timer' 0
+      endif
+    endif
+    if mana >= 10
+      @setability 'secondary' 'on'
+    endif
+    attack! 'enemy'
+  endif
+  if @injournal 'you defend with Shield of Spikes!'
+    replygump 0x4239a64f 1004
+    clearjournal
+  endif
+else
+  pause 100
+  dress 'MeleeAxe'
+endif

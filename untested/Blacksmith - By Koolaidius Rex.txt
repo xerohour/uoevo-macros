@@ -1,0 +1,200 @@
+//A simple Blacksmith macro to train from 30 to 100 (120 if you change the max value on line 86). Optionally uses a secure container and/or evo key. Auto-smelts, so best not have any weapons/armor in your backpack. If using a secure, place ingots and/or tongs/hammers in the secure.
+
+headmsg 'Please target your secure container, or just wait if you are not using one'
+promptalias 'secure' 10000
+@canceltarget
+while weight < maxweight
+  if not @findtype 0x11c6 'any' 'backpack'
+    if @counttype 0x1bf2 'any' 'backpack' < 20
+      movetype 0x1bf2 'secure' 'backpack' 0 0 0 'any' 250
+    endif
+  endif
+  if gumpexists 0x38920abd
+    if skill 'blacksmithy' < 40
+      // Mace
+      replygump 0x38920abd 64
+      waitforgump 0x38920abd 4000
+      replygump 0x38920abd 9
+      waitforgump 0x38920abd 4000
+    elseif skill 'blacksmithy' < 45
+      // Maul
+      replygump 0x38920abd 64
+      waitforgump 0x38920abd 4000
+      replygump 0x38920abd 16
+      waitforgump 0x38920abd 4000
+    elseif skill 'blacksmithy' < 50
+      // Cutlass
+      replygump 0x38920abd 43
+      waitforgump 0x38920abd 4000
+      replygump 0x38920abd 23
+      waitforgump 0x38920abd 4000
+    elseif skill 'blacksmithy' < 55
+      // Scimitar
+      replygump 0x38920abd 43
+      waitforgump 0x38920abd 4000
+      replygump 0x38920abd 58
+      waitforgump 0x38920abd 4000
+    elseif skill 'blacksmithy' < 60
+      // Kryss
+      replygump 0x38920abd 43
+      waitforgump 0x38920abd 4000
+      replygump 0x38920abd 44
+      waitforgump 0x38920abd 4000
+    elseif skill 'Blacksmithy' < 65
+      // War Fork
+      replygump 0x38920abd 57
+      waitforgump 0x38920abd 4000
+      replygump 0x38920abd 65
+      waitforgump 0x38920abd 4000
+    elseif skill 'Blacksmithy' < 70
+      // Short Spear
+      replygump 0x38920abd 57
+      waitforgump 0x38920abd 4000
+      replygump 0x38920abd 44
+      waitforgump 0x38920abd 4000
+    elseif skill 'Blacksmithy' < 75
+      // Spear
+      replygump 0x38920abd 57
+      waitforgump 0x38920abd 4000
+      replygump 0x38920abd 58
+      waitforgump 0x38920abd 4000
+    elseif skill 'Blacksmithy' < 80
+      // Plate Gorget
+      replygump 0x38920abd 15
+      waitforgump 0x38920abd 4000
+      replygump 0x38920abd 16
+      waitforgump 0x38920abd 4000
+    elseif skill 'Blacksmithy' < 85
+      // Plate Gloves
+      replygump 0x38920abd 15
+      waitforgump 0x38920abd 4000
+      replygump 0x38920abd 9
+      waitforgump 0x38920abd 4000
+    elseif skill 'Blacksmithy' < 90
+      // Plate Helm
+      replygump 0x38920abd 22
+      waitforgump 0x38920abd 4000
+      replygump 0x38920abd 30
+      waitforgump 0x38920abd 4000
+    elseif skill 'Blacksmithy' < 97
+      // Plate Legs
+      replygump 0x38920abd 15
+      waitforgump 0x38920abd 4000
+      replygump 0x38920abd 23
+      waitforgump 0x38920abd 4000
+      //==============================
+      // ===============================================================
+      //              SET CAP HERE
+    elseif skill 'Blacksmithy' < 100
+      //================================================================
+      //=============================
+      // Plate Hiro Sode
+      replygump 0x38920abd 15
+      waitforgump 0x38920abd 4000
+      replygump 0x38920abd 65
+      waitforgump 0x38920abd 4000
+    else
+      @replygump 0x38920abd 0
+      while weight < maxweight
+        headmsg 'Blacksmithing finished'
+        pause 2000
+      endwhile
+    endif
+    //            Smelting
+    //=================================
+    if @findtype 0xf5c 'any' 'backpack'
+      replygump 0x38920abd 14
+      waitfortarget 4000
+      target! 'found'
+      waitforgump 0x38920abd 4000
+    endif
+    if @findtype 0x143b 'any' 'backpack'
+      replygump 0x38920abd 14
+      waitfortarget 4000
+      target! 'found'
+      waitforgump 0x38920abd 4000
+    endif
+    if @findtype 0x1441 'any' 'backpack'
+      replygump 0x38920abd 14
+      waitfortarget 4000
+      target! 'found'
+      waitforgump 0x38920abd 4000
+    endif
+    if @findtype 0x13b6 'any' 'backpack'
+      replygump 0x38920abd 14
+      waitfortarget 4000
+      target! 'found'
+      waitforgump 0x38920abd 4000
+    endif
+    if @findtype 0x1401 'any' 'backpack'
+      replygump 0x38920abd 14
+      waitfortarget 4000
+      target! 'found'
+      waitforgump 0x38920abd 4000
+    endif
+    if @findtype 0x1405 'any' 'backpack'
+      replygump 0x38920abd 14
+      waitfortarget 4000
+      target! 'found'
+      waitforgump 0x38920abd 4000
+    endif
+    if @findtype 0x1403 'any' 'backpack'
+      replygump 0x38920abd 14
+      waitfortarget 4000
+      target! 'found'
+      waitforgump 0x38920abd 4000
+    endif
+    if @findtype 0xf62 'any' 'backpack'
+      replygump 0x38920abd 14
+      waitfortarget 4000
+      target! 'found'
+      waitforgump 0x38920abd 4000
+    endif
+    if @findtype 0x1413 'any' 'backpack'
+      replygump 0x38920abd 14
+      waitfortarget 4000
+      target! 'found'
+      waitforgump 0x38920abd 4000
+    endif
+    if @findtype 0x1414 'any' 'backpack'
+      replygump 0x38920abd 14
+      waitfortarget 4000
+      target! 'found'
+      waitforgump 0x38920abd 4000
+    endif
+    if @findtype 0x1412 'any' 'backpack'
+      replygump 0x38920abd 14
+      waitfortarget 4000
+      target! 'found'
+      waitforgump 0x38920abd 4000
+    endif
+    if @findtype 0x1411 'any' 'backpack'
+      replygump 0x38920abd 14
+      waitfortarget 4000
+      target! 'found'
+      waitforgump 0x38920abd 4000
+    endif
+    if @findtype 0x2780 'any' 'backpack'
+      replygump 0x38920abd 14
+      waitfortarget 4000
+      target! 'found'
+      waitforgump 0x38920abd 4000
+    endif
+  else
+    if @counttype 0xfbb 'any' 'backpack' < 1
+      movetype 0xfbb 'secure' 'backpack'
+      pause 300
+    elseif @counttype 0x13e3 'any' 'backpack' < 1
+      movetype 0x13e3 'secure' 'backpack'
+      pause 300
+    endif
+    if @findtype 0xfbb 'any' 'backpack'
+      usetype 0xfbb 'any' 'backpack'
+      waitforgump 0x38920abd 4000
+    elseif @findtype 0x13e3 'any' 'backpack'
+      usetype 0x13e3 'any' 'backpack'
+      waitforgump 0x38920abd 4000
+    endif
+  endif
+endwhile
+

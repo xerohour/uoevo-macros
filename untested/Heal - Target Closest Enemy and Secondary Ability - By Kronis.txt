@@ -1,0 +1,26 @@
+@Getenemy  'Enemy' 'criminal' 'gray' 'closest'
+if @findobject 'enemy'
+  autotargetobject! 'enemy'
+  attack! 'enemy'
+endif
+@clearusequeue
+@cancelautotarget
+setability 'Secondary' 'on'
+pause '100'
+if not timerexists 'Bandage Timer'
+  createtimer 'Bandage Timer'
+  settimer 'Bandage Timer' 10250
+endif
+//poisoned
+if poisoned 'self' and timer 'Bandage Timer' >= 10250
+  bandageself
+  waitfortarget 1500
+  target! 'self'
+  settimer 'Bandage Timer' 0
+endif
+if hits < maxhits and timer 'Bandage Timer' >= 10250
+  bandageself
+  waitfortarget 1500
+  target! 'self'
+  settimer 'Bandage Timer' 0
+endif

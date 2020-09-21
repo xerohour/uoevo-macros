@@ -1,0 +1,54 @@
+if not listexists 'Jewelry'
+  createlist 'Jewelry'
+  pushlist 'Jewelry' 0x1085     // Necklace [Gold Beads]
+  pushlist 'Jewelry' 0x1086     // Bracelet [Gold]
+  pushlist 'Jewelry' 0x1087     // Earrings [Gold w/ Pear]
+  pushlist 'Jewelry' 0x1088     // Necklace [Gold w/ Pearl]
+  pushlist 'Jewelry' 0x1089     // Necklace [Gold Luxury]
+  pushlist 'Jewelry' 0x108a     // Ring [Gold]
+  pushlist 'Jewelry' 0x108b     // Beads
+  pushlist 'Jewelry' 0x1f05     // Bead Necklace [Silver]
+  pushlist 'Jewelry' 0x1f06     // Bracelet [Silver]
+  pushlist 'Jewelry' 0x1f07     // Earrings [Silver]
+  pushlist 'Jewelry' 0x1f08     // Necklace [Silver w/ Pearl]
+  pushlist 'Jewelry' 0x1f09     // Ring [Silver]
+  pushlist 'Jewelry' 0x1f0a     // Silver Necklace [Luxury]
+  pushlist 'Jewelry' 0x4210     // Gargish Necklace
+  pushlist 'Jewelry' 0x4211     // Gargish Bracelet
+  pushlist 'Jewelry' 0x4212     // Gargish Ring
+  pushlist 'Jewelry' 0x4213     // Gargish Earrings
+endif
+for 0 to Jewelry
+  if @findtype Jewelry[] 0 'backpack'
+    @setalias 'Skills' 'found'
+    waitforproperties 'Skills' 3000
+    if @property 'Luck' 'Skills' >= 14
+      sysmsg 'LUCK' '1990'
+      //    @moveitem 'Skills' 'LootBag'
+      msg '[e yea'
+      pause 300
+    elseif @property 'Animal Lore' 'Skills' >= 10
+      sysmsg 'ANIMALLORE 10+' '1990'
+      msg '[e yea'
+      pause 300
+    endif
+  endif
+endfor
+
+// Jewelrys
+if not listexists 'Jewelrys'
+    createlist 'Jewelrys'
+endif
+pushlist 'Jewelrys' 0x1085     // Necklace [Gold Beads]
+pushlist 'Jewelrys' 0x1086     // Bracelet [Gold]
+pushlist 'Jewelrys' 0x1087     // Earrings [Gold w/ Pear]
+pushlist 'Jewelrys' 0x1088     // Necklace [Gold w/ Pearl]
+pushlist 'Jewelrys' 0x1089     // Necklace [Gold Luxury]
+pushlist 'Jewelrys' 0x108a     // Ring [Gold]
+pushlist 'Jewelrys' 0x108b     // Beads
+pushlist 'Jewelrys' 0x1f05     // Bead Necklace [Silver]
+pushlist 'Jewelrys' 0x1f06     // Bracelet [Silver]
+pushlist 'Jewelrys' 0x1f07     // Earrings [Silver]
+pushlist 'Jewelrys' 0x1f08     // Necklace [Silver w/ Pearl]
+pushlist 'Jewelrys' 0x1f09     // Ring [Silver]
+pushlist 'Jewelrys' 0x1f0a     // Silver Necklace [Luxury]

@@ -1,0 +1,44 @@
+//Champ macro OEUO By Merlina - UO Evolution
+//If you are hidden or dead, it doesnt attack.
+while 'hidden' 'self' or 'dead' 'self'
+  pause 10
+endwhile
+if not timerexists 'casttime'
+  createtimer 'casttime'
+  settimer 'casttime' 15000
+endif
+if not timerexists 'castimmov'
+  createtimer 'castimmov'
+  settimer 'castimmov' 20000
+endif
+if not timerexists 'castconcentrate'
+  createtimer 'castconcentrate'
+  settimer 'castconcentrate' 100000
+endif
+@getenemy 'murderer' 'enemy' 'criminal' 'gray' 'closest'
+if @findobject 'enemy'
+  @setability 'secondary' 'on'
+  attack! 'enemy'
+endif
+//To prevent SPAM
+if @inrange 'enemy' 1
+  //Buffs
+  if not buffexists "Consecrate Weapon" and timer 'casttime' > 1600
+    if timer 'castconcentrate' > 9000
+      cast 'Consecrate Weapon'
+      settimer 'casttime' 0
+      settimer 'castconcentrate' 0
+    endif
+  endif
+  if not buffexists "Immolating Weapon" and timer 'casttime' > 1600
+    if timer 'castimmov' > 15000
+      cast 'Immolating Weapon'
+      settimer 'casttime' 0
+      settimer 'castimmov' 0
+    endif
+  endif
+  if not buffexists "Divine Fury" and timer 'casttime' > 1600
+    cast 'Divine Fury'
+    settimer 'casttime' 0
+  endif
+endif

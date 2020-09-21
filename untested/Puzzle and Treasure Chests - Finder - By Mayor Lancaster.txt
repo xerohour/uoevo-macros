@@ -1,0 +1,20 @@
+if @findtype 0xe41 'any' 'ground' 'any' 20 and @property! "Puzzle" 'found'
+  msg '[e whistle'
+  @unsetalias 'found'
+endif
+if @findtype 0x9ab 'any' 'ground' 'any' 20 and @property! "Treasure" 'found'
+  msg '[e clearthroat'
+  if @inrange 'found' 2 and not @property "Items" 'found'
+    cast 'unlock'
+    waitfortarget 600
+    target! 'found'
+  endif
+  if @property "Items" 'found'
+    @organizer 'dungeon chest' 'found' 'loot bag'
+    pause 6000
+  endif
+  if contents 'found' <= 10
+    ignoreobject 'found'
+    @unsetalias 'found'
+  endif
+endif

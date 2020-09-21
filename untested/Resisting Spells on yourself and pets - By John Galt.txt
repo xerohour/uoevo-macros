@@ -1,0 +1,80 @@
+for 25
+  if mana < 40
+    useskill 'meditation'
+    pause 15000
+    while mana < maxmana
+      pause 600
+    else
+      cast "Paralyze Field"
+      waitfortarget 3000
+      target! 'Jimmy'
+      pause 15000
+      cast "Paralyze Field"
+      waitfortarget 3000
+      target! 'Jake'
+      pause 15000
+      cast "Paralyze Field"
+      waitfortarget 3000
+      target! 'Jerry'
+      pause 15000
+      cast "Paralyze Field"
+      waitfortarget 3000
+      target! 'Self'
+      pause 15000
+      cast "Paralyze Field"
+      waitfortarget 3000
+      target! 'Alpha'
+      pause 15000
+    endif
+  endwhile
+endfor
+//check to make sure I have food
+if counttype '0x9f2' 'any' 'backpack' >= 7
+  //Feed Each Pet
+  movetype '0x9f2' 'backpack' 'Alpha' 0 0 0 'any' 1 3
+  pause 1000
+  movetype '0x9f2' 'backpack' 'Jenny' 0 0 0 'any' 1 3
+  pause 1000
+  movetype '0x9f2' 'backpack' 'Jessie' 0 0 0 'any' 1 3
+  pause 1000
+  movetype '0x9f2' 'backpack' 'Jake' 0 0 0 'any' 1 3
+  pause 1000
+  useobject 0x4848ef8f
+  pause 600
+  useobject 0x4848ef8f
+  pause 600
+else
+  //move away from the training elemental
+  turn "Northwest"
+  run "Northwest"
+  run "Northwest"
+  run "Northwest"
+  pause 3000
+  //Tell pet to come to my location
+  msg 'Alpha Come'
+  pause 3000
+  //use Pet Leash to shrink pets
+  useobject 0x476491c2
+  waitfortarget 3000
+  target 'Alpha'
+  pause 3000
+  msg 'Jenny Come'
+  pause 3000
+  useobject 0x476491c2
+  waitfortarget 3000
+  target 'Jenny'
+  pause 3000
+  msg 'Jake Come'
+  pause 3000
+  useobject 0x476491c2
+  waitfortarget 3000
+  target 'Jake'
+  pause 3000
+  msg 'Jessie Come'
+  pause 3000
+  useobject 0x476491c2
+  waitfortarget 3000
+  target 'Jessie'
+  pause 3000
+  stop
+endif

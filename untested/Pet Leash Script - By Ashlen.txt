@@ -1,0 +1,18 @@
+if not findalias 'pet1'
+  headmsg 'Select first pet'
+  promptalias 'pet1'
+endif
+if not findalias 'pet2'
+  headmsg 'Select first pet'
+  promptalias 'pet2'
+endif
+if findobject 'pet1'
+  usetype 0x1374 'any' 'backpack'
+  waitfortarget 15000
+  target 'pet1'
+endif
+if findobject 'pet2'
+  usetype 0x1374 'any' 'backpack'
+  waitfortarget 15000
+  target 'pet2'
+endif

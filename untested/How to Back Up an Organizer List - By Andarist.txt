@@ -1,0 +1,41 @@
+Andarist26/07/2017
+I played a little with organizer
+Andarist26/07/2017
+found where it is stored - it is in your profile xml file
+I suggest after you create a new organizer and insert a gold in it. Then you close UO/UOS go to the Profile dir where UOS is installed an open your profile xml file in editor
+Somewhere should be a tag  <organizer> 
+below it you should find your freshly created one. it should look something like this:
+
+  <group name="NAME_OF_THE_ORGANIZER" target="XXXXXXXX" complete="False" source="XXXXXXXX" loop="False" stack="True">
+ <item graphic="0xeed" amount="0x0"/>
+  </group>
+
+if you insert below your newly created organizer there rows :
+<item amount="0x0" graphic="0x2b68"/>
+   <item amount="0x0" graphic="0x5748"/>
+   <item amount="0x0" graphic="0x182b"/>
+   <item amount="0x0" graphic="0xe2a"/>
+   <item amount="0x0" graphic="0xf19"/>
+   <item amount="0x0" graphic="0xf15"/>
+   <item amount="0x0" graphic="0xf10"/>
+   <item amount="0x0" graphic="0xf13"/>
+   <item amount="0x0" graphic="0xf16"/>
+   <item amount="0x0" graphic="0xf21"/>
+   <item amount="0x0" graphic="0xf2d"/>
+   <item amount="0x0" graphic="0xf25"/>
+   <item amount="0x0" graphic="0xf26"/>
+   <item amount="0x0" graphic="0xeed"/>
+   <item amount="0x0" graphic="0xf8d"/>
+   <item amount="0x0" graphic="0xf8c"/>
+   <item amount="0x0" graphic="0xf85"/>
+   <item amount="0x0" graphic="0xf84"/>
+   <item amount="0x0" graphic="0xf88"/>
+   <item amount="0x0" graphic="0xf86"/>
+   <item amount="0x0" graphic="0xf7b"/>
+   <item amount="0x0" graphic="0xf7a"/>
+you would have all the magery reagents, gems, gold and some specific items (et potions, goo, belt of fortune) I have found so far in the dungeon treasure chests
+start again uos/uo and you should be ok :smiley:
+if you have access to magic cloth deed - you should add it  in that organizer too
+I didint have - so it misses in my list
+you can use this list with the macro that @Mayor Lancaster  kindly provided to us, or just create a more simple version that just loots the allready unlocked and untrapped chest(like I did)
+and .. may be I should have started with this - do this only if you are confident editing xml files and make a BACKUP first!!!

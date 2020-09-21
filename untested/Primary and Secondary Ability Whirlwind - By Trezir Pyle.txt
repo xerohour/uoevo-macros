@@ -1,0 +1,48 @@
+Primary - Whirlwind 
+*************************
+if buffexists "blood oath"
+  cast 'remove curse'
+  waitfortarget 15000
+  target! 'self'
+  pause 500
+endif
+// make timer
+if not timerexists 'conwep'
+  createtimer 'conwep'
+endif
+// 1000 = 1 second this is 10sec delay if true reset it to 0 then do buffs
+if timer 'conwep' > 10000
+  settimer 'conwep' 0
+  cast 'consecrate weapon'
+  pause 500
+endif
+@getenemy  'enemy' 'murderer' 'criminal' 'gray' 'nearest' 'next'
+pause 8
+@setability 'Primary' 'on'
+attack 'enemy'
+pause 64
+
+------------------------------------------------
+Secondary Whirlwind
+**************************
+if buffexists "blood oath"
+  cast 'remove curse'
+  waitfortarget 15000
+  target! 'self'
+  pause 500
+endif
+// make timer
+if not timerexists 'conwep'
+  createtimer 'conwep'
+endif
+// 1000 = 1 second this is 10sec delay if true reset it to 0 then do buffs
+if timer 'conwep' > 10000
+  settimer 'conwep' 0
+  cast 'consecrate weapon'
+  pause 500
+endif
+@getenemy  'enemy' 'murderer' 'criminal' 'gray' 'nearest' 'next'
+pause 8
+@setability 'secondary' 'on'
+attack 'enemy'
+pause 64

@@ -1,0 +1,106 @@
+//Author: Brando
+//Title: Recalling Miner with Bag of Holding
+//Description: Recalling Miner. Must have a Bag of Holding, Ingots, and Tinker Tools.
+//All Books must have 16 runes to run properly!!
+//To add more books simply add 'Mine4' findalias and to pushlist
+//Add an organizer to move all ore types to bag of holding
+//Note will repeat a spot rarely depending on lag
+removelist 'Runes'
+removelist 'MineBook'
+@clearjournal
+if not @findobject 'Mine1'
+  promptalias 'Mine1'
+endif
+if not @findobject 'Mine2'
+  promptalias 'Mine2'
+endif
+//if not @findobject 'Mine3'
+//promptalias 'Mine3'
+//endif
+if not @findobject 'trash'
+  promptalias 'trash'
+endif
+if not listexists 'MineBook'
+  createlist 'MineBook'
+endif
+if list 'MineBook' == 0
+  pushlist 'MineBook' 'Mine1'
+  pushlist 'MineBook' 'Mine2'
+  //pushlist 'MineBook' 'Mine3'
+endif
+if @counttype '0x1eb8' 'any' 'backpack' <= 1
+  headmsg 'Making a backup Tinker Tool'
+  pause 800
+  usetype '0x1eb8'
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 8
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 23
+  waitforgump 0x38920abd 15000
+  closegump '0x38920abd'
+endif
+if not listexists 'Runes'
+  createlist 'Runes'
+endif
+if list 'Runes' == 0
+  pushlist 'Runes' 5
+  pushlist 'Runes' 11
+  pushlist 'Runes' 17
+  pushlist 'Runes' 23
+  pushlist 'Runes' 29
+  pushlist 'Runes' 35
+  pushlist 'Runes' 41
+  pushlist 'Runes' 47
+  pushlist 'Runes' 53
+  pushlist 'Runes' 59
+  pushlist 'Runes' 65
+  pushlist 'Runes' 71
+  pushlist 'Runes' 77
+  pushlist 'Runes' 83
+  pushlist 'Runes' 89
+  pushlist 'Runes' 95
+endif
+for 0 to 'MineBook'
+  for 0 to 'Runes'
+    pause 500
+    @clearjournal
+    pause 1500
+    useobject MineBook[]
+    waitforgump 0x554b87f3 5000
+    replygump 0x554b87f3 Runes[]
+    pause 4000
+    sysmsg 'Rune' 33
+    sysmsg Runes[] 33
+    pause 2000
+    for 32
+      if @counttype '0xf39' 'any' 'backpack' < 1
+        headmsg 'No Shovel Found'
+        pause 800
+        headmsg 'Making Shovel'
+        usetype '0x1eb8' 'any' 'backpack' '2'
+        waitforgump 0x38920abd 15000
+        replygump 0x38920abd 8
+        waitforgump 0x38920abd 15000
+        replygump 0x38920abd 72
+        waitforgump 0x38920abd 15000
+      endif
+      //use shovel to northern tile
+      pause 500
+      usetype '0xf39'
+      waitfortarget 1000
+      targettileoffset 0 -1 0
+      pause 1500
+    endfor
+    pause 1000
+    while counttype '0x19b7' 'any' 'backpack' > 1
+      movetype '0x19b7' 'backpack' 'trash'
+      pause 1000
+      waitforcontext 0x437314aa 0 15000
+      contextmenu 0x437314aa 1
+      pause 1000
+    endwhile
+    @organizer 'ore'
+    pause 1000
+  endfor
+  poplist 'Runes' 'front'
+endfor

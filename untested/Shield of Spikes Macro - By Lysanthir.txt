@@ -1,0 +1,21 @@
+if @injournal 'Shield of Spikes!' 'system'
+  if stam < 50
+    cast 'divine fury'
+    pause 500
+  endif
+  replygump 0x4239a64f 1004
+  waitforgump 0x4239a64f 15000
+  sysmsg 'SOS Rearmed' '1950'
+endif
+if @injournal 'You failed the augment skill check' 'system'
+  if stam < 50
+    cast 'divine fury'
+    pause 500
+  endif
+  replygump 0x4239a64f 1004
+  waitforgump 0x4239a64f 15000
+  sysmsg 'SOS Rearmed' '1950'
+endif
+@clearjournal
+
+//just add this to your whirlwind macro

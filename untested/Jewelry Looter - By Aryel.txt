@@ -1,0 +1,87 @@
+//Loot Jewelry
+if not @findobject 'LootBag'
+  headmsg 'Select Blue Loot Bag' 391 'self'
+  promptalias 'LootBag'
+endif
+if not listexists 'Jewelry'
+  createlist 'Jewelry'
+  pushlist 'Jewelry' 0x1085     // Necklace [Gold Beads]
+  pushlist 'Jewelry' 0x1086     // Bracelet [Gold]
+  pushlist 'Jewelry' 0x1087     // Earrings [Gold w/ Pear]
+  pushlist 'Jewelry' 0x1088     // Necklace [Gold w/ Pearl]
+  pushlist 'Jewelry' 0x1089     // Necklace [Gold Luxury]
+  pushlist 'Jewelry' 0x108a     // Ring [Gold]
+  pushlist 'Jewelry' 0x108b     // Beads
+  pushlist 'Jewelry' 0x1f05     // Bead Necklace [Silver]
+  pushlist 'Jewelry' 0x1f06     // Bracelet [Silver]
+  pushlist 'Jewelry' 0x1f07     // Earrings [Silver]
+  pushlist 'Jewelry' 0x1f08     // Necklace [Silver w/ Pearl]
+  pushlist 'Jewelry' 0x1f09     // Ring [Silver]
+  pushlist 'Jewelry' 0x1f0a     // Silver Necklace [Luxury]
+  pushlist 'Jewelry' 0x4210     // Gargish Necklace
+  pushlist 'Jewelry' 0x4211     // Gargish Bracelet
+  pushlist 'Jewelry' 0x4212     // Gargish Ring
+  pushlist 'Jewelry' 0x4213     // Gargish Earrings
+endif
+//Find Corpse
+if @findtype '0x2006' 'any' 'ground' '1' '2'
+  @setalias 'CorpseToLoot' 'found'
+  @setalias '0' 'CorpseToLoot'
+  @useobject '0'
+  //Locate Jewelry
+  for 0 to Jewelry
+    for 2
+      if @findtype Jewelry[] 0 '0'
+        @setalias 'Skills' 'found'
+        waitforproperties 'Skills' 3000
+        if @property 'Swordsmanship' 'Skills' >= 13
+          sysmsg 'Swords!' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 500
+        endif
+        if @property 'Parry' 'Skills' >= 13
+          sysmsg 'Parry!' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 500
+        endif
+        if @property 'Tactics' 'Skills' >= 13
+          sysmsg 'Tactics' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 500
+        endif
+        if @property 'Animal Taming' 'Skills' >= 13
+          sysmsg 'Taming' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 500
+        endif
+        if @property 'Archery' 'Skills' >= 13
+          sysmsg 'Archery' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 500
+        endif
+        if @property 'Anatomy' 'Skills' >= 13
+          sysmsg 'Anatomy' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 500
+        endif
+        if @property 'Bushido' 'Skills' >= 13
+          sysmsg 'Animal Lore' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 500
+        endif
+        if @property 'Animal Lore' 'Skills' >= 13
+          sysmsg 'Animal Lore' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 500
+        endif
+        if @property 'Evaluating Intelligence ' 'Skills' >= 13
+          sysmsg 'Evaluating Intelligence ' '1990'
+          @moveitem 'Skills' 'LootBag'
+          pause 500
+        endif
+      endif
+    endfor
+  endfor
+  @ignoreobject 'CorpseToLoot'
+  @unsetalias 'CorpseToLoot'
+endif

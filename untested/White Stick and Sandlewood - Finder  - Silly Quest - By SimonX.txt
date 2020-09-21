@@ -1,0 +1,116 @@
+Find White Stick and Sharpening Stone Macro:
+//Sharpening stone graphic: '0x1366', color: 'any'
+//Whitestick graphic: 0x13f8, color 1153, serial: 0x45383768
+while @findtype 0x13f8 1153 'ground' 1 50 or @findtype 0x1366 'any' 'ground' 1 50
+  if inrange 'found' 5
+    if @x 'found' > x 'self' and @y 'found' > y 'self'
+      headmsg 'Target is < 5 paces!! SOUTHEAST'
+      pause 1000
+    elseif @x 'found' < x 'self' and @y 'found' > y 'self'
+      headmsg 'Target is < 5 paces!! SOUTHWEST'
+      pause 1000
+    elseif @x 'found' > x 'self' and @y 'found' < y 'self'
+      headmsg 'Target is < 5 paces!! NORTHEAST'
+      pause 1000
+    elseif @x 'found' < x 'self' and @y 'found' < y 'self'
+      headmsg 'Target is < 5 paces!! NORTHWEST'
+      pause 1000
+    elseif @x 'found' > x 'self' and @y 'found' == y 'self'
+      headmsg 'Target is < 5 paces!! EAST'
+      pause 1000
+    elseif @x 'found' < x 'self' and @y 'found' == y 'self'
+      headmsg 'Target is < 5 paces!! WEST'
+      pause 1000
+    elseif @x 'found' == x 'self' and @y 'found' > y 'self'
+      headmsg 'Target is < 5 paces!! SOUTH'
+      pause 1000
+    elseif @x 'found' == x 'self' and @y 'found' < y 'self'
+      headmsg 'Target is < 5 paces!! NORTH'
+      pause 1000
+    endif
+elseif inrange 'found' 10
+    if @x 'found' > x 'self' and @y 'found' > y 'self'
+      headmsg 'Target is < 10 paces!! SOUTHEAST'
+      pause 1000
+    elseif @x 'found' < x 'self' and @y 'found' > y 'self'
+      headmsg 'Target is < 10 paces!! SOUTHWEST'
+      pause 1000
+    elseif @x 'found' > x 'self' and @y 'found' < y 'self'
+      headmsg 'Target is < 10 paces!! NORTHEAST'
+      pause 1000
+    elseif @x 'found' < x 'self' and @y 'found' < y 'self'
+      headmsg 'Target is < 10 paces!! NORTHWEST'
+      pause 1000
+    elseif @x 'found' > x 'self' and @y 'found' == y 'self'
+      headmsg 'Target is < 10 paces!! EAST'
+      pause 1000
+    elseif @x 'found' < x 'self' and @y 'found' == y 'self'
+      headmsg 'Target is < 10 paces!! WEST'
+      pause 1000
+    elseif @x 'found' == x 'self' and @y 'found' > y 'self'
+      headmsg 'Target is < 10 paces!! SOUTH'
+      pause 1000
+    elseif @x 'found' == x 'self' and @y 'found' < y 'self'
+      headmsg 'Target is < 10 paces!! NORTH'
+      pause 1000
+    endif
+elseif inrange 'found' 20
+    if @x 'found' > x 'self' and @y 'found' > y 'self'
+      headmsg 'Target is < 20 paces!! SOUTHEAST'
+      pause 1000
+    elseif @x 'found' < x 'self' and @y 'found' > y 'self'
+      headmsg 'Target is < 20 paces!! SOUTHWEST'
+      pause 1000
+    elseif @x 'found' > x 'self' and @y 'found' < y 'self'
+      headmsg 'Target is < 20 paces!! NORTHEAST'
+      pause 1000
+    elseif @x 'found' < x 'self' and @y 'found' < y 'self'
+      headmsg 'Target is < 20 paces!! NORTHWEST'
+      pause 1000
+    elseif @x 'found' > x 'self' and @y 'found' == y 'self'
+      headmsg 'Target is < 20 paces!! EAST'
+      pause 1000
+    elseif @x 'found' < x 'self' and @y 'found' == y 'self'
+      headmsg 'Target is < 20 paces!! WEST'
+      pause 1000
+    elseif @x 'found' == x 'self' and @y 'found' > y 'self'
+      headmsg 'Target is < 20 paces!! SOUTH'
+      pause 1000
+    elseif @x 'found' == x 'self' and @y 'found' < y 'self'
+      headmsg 'Target is < 20 paces!! NORTH'
+      pause 1000
+    endif
+elseif inrange 'found' 30
+    if @x 'found' > x 'self' and @y 'found' > y 'self'
+      headmsg 'Target is < 30 paces!! SOUTHEAST'
+      pause 1000
+    elseif @x 'found' < x 'self' and @y 'found' > y 'self'
+      headmsg 'Target is < 30 paces!! SOUTHWEST'
+      pause 1000
+    elseif @x 'found' > x 'self' and @y 'found' < y 'self'
+      headmsg 'Target is < 30 paces!! NORTHEAST'
+      pause 1000
+    elseif @x 'found' < x 'self' and @y 'found' < y 'self'
+      headmsg 'Target is < 30 paces!! NORTHWEST'
+      pause 1000
+    elseif @x 'found' > x 'self' and @y 'found' == y 'self'
+      headmsg 'Target is < 30 paces!! EAST'
+      pause 1000
+    elseif @x 'found' < x 'self' and @y 'found' == y 'self'
+      headmsg 'Target is < 30 paces!! WEST'
+      pause 1000
+    elseif @x 'found' == x 'self' and @y 'found' > y 'self'
+      headmsg 'Target is < 30 paces!! SOUTH'
+      pause 1000
+    elseif @x 'found' == x 'self' and @y 'found' < y 'self'
+      headmsg 'Target is < 30 paces!! NORTH'
+      pause 1000
+    endif
+  endif
+endwhile
+
+//Find Sandlewood:
+//Change the top of the white stick and sharpening stone macro to:
+//Sandlewood graphic: '0x18df', color: 1822
+//while @findtype 0x18df 1822 'ground' 1 50
+

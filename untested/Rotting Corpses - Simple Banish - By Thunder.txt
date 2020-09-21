@@ -1,0 +1,8 @@
+if not @findtype '0x9b' 'any' 'ground' '1' '4'
+  sysmsg ' **No RC Found**' '1'
+  stop
+else
+  msg '[cs banishevil'
+  waitfortarget 1000
+  target! 'found'
+endif

@@ -1,0 +1,23 @@
+//This is setup for use on stationary NPCs. Works best at Vendor Malls.
+//Use the Object Inspector to get the 'serial' of each NPC and replace
+//the target IDs below. You will need positive karma to train begging.
+useskill 'Begging'
+waitfortarget 15000
+target! 0x8a95a
+pause 13000
+useskill 'Begging'
+waitfortarget 15000
+target! 0x5e5fe5
+pause 13000
+useskill 'Begging'
+waitfortarget 15000
+target! 0x9f2da
+pause 13000
+useskill 'Begging'
+waitfortarget 15000
+target! 0x204cdb
+pause 13000
+useskill 'Begging'
+waitfortarget 15000
+target! 0x15be21
+pause 13000

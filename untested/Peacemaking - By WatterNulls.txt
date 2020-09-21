@@ -1,0 +1,63 @@
+//=================================================
+//== Train Peacemaking Macro
+//=================================================
+//== Check ==
+// You attempt to calm everyone, but fail.
+// You play hypnotic music..
+//------------------------------------------------
+//== Setup ==
+// Skill Delay
+if not @timerexists "skilldelay"
+  createtimer "skilldelay"
+  settimer "skilldelay" 12000
+endif
+// Message Delay
+if not @timerexists "msgdelay"
+  createtimer "msgdelay"
+  settimer "msgdelay" 6000
+endif
+//== Start ==
+// See if need training
+while skill "Peacemaking" < 100
+  // Search for a Lute (or anyother just change graphic below)
+  if @findtype 0xeb3 "any" "backpack"
+    if not @findalias "lute"
+      @setalias "lute" "found"
+      useobject! "found"
+      pause 2000
+    endif
+    if timer "msgdelay" > 5000
+      headmsg "Training Peacekeeping.." 70
+      settimer "msgdelay" 0
+    endif
+    // Peacekeep
+    if timer "skilldelay" > 11000
+      useskill "Peacemaking"
+      waitfortarget 5000
+      target! "self"
+      headmsg "Tunun nun nun, tarandan tan tan" 50
+      settimer "skilldelay" 0
+    endif
+    // Check journal for speed optimization success 5s failure 10s
+    pause 300
+    if @injournal "You play hypnotic music" "system" or @injournal "You play an hypnotic music" "system"
+      @clearjournal
+      settimer "skilldelay" 5000
+    endif
+    // Checks if lutes broke
+    if not @findobject "lute"
+      @unsetalias "lute"
+    endif
+  else
+    sysmsg "No Lute found." 38
+    break
+  endif
+endwhile
+if skill "Peacemaking" == 100
+  sysmsg "Simbol of Peace. [LvL.100]" 473
+  headmsg "Simbol of Peace. [LvL.100]" 473
+endif
+//== Clean Up ==
+@removetimer "msgdelay"
+@removetimer "skilldelay"
+@unsetalias "lute"

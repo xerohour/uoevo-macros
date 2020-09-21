@@ -1,0 +1,75 @@
+;==================================
+; Script Name:   Guild and alliance chat logger
+; Author: Thimotty
+; Version: 1.00
+; Client Tested with: 5.0.1f (patch 25)
+; EUO version tested with: EasyUO 1.5 Version 69
+; Shard OSI / FS: All
+; Revision Date:
+; Public Release:
+; Global Variables Used: No
+; Purpose: Keep Guild/Alliance chat.
+;==================================
+
+
+set %msgs 0
+set %text
+menu clear
+menu Activate testmenu
+menu Window Title #CHARNAME
+menu font bgcolor $111111
+menu window size 600 200
+menu window Alex helper
+menu font size 8
+menu window color $111111
+menu hideeuo
+menu font color $FFAA55
+menu font size 8
+menu show
+menu show 10 340
+loop:
+scanjournal 1
+if [Guild] in #JOURNAL || [Alliance] in #JOURNAL || <NEW> in #JOURNAL || <Public> in #JOURNAL
+   {
+   menu clear
+   menu font bgcolor $111111
+   menu font size 9
+   menu window color $111111
+   menu font color $FFAA55
+   menu font size 9
+   set %msgs %msgs + 1
+   set %msg . %msgs #JOURNAL
+   set %tmp1 %msgs - 30
+   if %tmp1 < 1
+      set %tmp1 1
+   set %a 195
+   for %temp %msgs %tmp1
+       {
+       set %a %a - 15
+       set %looting %msg . %temp
+       set %test1 %looting
+       begin:
+       str pos %test1 [Guild] 1
+       if #STRRES <> 0
+          {
+          set %n #STRRES
+          str del %test1 %n 7
+          set %test1 #STRRES
+          }
+       str pos %test1 _ 1
+       if #STRRES <> 0
+          {
+          set %n #STRRES
+          str del %test1 %n 1
+          str ins #STRRES #spc %n
+          set %test1 #STRRES
+          goto begin
+          }
+       menu text text1 10 %a %test1
+       }
+   deletejournal
+   }
+goto loop
+
+
+halt

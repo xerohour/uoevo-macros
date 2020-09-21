@@ -1,0 +1,15 @@
+for 10
+  getenemy! 'murderer' 'Enemy' 'criminal' 'innocent' 'gray' 'next'
+  autotargetenemy
+  useskill 'discordance'
+  pause 13000
+endfor
+useskill 'hiding'
+pause 17000
+useskill 'discordance'
+waitfortarget 1500
+targettype! 0xeb3 'any'
+getenemy! 'murderer' 'Enemy' 'criminal' 'innocent' 'gray' 'next'
+waitfortarget 1500
+target! 'enemy'
+

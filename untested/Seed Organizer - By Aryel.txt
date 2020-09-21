@@ -1,0 +1,16 @@
+if not @findalias 'seedbag1'
+  promptalias 'seedbag1'
+endif
+if not listexists 'seedstomove'
+  createlist 'seedstomove'
+  pushlist 'seedstomove' id1
+  pushlist 'seedstomove' id2
+  pushlist 'seedstomove' id3
+  pushlist 'seedstomove' id4
+  // ect...
+endif
+for 0 to seedstomove[]
+  if @findobject  seedstomove[]
+    @moveitem 'found' seedbag1
+  endif
+endfor

@@ -1,0 +1,7 @@
+headmsg "Test"
+promptalias test
+if property "Faster Cast Recovery" "test" > 1
+  headmsg "OMG ITS 1+"
+else
+  headmsg "Garbage" 38
+endif

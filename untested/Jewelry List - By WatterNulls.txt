@@ -1,0 +1,21 @@
+// Jewelrys
+if not listexists 'Jewelrys'
+    createlist 'Jewelrys'
+endif
+pushlist 'Jewelrys' 0x1085     // Necklace [Gold Beads]
+pushlist 'Jewelrys' 0x1086     // Bracelet [Gold]
+pushlist 'Jewelrys' 0x1087     // Earrings [Gold w/ Pear]
+pushlist 'Jewelrys' 0x1088     // Necklace [Gold w/ Pearl]
+pushlist 'Jewelrys' 0x1089     // Necklace [Gold Luxury]
+pushlist 'Jewelrys' 0x108a     // Ring [Gold]
+pushlist 'Jewelrys' 0x108b     // Beads
+pushlist 'Jewelrys' 0x1f05     // Bead Necklace [Silver]
+pushlist 'Jewelrys' 0x1f06     // Bracelet [Silver]
+pushlist 'Jewelrys' 0x1f07     // Earrings [Silver]
+pushlist 'Jewelrys' 0x1f08     // Necklace [Silver w/ Pearl]
+pushlist 'Jewelrys' 0x1f09     // Ring [Silver]
+pushlist 'Jewelrys' 0x1f0a     // Silver Necklace [Luxury]
+pushlist 'Jewelrys' 0x4210     // Gargish Necklace
+pushlist 'Jewelrys' 0x4211     // Gargish Bracelet
+pushlist 'Jewelrys' 0x4212     // Gargish Ring
+pushlist 'Jewelrys' 0x4213     // Gargish Earrings

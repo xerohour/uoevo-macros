@@ -1,0 +1,29 @@
+//================= Auto Add Friends to Party ====================
+
+// Friends Serials List
+if not @listexists "myfriends"
+    createlist "myfriends"
+else 
+    @clearlist "myfriends"
+endif
+//-------- Friends IDs List ----------
+pushlist "myfriends" 0x1eb468
+pushlist "myfriends" 0xsomeoneelse
+
+//------------------------------------
+
+// Loop Checks for invites
+for 0 to myfriends
+    if @findobject myfriends[] "any" "ground" 1 4
+        if @inparty myfriends[]
+            //just ignore
+        else
+            //invite
+            waitforcontext myfriends[] 1 5000
+            headmsg 'Here I am' '35' myfriends[]
+        endif
+    endif
+endfor
+
+// Wait a bit
+pause 1000

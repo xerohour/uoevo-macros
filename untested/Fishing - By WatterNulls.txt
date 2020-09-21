@@ -1,0 +1,356 @@
+//==================== Train Fishing Macro =======================
+// Fishing Pole: 0xdc0
+// Fishes ID: 0x9cc, 0x9cf, 0x9cd, 0x9ce
+// Dagger: 0xf52
+// Footwear Junk:
+//      - Thigh Boots: 0x1711           - Sandals: 0x170d
+//      - Boots: 0x170b                 - Shoes: 0x170f
+//---------------------- Messages --------------------------------
+// "The fish don't seem to be biting here."
+//
+//================================================================
+//                 N                *** Axis Calculation *** 
+//                 |                 N = +Y axis 
+//             NW  |  NE             S = -Y axis 
+//               \ | /               W = +X axis
+//         W ----- x ----- E         E = -X axis
+//               / | \               NW = -X +Y axis 
+//             SW  |  SE             NE = +X +Y axis
+//                 |                 SW = -X -Y axis  
+//                 S                 SE = +X -Y axis    
+//================================================================
+//== Checks ==
+
+// Have Dagger
+if @findtype 0xf52 "any" "backpack"
+	if not @findalias "dagger" or not @findobject "dagger"
+		setalias "dagger" "found"
+	endif
+else 
+	sysmsg "Please get an dagger." 38
+	stop
+endif
+
+// Dismount if mounted
+if mounted "self"
+	useobject "self"
+	msg "All Follow Me"
+endif
+
+// Weight
+if weight >= 500
+	sysmsg "We reached weight limit, please unload." 38
+	headmsg "We reached weight limit, please unload." 38
+	stop
+endif
+
+if @injournal 'That container' 'system'
+	msg '[e scream'
+	headmsg 'Damn, I be full of Fish' '1888'
+	@clearjournal
+	stop
+endif
+
+//== Setup ==
+
+// Prompt a Trash or Trash 4 Token Bag
+if not @findalias "t4tbag"
+	sysmsg "Please select a Trash 4 Token (or Trash) bag to clear junk." 55
+	promptalias "t4tbag"
+endif
+
+// Create a list with fish types
+if not @listexists "fishlist"
+	createlist "fishlist"
+	pushlist "fishlist" 0x9cc
+	pushlist "fishlist" 0x9cf
+	pushlist "fishlist" 0x9cd
+	pushlist "fishlist" 0x9ce
+endif
+
+// Create a list with junk types
+if not @listexists "junklist"
+	createlist "junklist"
+	pushlist "junklist" 0x1711
+	pushlist "junklist" 0x170b
+	pushlist "junklist" 0x170d
+	pushlist "junklist" 0x170f
+endif
+
+// Creates a list to track last walk direction
+if not @listexists "lastwalkdirection"
+	createlist "lastwalkdirection"
+endif
+
+// Creates a list to track last faced direction
+if not @listexists "lastfaceddirection"
+	createlist "lastfaceddirection"
+endif
+
+// Creates a fishing timer delay
+if not @timerexists "fishingdelay"
+	createtimer "fishingdelay"
+	settimer "fishingdelay" 11000
+endif
+
+// Creates a message timer delay
+if not @timerexists "msgdelay"
+	createtimer "msgdelay"
+	settimer "msgdelay" 9000
+endif
+
+//== Start ==
+if skill "Fishing" < 100
+	// Searchs for a fishing rod
+	if @findtype 0xdc0 "any" "self" or @findtype 0xdc0 "any" "backpack" 
+		// save its ID if found
+		if not @findalias "fishingrod"
+			setalias "fishingrod" "found"
+		endif
+		
+		// Message Training
+		if timer "msgdelay" > 8000
+			headmsg "Training fishing.." 70
+			settimer "msgdelay" 0
+		endif
+		
+		// Get Facing Direction and Fish in front
+		if timer "fishingdelay" > 10000
+			useobject "fishingrod"
+			waitfortarget 3000
+			// North
+			if direction == 0
+				targettileoffset 0 3 0
+				// Save faced direction
+				if not @inlist "lastfaceddirection" "North" or list "lastfaceddirection" > 1
+					@clearlist "lastfaceddirection"
+					pushlist "lastfaceddirection" "North"
+				endif
+			 // North-East
+			elseif direction == 1
+				targettileoffset 3 3 0
+				// Save faced direction
+				if not @inlist "lastfaceddirection" "North-East" or list "lastfaceddirection" > 1
+					@clearlist "lastfaceddirection"
+					pushlist "lastfaceddirection" "North-East"
+				endif
+			 // East
+			elseif direction == 2
+				targettileoffset 3 0 0
+				// Save faced direction
+				if not @inlist "lastfaceddirection" "East" or list "lastfaceddirection" > 1
+					@clearlist "lastfaceddirection"
+					pushlist "lastfaceddirection" "East"
+				endif
+			// South-East
+			elseif direction == 3
+				targettileoffset 3 -3 0
+				// Save faced direction
+				if not @inlist "lastfaceddirection" "South-East" or list "lastfaceddirection" > 1
+					@clearlist "lastfaceddirection"
+					pushlist "lastfaceddirection" "South-East"
+				endif
+			// South
+			elseif direction == 4
+				targettileoffset 0 -3 0
+				// Save faced direction
+				if not @inlist "lastfaceddirection" "South" or list "lastfaceddirection" > 1
+					@clearlist "lastfaceddirection"
+					pushlist "lastfaceddirection" "South"
+				endif
+			// South-West
+			elseif direction == 5
+				targettileoffset -3 -3 0
+				// Save faced direction
+				if not @inlist "lastfaceddirection" "South-West" or list "lastfaceddirection" > 1
+					@clearlist "lastfaceddirection"
+					pushlist "lastfaceddirection" "South-West"
+				endif
+			// West
+			elseif direction == 6
+				targettileoffset -3 0 0
+				// Save faced direction
+				if not @inlist "lastfaceddirection" "West" or list "lastfaceddirection" > 1
+					@clearlist "lastfaceddirection"
+					pushlist "lastfaceddirection" "West"
+				endif
+			// North-West
+			elseif direction == 7 
+				targettileoffset -3 3 0
+				// Save faced direction
+				if not @inlist "lastfaceddirection" "North-West" or list "lastfaceddirection" > 1
+					@clearlist "lastfaceddirection"
+					pushlist "lastfaceddirection" "North-West"
+				endif
+			endif
+			settimer "fishingdelay" 0
+			
+			// Waits a lil bit
+			pause 500
+			
+			// Checks for targeting issues
+			if @injournal "Target can not be seen." "system"
+				@clearjournal
+				headmsg "Targetting error, stoping macro." 38
+				stop
+			endif
+			
+			// Checks for fish bitting message and move to new spot
+			if @injournal "The fish don't seem to be biting here." "system"
+				@clearjournal
+				sysmsg "Moving to new Spot." 150
+				headmsg "Dry Spot. Moving.." 500
+				// Get facing direction and move
+				// North
+				if direction == 0
+					if list "lastwalkdirection" < 1 or @inlist "lastwalkdirection" "East" 
+						@clearlist "lastwalkdirection"
+						pushlist "lastwalkdirection" "West"
+					else 
+						@clearlist "lastwalkdirection"
+						pushlist "lastwalkdirection" "East"
+					endif
+				// North-East
+				elseif direction == 1
+					if list "lastwalkdirection" < 1 or @inlist "lastwalkdirection" "South-East" 
+						@clearlist "lastwalkdirection"
+						pushlist "lastwalkdirection" "North-West"
+					else 
+						@clearlist "lastwalkdirection"
+						pushlist "lastwalkdirection" "South-East"
+					endif
+				// East
+				elseif direction == 2
+					if list "lastwalkdirection" < 1 or @inlist "lastwalkdirection" "South" 
+						@clearlist "lastwalkdirection"
+						pushlist "lastwalkdirection" "North"
+					else 
+						@clearlist "lastwalkdirection"
+						pushlist "lastwalkdirection" "South"
+					endif
+				// South-East
+				elseif direction == 3
+					if list "lastwalkdirection" < 1 or @inlist "lastwalkdirection" "South-West" 
+						@clearlist "lastwalkdirection"
+						pushlist "lastwalkdirection" "North-East"
+					else 
+						@clearlist "lastwalkdirection"
+						pushlist "lastwalkdirection" "South-West"
+					endif
+				// South
+				elseif direction == 4
+					if list "lastwalkdirection" < 1 or @inlist "lastwalkdirection" "West" 
+						@clearlist "lastwalkdirection"
+						pushlist "lastwalkdirection" "East"
+					else 
+						@clearlist "lastwalkdirection"
+						pushlist "lastwalkdirection" "West"
+					endif
+				// South-West
+				elseif direction == 5
+					if list "lastwalkdirection" < 1 or @inlist "lastwalkdirection" "North-West" 
+						@clearlist "lastwalkdirection"
+						pushlist "lastwalkdirection" "South-East"
+					else 
+						@clearlist "lastwalkdirection"
+						pushlist "lastwalkdirection" "North-West"
+					endif
+				// West
+				elseif direction == 6
+					if list "lastwalkdirection" < 1 or @inlist "lastwalkdirection" "North" 
+						@clearlist "lastwalkdirection"
+						pushlist "lastwalkdirection" "South"
+					else 
+						@clearlist "lastwalkdirection"
+						pushlist "lastwalkdirection" "North"
+					endif
+				// North-West
+				elseif direction == 7 
+					if list "lastwalkdirection" < 1 or @inlist "lastwalkdirection" "North-East" 
+						@clearlist "lastwalkdirection"
+						pushlist "lastwalkdirection" "South-West"
+					else 
+						@clearlist "lastwalkdirection"
+						pushlist "lastwalkdirection" "North-East"
+					endif
+				endif
+				
+				// Make moves
+				turn lastwalkdirection[0]
+				pause 500
+				for 0 to 8
+					walk lastwalkdirection[0]
+					pause 1000
+				endfor
+				turn lastfaceddirection[0]
+				pause 500
+			endif
+		endif
+		
+		// Turn fish into steak if any
+		for 0 to fishlist
+			if @findtype fishlist[] "any" "backpack"
+				useobject! "dagger"
+				waitfortarget 1000
+				target! "found"
+				pause 300
+			endif
+		endfor
+		
+		// Move Junk to Trash if any
+		for 0 to junklist
+			if @findtype junklist[] 0 "backpack"
+				sysmsg "Moving junk to trash.." 50
+				while @findtype junklist[] 0 "backpack"
+					moveitem! "found" "t4tbag"
+					ignoreobject "found"
+					pause 600
+				endwhile
+				waitforcontext "t4tbag" 0 1000
+			endif
+		endfor
+		@clearignorelist
+	else
+		sysmsg "No Fishing Rod found." 38
+		headmsg "No Fishing Rod found." 38
+		stop
+	endif
+endif
+
+// Fishing Master
+if skill "Fishing" >= 100
+	sysmsg "Fishing Master. [LvL.100]" 473
+	headmsg "Fishing Master. [LvL.100]" 473
+	
+	//== Clean Up ==
+	@unsetalias "fishingrod"
+	@unsetalias "dagger"
+	@unsetalias "t4tbag"
+	
+	@removelist "fishlist"
+	@removelist "lastfaceddirection"
+	@removelist "lastwalkdirection"
+	
+	@removetimer "fishingdelay"
+	@removetimer "msgdelay"
+	stop
+endif
+
+// Also Trains Hiding
+if skill "Hiding" < 100
+	if not @timerexists "skilldelay"
+		createtimer "skilldelay"
+		settimer "skilldelay" 12000
+	endif
+	
+	if timer "skilldelay" > 11000
+		headmsg "Shhhhhs" 10
+		useskill "Hiding"
+		settimer "skilldelay" 0
+	endif
+else
+	if @timerexists "skilldelay"
+		removetimer "skilldelay"
+	endif
+endif
+

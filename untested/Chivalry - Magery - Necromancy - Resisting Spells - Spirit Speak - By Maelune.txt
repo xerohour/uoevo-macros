@@ -1,0 +1,118 @@
+////////////////////////////////////////////////////
+//This macro makes use of a full Magery spellbook,//
+//Necromancer spellbook, and Chivalry spellbook.///
+//And lastly, a 100% LRC suit.                  //
+///////////////////////////////////////////////////
+//If you do not want to train Chivalry, change the '<' to a '>' on the following line
+while skill 'chivalry' < 100
+  if mana 'self' < 20
+    useskill 'meditation'
+    while mana < maxmana
+    endwhile
+  else
+    if skill 'Chivalry' < 30
+      headmsg 'Buy more skill!'
+      stop
+    elseif skill 'Chivalry' < 45
+      cast "Consecrate Weapon"
+      pause 2100
+    elseif skill 'Chivalry' < 60
+      cast "Divine Fury"
+      pause 2100
+    elseif skill 'Chivalry' < 70
+      cast "Enemy of One"
+      pause 2100
+    elseif skill 'Chivalry' < 90
+      cast "Holy Light"
+      pause 2100
+    elseif skill 'Chivalry' < 100
+      cast "Noble Sacrifice"
+      pause 3000
+    endif
+  endif
+endwhile
+//If you do not want to train Magery, change the '<' to a '>' on the following line
+while skill 'magery' < 100
+  if mana 'self' < 45
+    useskill 'meditation'
+    while mana < maxmana
+    endwhile
+  else
+    if skill 'magery' < 30
+      headmsg 'Buy more skill!'
+      stop
+    elseif skill 'magery' < 45
+      cast 'bless' 'self'
+      pause 2000
+    elseif skill 'magery' < 55
+      cast 'mana drain' 'self'
+      pause 2000
+    elseif skill 'magery' < 75
+      cast 'invisibility' 'self'
+      while waitingfortarget
+      endwhile
+      pause 2000
+    elseif skill 'magery' < 100
+      cast 'mana vampire' 'self'
+      pause 2000
+    endif
+  endif
+endwhile
+//If you do not want to train Reisting Spells, change the '<' to a '>' on the following line
+while skill 'Resisting Spells' < 100
+  if mana 'self' < 40
+    useskill 'meditation'
+    while mana < maxmana
+    endwhile
+  else
+    cast 'curse' 'self'
+    pause 1000
+  endif
+endwhile
+//If you do not want to train necromancy, change the '<' to a '>' on the following line
+while skill 'Necromancy' < 100
+  if mana < 25
+    useskill 'meditation'
+    while mana < maxmana
+    endwhile
+  endif
+  if skill 'Necromancy' < 30
+    cast "Curse Weapon"
+    waitfortarget 1600
+  elseif skill 'Necromancy' < 50
+    cast "Wraith Form"
+    waitfortarget 1600
+  elseif skill 'Necromancy' < 71
+    cast "Horrific Beast"
+    waitfortarget 1600
+  elseif skill 'Necromancy' < 81
+    //The following if statement prevents you from saying in Horrific Beast
+    if @injournal 'You cannot cast that spell in this form' 'system'
+      clearjournal
+      cast "Horrific Beast"
+    endif
+    cast "Wither"
+    waitfortarget 1600
+  elseif skill 'Necromancy' < 100
+    cast "Lich Form"
+    waitfortarget 1600
+  endif
+endwhile
+//The following statement prevents you from remaining in Lich Form
+//This is only important if you intend on being AFK while training necromancy
+//if skill 'Necromancy' == 100
+//cast 'Wraith Form'
+//pause 2500
+//cast 'Wraith Form'
+//endif
+//If you do not want to train Spirit Speak, change the '<' to a '>' on the following line
+while skill 'Spirit Speak' < 100
+  if mana 'self' > 30
+    useskill 'Spirit Speak'
+    pause 13000
+  elseif mana 'self' <= 30
+    useskill 'Meditation'
+    while mana < maxmana
+    endwhile
+  endif
+endwhile

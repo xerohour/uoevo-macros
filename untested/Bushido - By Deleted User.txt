@@ -1,0 +1,21 @@
+while skill "Bushido" < 120
+    if hits < 80
+        useskill 'Spirit Speak'
+        pause 5000
+        while hits < 80
+        endwhile
+    endif
+    if skill "Bushido" < 60
+        cast "Confidence"
+        pause 7000
+    elseif skill "Bushido" < 75
+        cast "Counter Attack"
+        pause 7000
+    elseif skill "Bushido" < 97.5
+        cast "Evasion"
+        pause 7000
+    elseif skill "Bushido" < 120
+        cast "Momentum Strike"
+        pause 7000 
+    endif
+endwhile

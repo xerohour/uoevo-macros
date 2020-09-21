@@ -1,0 +1,9 @@
+@Getenemy 'murderer' 'Enemy' 'criminal' 'gray' 'closest'
+if @findobject 'enemy'
+  autotargetobject! 'enemy'
+  setability 'secondary' 'on'
+  attack! 'enemy'
+  pause 100
+endif
+@clearusequeue
+@cancelautotarget

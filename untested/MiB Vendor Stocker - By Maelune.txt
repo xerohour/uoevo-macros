@@ -1,0 +1,40 @@
+//MiB Vendor Stocker
+//Created by: Maelune
+//Stocks vendor with pouches containing 10 MiBs
+//Prices 10xMiBs @60,000g
+//Sets container with MiBs
+if not findalias 'From'
+  promptalias 'From'
+endif
+//Sets container with Pouches
+if not findalias 'Pouches'
+  promptalias 'Pouches'
+endif
+//Opens both the Pouches and MiBs containers, then deposits from backpack.
+//redacted stuff that doesn't matter
+//Opens Vendor Inventory if at least 10 MiBs in MiB container
+if counttype 0x99f 'any' 'From' > 9
+  useobject 0xcf0d7
+  waitforgump 0x2f815e5c 15000
+  replygump 0x2f815e5c 1
+  pause 1000
+endif
+//Runs stocking until less than a full 10 set of MiBs remains
+while counttype 0x99f 'any' 'From' > 10
+  if not findalias 'To'
+    findtype 0xe79 'any' 'Pouches'
+    setalias 'To' found
+    if not findalias 'To'
+      clearjournal
+      stop
+    endif
+  endif
+  pause 200
+  movetype 0x99f From To
+  pause 1000
+//Redacted stuff that doesn't matter
+  pause 1150
+  promptmsg '60000'
+  ignoreobject 'To'
+  unsetalias 'To'
+endwhile

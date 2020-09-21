@@ -1,0 +1,77 @@
+// Starts
+// Lockping
+if skill 'Lockpicking' < 100
+	// Searchs for a lockick
+	if @findtype 0x14fc "any" "backpack"
+		setalias "lockpick" "found"
+	else
+		sysmsg "No Lockpick found." 38
+		headmsg "No Lockpicks" 38
+		stop
+	endif
+	// Pick Locks
+	@useobject! "lockpick"
+	waitfortarget 5000
+	if skill 'Lockpicking' > 20 and skill 'Lockpicking' < 30
+		headmsg 'Picking Very Easy Chest..'
+		//  Easy Chest
+		target! 0x422a6716 
+	elseif skill 'Lockpicking' < 40
+		headmsg 'Picking Easy Chest..'
+		//  Easy Chest
+		target! 0x404b8cc1
+	elseif skill 'Lockpicking' < 50
+		headmsg 'Picking Medium Chest..'
+		// Medium Chest
+		target! 0x405ceb71
+	elseif skill 'Lockpicking' < 60
+		headmsg 'Picking Medium Hard Chest..'
+		// Medium Hard Chest
+		target! 0x405ced38
+		// Move
+		if @injournal "That is too far away." "system"
+			@clearjournal
+			walk "West"
+		endif
+	elseif skill 'Lockpicking' < 70
+		headmsg 'Picking Hard Chest..'
+		// Hard Chest
+		target! 0x405cee53
+		// Move
+		if @injournal "That is too far away." "system"
+			@clearjournal
+			walk "West"
+		endif
+	elseif skill 'Lockpicking' < 80
+		headmsg 'Picking Very Hard Chest..'
+		// Very Hard Chest
+		target! 0x405cef6e
+	elseif skill 'Lockpicking' < 90
+		headmsg 'Picking Very Very Hard Chest..'
+		// Very Very Hard Chest
+		target! 0x405cf09f
+		// Move
+		if @injournal "That is too far away." "system"
+			@clearjournal
+			walk "East"
+		endif
+	elseif skill 'Lockpicking' < 100
+		headmsg 'Picking Almost Impossible Chest..'
+		// Almost Impossible Chest
+		target! 0x405cf1c4
+		// Move
+		if @injournal "That is too far away." "system"
+			@clearjournal
+			walk "East"
+		endif
+	endif
+	// Wait a bit
+	pause 1500
+else
+	// Yay Grand Master :D
+	headmsg "Hahahaha. Where are your God's now? *--* [LvL.100]" 473
+	stop
+endif
+// Clean Up
+@canceltarget
+@cleartargetqueue

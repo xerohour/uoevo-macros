@@ -1,0 +1,29 @@
+while skill 'chivalry' < 100
+  if mana 'self' < 20
+    useskill 'meditation'
+    while mana < maxmana
+    endwhile
+  else
+    if skill 'Chivalry' < 30
+      headmsg 'Buy more skill!'
+      stop
+    elseif skill 'Chivalry' < 45
+      cast "Consecrate Weapon"
+      pause 2100
+    elseif skill 'Chivalry' < 60
+      cast "Divine Fury"
+      pause 2100
+    elseif skill 'Chivalry' < 70
+      cast "Enemy of One"
+      pause 2100
+    elseif skill 'Chivalry' < 90
+      cast "Holy Light"
+      pause 2100
+    elseif skill 'Chivalry' < 100
+      cast "Noble Sacrifice"
+      pause 3000
+    endif
+  endif
+endwhile
+
+//No need to put it on loop

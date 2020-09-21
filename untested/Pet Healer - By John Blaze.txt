@@ -1,0 +1,263 @@
+; BlaZin' Pet FightR
+; by BlaZe Budd
+set %version 1.2.1a ; Completed 9/22/09
+;
+; How to use: Hit play
+; Click Add
+; Choose a target (or 5)
+; The rest is self-explanitory
+;
+;;;;; ;;;;; ;;;;; ;;;;; ;;;;;
+set %spells cleric
+; Use Cleric, Chivalry or Magery spells
+set %recov 0
+; Preset casting delay, 20 = 1 second
+; The script will automatically determine your
+; delay if you don't wish to fiddle with this.
+;;;;; ;;;;; ;;;;; ;;;;; ;;;;;
+; No need to edit below here
+;;;;; ;;;;; ;;;;; ;;;;; ;;;;;
+set %pets 0
+set #lpc 50
+set #menuButton N/A
+goSub menu %pets
+menu hideEUO
+menu show
+loop:
+if #menuButton = closed
+halt
+if #menuButton = addPet 2
+set #menuButton N/A
+goSub addPet
+if #menuButton = allKill 2
+set #menuButton N/A
+event macro 1 0 all kill
+if #menuButton = allGuard 2
+set #menuButton N/A
+event macro 1 0 all guard
+if #menuButton = allFollow 2
+set #menuButton N/A
+event macro 1 0 all follow
+if #menuButton = allCome 2
+set #menuButton N/A
+event macro 1 0 all come
+if #menuButton = allStay 2
+set #menuButton N/A
+event macro 1 0 all stay
+if #menuButton = allStop 2
+set #menuButton N/A
+event macro 1 0 all stop
+for %pet 1 %pets
+{
+if #menuButton = kill . %pet 2
+set #menuButton N/A
+event macro 1 0 %petName . %pet kill
+if #menuButton = guard . %pet 2
+set #menuButton N/A
+event macro 1 0 %petName . %pet guard
+if #menuButton = follow . %pet 2
+set #menuButton N/A
+event macro 1 0 %petName . %pet follow
+if #menuButton = come . %pet 2
+set #menuButton N/A
+event macro 1 0 %petName . %pet come
+if #menuButton = stay . %pet 2
+set #menuButton N/A
+event macro 1 0 %petName . %pet stay
+if #menuButton = stop . %pet 2
+set #menuButton N/A
+event macro 1 0 %petName . %pet stop
+if #menuButton = aids . %pet 2
+set #menuButton N/A
+goSub aids %petID . %pet
+if #scnt2 > %recov
+{
+if #menuButton = heal . %pet 2
+set #menuButton N/A
+goSub cast heal %petID . %pet
+if #menuButton = boon . %pet 2
+set #menuButton N/A
+goSub cast boon %petID . %pet
+if #menuButton = cure . %pet 2
+set #menuButton N/A
+goSub cast cure %petID . %pet
+if #menuButton = Stats . %pet 2
+set #menuButton N/A
+event macro 1 0 %petName . %pet stats
+}
+}
+goto loop
+;;;;; ;;;;; ;;;;; ;;;;; ;;;;;
+sub menu
+if %menu
+goto newPet
+menu clear
+menu window size 360 222
+menu window title BlaZin' Pet FightR v %version
+menu window color black
+menu font bgColor black
+menu font color red
+menu font size 9
+menu font style u
+menu text txt 5 4 ¤ ALL ¤
+menu font style b
+menu button addPet 0 150 50 50 Add
+menu font color purple
+menu button allKill 0 24 50 18 Kill
+menu button allGuard 0 42 50 18 Guard
+menu font color white
+menu button allFollow 0 60 50 18 Follow
+menu button allCome 0 78 50 18 Come
+menu font color purple
+menu button allStay 0 96 50 18 Stay
+menu button allStop 0 114 50 18 Stop
+set %menu #true
+if %1 = 0
+return
+newPet:
+set %x ( 60 * ( %1 - 1 ) ) + 60
+menu font style b
+menu font color white
+menu button kill . %1 %x 24 60 18 Kill
+menu button guard . %1 %x 42 60 18 Guard
+menu font color purple
+menu button follow . %1 %x 60 60 18 Follow
+menu button come . %1 %x 78 60 18 Come
+menu font color white
+menu button stay . %1 %x 96 60 18 Stay
+menu button stop . %1 %x 114 60 18 Stop
+menu font color yellow
+menu button heal . %1 %x 132 60 18 MageHeal
+menu button cure . %1 %x 168 60 18 MageCure
+menu font color green
+menu button boon . %1 %x 150 60 18 ChivCure
+menu button aids . %1 %x 186 60 18 Bandaids
+menu button stats . %1 %x 203 60 18 Stats
+menu font style i
+menu edit name . %1 %x 0 60 +++++++
+return
+;;;;; ;;;;; ;;;;; ;;;;; ;;;;;
+sub addPet
+if %pets = 5
+return
+set %pets %pets + 1
+goSub menu %pets
+set #targCurs 1
+targ:
+if #targCurs = 1
+goto targ
+set %petID . %pets #lTargetID
+goSub GetName #lTargetID name
+set %petName . %pets %name
+menu delete name . %pets
+menu font color red
+menu edit name . %pets %x 0 60 %petName . %pets
+menu font size 9
+return
+;;;;; ;;;;; ;;;;; ;;;;; ;;;;;
+sub cast
+set #lTargetID %2
+set #lTargetKind 1
+deleteJournal
+if boon in %1
+event macro 15 201
+if heal in %1
+{
+if cleric in %spells
+event macro 15 28
+if chiv in %spells
+event macro 15 202
+if mage in %spells
+event macro 15 28
+}
+if cure in %1
+{
+if cleric in %spells
+event macro 15 24
+if chiv in %spells
+event macro 15 201
+if mage in %spells
+event macro 15 24
+}
+set #targCurs 0
+goSub journal
+if pass in #result
+{
+target
+event macro 22 0
+set #scnt2 0
+return
+}
+if recov in #result
+{
+set %recov %recov + 5
+event ExMsg #charID 3 33 + Cast Delay: %recov +
+}
+return
+;;;;; ;;;;; ;;;;; ;;;;; ;;;;;
+sub aids
+set #lTargetID %1
+deleteJournal
+finditem ZLF C_ ;looks for a nearby bandaid, limited to the player's backpack
+set #lobjectid #findid
+event macro 17 0
+gosub journal
+if fail in #result
+return
+aidsLoop:
+findItem %1 G_
+if #findKind = -1
+event exMsg #charID 3 33 Target not found!
+if #findDist > 1
+{
+event pathFind #findX #findY
+wait 5
+goto aidsLoop
+}
+if #findDist < 2
+event macro 22
+return
+;;;;; ;;;;; ;;;;; ;;;;; ;;;;;
+sub journal
+set #scnt 0
+journalLoop:
+if #targCurs = 1
+return pass
+for %scan 1 3
+{
+scanJournal %scan
+if not_yet_recovered in #journal
+return recov
+if mana_required_for_this_spell in #journal
++ || spell_fizzles in #journal || Cannot_find_bandage in #journal
++ || spell_while_frozen in #journal || already_casting_a_spell in #journal
++ || Your_concentration_is_disturbed in #journal || that_spell_in_this_form in #journal
++ || Speak_to_invoke_this_prayer in #journal || spell_fizzles in #journal
++ || Piety_to_invoke_this_prayer in #journal || More_reagents_are_needed in #journal
++ || beneficial_acts_on_your in #journal || #scnt > 4
+return fail
+}
+wait 1
+goto journalLoop
+;;;;; ;;;;; ;;;;; ;;;;; ;;;;;
+;**
+;* @name GetName
+;* @author Roadkill
+;* @ver 1.0 24Jan04
+;* @purpose get the name of a creature/vendor
+;* @params %1= the id of the thing whose name you want, required
+;* @%2= variable name to return the ID in, required
+;* @returns @%2 and #result
+;* @changes #property, #strres, @%2, !strlength
+;* @example call rksubs.txt GetName %beetle beetlename
+;* @status: tested
+sub GetName
+finditem %1
+if #findkind = -1
+return error-cant_find
+event property #findid
+str pos #property $
+set !strlength #strres - 2
+str left #property !strlength
+set % . %2 #strres
+return % . %2

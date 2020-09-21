@@ -1,0 +1,77 @@
+if counttype '0xe9b' '0' '0x44a4aacc' <= 0
+  //MortarMaker
+  usetype '0x1eb8'
+  waitforgump 0x38920abd 1500
+  replygump 0x38920abd 8
+  waitforgump 0x38920abd 1500
+  replygump 0x38920abd 9
+  pause 200
+else
+  usetype '0xe9b'
+  if skill 'Alchemy' <= 45
+    //Agility Potion
+    waitforgump 0x38920abd 1500
+    replygump 0x38920abd 8
+    waitforgump 0x38920abd 1500
+    replygump 0x38920abd 2
+    pause 200
+  else
+    if skill 'Alchemy' <= 55
+      //Strength Potion
+      waitforgump 0x38920abd 1500
+      replygump 0x38920abd 29
+      waitforgump 0x38920abd 1500
+      replygump 0x38920abd 2
+      pause 200
+    else
+      if skill 'Alchemy' <= 65
+        //Greater Agility Potion
+        waitforgump 0x38920abd 1500
+        replygump 0x38920abd 8
+        waitforgump 0x38920abd 1500
+        replygump 0x38920abd 9
+      else
+        if skill 'Alchemy' <= 75
+          //Greater Strength Potion
+          waitforgump 0x38920abd 1500
+          replygump 0x38920abd 29
+          waitforgump 0x38920abd 1500
+          replygump 0x38920abd 9
+        else
+          if skill 'Alchemy' <= 85
+            //Greater Heal Potion
+            waitforgump 0x38920abd 1500
+            replygump 0x38920abd 22
+            waitforgump 0x38920abd 1500
+            replygump 0x38920abd 16
+          else
+            if skill 'Alchemy' <= 95
+              //Greater Cure Potion
+              waitforgump 0x38920abd 1500
+              replygump 0x38920abd 43
+              waitforgump 0x38920abd 1500
+              replygump 0x38920abd 16
+else
+              //Greater Conflagration Potion
+              waitforgump 0x38920abd 1500
+              replygump 0x38920abd 57
+              waitforgump 0x38920abd 1500
+              replygump 0x38920abd 9
+            endif
+          endif
+        endif
+      endif
+    endif
+  endif
+endif
+//Optional args to drink STR/DEX pots to free up bottles
+if counttype '0xf08' '0' '0x44a4aacc' >= 1
+  if not buffexists "Agility"
+    usetype '0xf08'
+  endif
+endif
+if counttype '0xf09' '0' '0x44a4aacc' >= 1
+  if not buffexists "Strength"
+    usetype '0xf09'
+  endif
+endif

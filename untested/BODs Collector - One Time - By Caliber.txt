@@ -1,0 +1,36 @@
+if not @listexists 'bodNpcTypes'
+  createlist 'bodNpcTypes'
+endif
+if @list 'bodNpcTypes' < '2'
+  pushlist 'bodNpcTypes' '0x191'
+  pushlist 'bodNpcTypes' '0x190'
+endif
+if not @listexists 'bodNpcProfession'
+  createlist 'bodNpcProfession'
+endif
+if @list 'bodNpcProfession' < 5
+  pushlist 'bodNpcProfession' 'Blacksmith'
+  pushlist 'bodNpcProfession' 'Tinker'
+  pushlist 'bodNpcProfession' 'Bowyer'
+  pushlist 'bodNpcProfession' 'Tailor'
+  pushlist 'bodNpcProfession' 'Carpenter'
+endif
+for 0 to bodNpcTypes
+  while findtype bodNpcTypes[]
+    for 0 to bodNpcProfession
+      if property bodNpcProfession[] 'found'
+        waitforcontext 'found' 3 1500
+        waitforgump 0x9bade6ea 1500
+        replygump 0x9bade6ea 1
+        ignoreobject 'found'
+        findtype bodNpcTypes[]
+        waitforcontext 'found' 3 1500
+        waitforgump 0x9bade6ea 1500
+        replygump! 0x9bade6ea 1
+        pause 60
+      else ignoreobject bodNpcTypes[]
+        clearignorelist
+      endif
+    endfor
+  endwhile
+endfor

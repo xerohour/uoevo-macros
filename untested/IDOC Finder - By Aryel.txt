@@ -1,0 +1,8 @@
+if @findtype 0xbd2 'any' 'ground'
+  if @property 'Idoc' 'found' or @property 'IDOC' 'found'
+    headmsg 'idoc' '1990' 'found'
+    pause 200
+    playsound 'goblin.wav'
+    pause 1000
+  endif
+endif

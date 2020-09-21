@@ -1,0 +1,23 @@
+if not findalias 'OrcishForge'
+  headmsg 'Select Your Orcish Forge'
+  promptalias 'OrcishForge'
+  if findtype 0x19b7
+    usetype 0x19b7
+    waitfortarget 15000
+    target! 'OrcishForge'
+  endif
+  if findtype 0x19b9
+    usetype 0x19b9
+    waitfortarget 15000
+    target! 'OrcishForge'
+  endif
+  if findtype 0x19b8
+    usetype 0x19b8
+    waitfortarget 15000
+    target! 'OrcishForge'
+  endif
+  if findtype 0x19ba
+    usetype 0x19ba
+    waitfortarget 15000
+    target! 'OrcishForge'
+  endif

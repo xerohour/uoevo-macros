@@ -1,0 +1,23 @@
+////////////////////////////////////
+//   This macro is designed for   //
+//       training dexterity.      //
+//                                //
+//      ~~Made by Daerik~~        //
+////////////////////////////////////
+@setalias 'Bowcraft Menu' 0x38920abd
+if not @findtype 0x1022 0x0 'backpack'
+  headmsg 'Get more arrow feltching!'
+  stop
+endif
+while dex < 165
+  if @usetype 0xde1 0x0 'backpack'
+    pause 600
+  elseif usetype 0x1022 0x0 'backpack'
+    waitforgump 'Bowcraft Menu' 15000
+    replygump 'Bowcraft Menu' 1
+    waitforgump 'Bowcraft Menu' 15000
+    replygump 'Bowcraft Menu' 2
+    waitforgump 'Bowcraft Menu' 15000
+  endif
+endwhile
+headmsg 'Dexterity Training Complete!'

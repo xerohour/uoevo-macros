@@ -1,0 +1,31 @@
+;==================================
+; Script Name:   Honor Script
+; Author: Necro|FS
+; Version: 1.0
+; Client Tested with:
+; EUO version tested with: EasyUO v1.5 Approved !
+; Shard OSI / FS:
+; Revision Date:
+; Public Release: 4/17/05
+; Global Variables Used:
+; Purpose: Attempts to use the Honor virtue on enemies.
+;==================================
+start:
+if #enemyid <> n/a
+{
+   set #ltargetid #enemyid
+   if #ltargetid = #charid
+      goto start
+   event macro 49 1
+   set %targ #enemyid
+   set #ltargetkind 1
+   target
+   event macro 22
+loop:
+   wait 0
+   if #enemyid <> %targ
+      goto start
+   else
+       goto loop
+}
+goto start

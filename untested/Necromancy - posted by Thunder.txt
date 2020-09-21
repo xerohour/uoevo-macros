@@ -1,0 +1,46 @@
+//========================
+//Azrael The Angel Of Death
+//(Night666)
+//========================
+//Death Necro Trainer
+//========================
+//You will need a LRC (LMC optional)
+//Change the pause if lag or no FC & FCR present
+//Change target this script was made in a free shard
+//with custom Trainer Npc.
+//========================
+//Training
+if skill 'Necromancy' < 110 and skill 'Necromancy' >= 40
+  //Pain spike
+  if skill 'Necromancy' < 40
+    cast 'Pain Spike'
+    waitfortarget 15000
+    //Change Target
+    target! 0x15ba7
+    //Horrific Beast
+  elseif skill 'Necromancy' >= 40 and skill 'Necromancy' < 70
+    cast 'Horrific Beast'
+    //Wither
+  elseif skill 'Necromancy' >= 70 and skill 'Necromancy' < 90
+    cast 'Wither'
+    //Lich Form
+  elseif skill 'Necromancy' >= 90 and skill 'Necromancy' < 110
+    cast 'Lich Form'
+    //Vampiric Embrace
+  elseif skill 'Necromancy' >= 110 and skill 'Necromancy' < 120
+    cast 'Vampiric Embrace'
+  endif
+else
+  stop
+endif
+//Pause until next cast, change this Value
+pause 8000
+//End Training
+//Meditation
+if mana <= 30
+  useskill 'Meditation'
+  while mana != maxmana
+    pause 10000
+  endwhile
+endif
+//End Meditation

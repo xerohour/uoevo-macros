@@ -1,0 +1,40 @@
+// Will not attack if hidden or dead
+if buffexists "blood oath"
+  cast 'remove curse'
+  waitfortarget 15000
+  target! 'self'
+  pause 500
+endif
+if @findtype 0x1ad4 'any' 'ground' 'any'
+  headmsg 'nest' 35 'found'
+  sysmsg 'nest' 35 'found'
+  playsound 'notification.mp3'
+  pause 3500
+endif
+while 'hidden' 'self' or 'dead' 'self'
+  pause 200
+endwhile
+// Timer
+if not timerexists 'conwep'
+  createtimer 'conwep'
+endif
+// 1000 = 1 second this is 10sec delay if true reset it to 0 then do buffs
+if timer 'conwep' > 10000
+  settimer 'conwep' 0
+  cast 'consecrate weapon'
+  pause 500
+endif
+// Main focus of macro, change 'secondary' to 'primary' for your weapon special.
+setability 'primary' 'on'
+getenemy 'closest' 'nearest' 'murderer' 'enemy' 'criminal' 'gray'
+attack 'enemy'
+if list 'Jewelry' == 0
+  @pushlist 'Jewelry' 0x108a
+  @pushlist 'Jewelry' 0x1f09
+  @pushlist 'Jewelry' 0x1086
+  @pushlist 'Jewelry' 0x1f06
+endif
+//Find CorpseX
+if not @listexists 'JewelrySkills'
+  createlist 'JewelrySkills'
+endif

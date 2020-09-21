@@ -1,0 +1,7 @@
+//---Hamper Quest---
+if @findtype 0x223a '1446' 'ground'
+  headmsg 'Pyramid Pottery Fragments' 35 'found'
+  playsound 43
+  pause 1000
+endif
+pause 200

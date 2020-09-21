@@ -1,0 +1,15 @@
+//Smelly Used Dancing Shoes
+while @findtype 0x170d 1183 'ground'
+  waitforproperties 'found' 15000
+  if @property 'Nobody' 'found'
+    headmsg 'Smelly Used Dancing Shoes' 1990
+    headmsg 'OVER HERE' 1990 'found'
+    if @inrange 'found' 2
+      moveitem 'found' 'backpack'
+    endif
+    pause 2000
+  else
+    headmsg 'Ignoring' 1990 'found'
+    ignoreobject 'found'
+  endif
+endwhile

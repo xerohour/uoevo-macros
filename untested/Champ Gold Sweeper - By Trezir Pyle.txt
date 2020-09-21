@@ -1,0 +1,5 @@
+clearignorelist
+while @findtype 0xeed 'any' 'ground'
+  useobject! 'found'
+  ignoreobject 'found'
+endwhile

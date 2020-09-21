@@ -1,0 +1,86 @@
+// This is an UO Steam script to AFK train Discordance
+// It should get you to 100 skill in a few hours/overnight
+//
+//     What you will need:
+// 1. A house with no walls (or at least one wall-less side), with nearby lowlevel spawns
+// 2. A mount pet. Probably best to use a junk pet, like a horse, just in case
+// 3. A STACK of food for your pet and a lot of instruments, all in your backpack
+// 4. 100 Hiding skill & enough Magery to cast Invisibility 100% of the time
+// 5. 100 Archery and a good bow are recommended, in case a wandering enemy attacks you
+//
+//
+//    INSTRUCTIONS
+// 1. Enter your Discordance stat CAP where indicated below (default 100)
+// 2. Position your pet 1 space away from the front steps of the house.
+// 3. Run around (or ride on a second mount] and lure NON-RANGED enemies to your house (repeat step 4 below as needed to make it easier). 5 to 20 enemies recommended.
+// 4. Stand in the same square as your pet. Cast invisibility on yourself and wait for all the enemies to lock on to your pet. Test this by unhiding and seeing if you can successfully hide again.
+// 5. Press the Play button and follow the ingame instructions.
+sysmsg 'Please select your stack of food'
+promptalias 'food'
+pause 500
+sysmsg 'Now select your pet'
+promptalias 'pet'
+if not listexists 'discorded'
+  createlist 'discorded'
+endif
+@clearlist 'discorded'
+if not listexists 'cap'
+  createlist 'cap'
+endif
+@clearlist 'cap'
+if not timerexists 'timer'
+  createtimer 'timer'
+endif
+settimer 'timer' 0
+//
+//  ENTER YOUR SKILLCAP HERE:
+pushlist 'cap' '100'
+//
+//
+for 0 to 'cap'
+  while skill 'Discordance' < cap[]
+    @getenemy 'gray' 'criminal' inrange 6
+    while not @inlist 'discorded' 'enemy'
+      pause 600
+      useskill 'Discordance'
+      waitfortarget 1000
+      target! 'enemy'
+      pause 6000
+      @useonce! '0xe9d' 'any'
+      pause 1000
+      @useonce! '0xe9e' 'any'
+      pause 1000
+      @useonce! '0xe9c' 'any'
+      pause 1000
+      @useonce! '0x2805' 'any'
+      pause 1000
+      @useonce! '0xeb1' 'any'
+      pause 1000
+      @useonce! '0xeb3' 'any'
+      @clearuseonce
+      pause 1000
+      pushlist 'discorded' 'enemy'
+      if @injournal 'fail'
+        poplist 'discorded' 'enemy'
+        clearjournal
+      endif
+      if @injournal 'unable'
+        poplist 'discorded' 'enemy'
+        clearjournal
+      endif
+      if skill 'Discordance' == cap[]
+        useobject 'pet'
+        logoutbutton
+      endif
+      @getenemy 'gray' 'criminal' inrange 6
+    endwhile
+    @clearlist 'discorded'
+    pause 1000
+    useskill 'Hiding'
+    pause 18000
+    if timer 'timer' > 3600000
+      moveitem 'food' 'pet' 0 0 0 1
+      settimer 'timer' 0
+    endif
+  endwhile
+endfor

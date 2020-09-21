@@ -1,0 +1,36 @@
+//============ Combine Halloween Pumpkins Macro ===========
+// Pumpkin Id: 0xc6a 1259  (Merlina Pumpkin: 1158)
+//=========================================================
+// Searchs for a purple pumpkin
+if not @findalias "masterpumpkin" or not @findobject "masterpumpkin"
+  if @findtype 0xc6a 1158 "backpack"
+    headmsg "Found Purple Pumpkin" 1158
+    setalias "masterpumpkin" "found"
+  elseif @findtype 0xc6a "any" "backpack"
+    headmsg "Found normal Pumpkin" 1259
+    setalias "masterpumpkin" "found"
+  else
+    headmsg "No pumpkins to add" 55
+    stop
+  endif
+endif
+// Loops trough pumpkins
+if @findtype 0xc6a "any" "backpack"
+  headmsg "Combining Pumpkins" 58
+  while @findtype 0xc6a "any" "backpack"
+    if serial "found" == serial "masterpumpkin"
+      sysmsg "ignoring master pumpkin" 70
+      ignoreobject "found"
+    else
+      useobject! "masterpumpkin"
+      waitfortarget 1000
+      target! "found"
+      pause 300
+    endif
+  endwhile
+  headmsg "All pumpkins combined" 473
+endif
+// Clean Up
+@canceltarget
+@cleartargetqueue
+@clearignorelist

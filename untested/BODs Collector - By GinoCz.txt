@@ -1,0 +1,34 @@
+cast "Sacred Journey"
+waitfortarget 3000
+//change rune/book with vendor spot
+target! 0x40b76df8
+//start collecting BODs
+headmsg 'blacksmith'
+waitforcontext 0xe7de2 3 15000
+waitforgump 'any' 300
+replygump 'any' 1
+headmsg 'tinker'
+waitforcontext 0xd589b 3 15000
+waitforgump 'any' 300
+replygump 'any' 1
+headmsg 'bowyer'
+waitforcontext 0xd5827 3 15000
+waitforgump 'any' 300
+replygump 'any' 1
+headmsg 'tailor'
+waitforcontext 0xd57e5 3 15000
+waitforgump 'any' 300
+replygump 'any' 1
+headmsg 'animal trainer'
+waitforcontext 0xd53f3 5 15000
+waitforgump 'any' 300
+replygump 'any' 1
+headmsg 'carpenter'
+waitforcontext 0xd5240 3 15000
+waitforgump 'any' 300
+replygump 'any' 1
+//click on BOD Key (Need to change the Serial to yours)
+waitforcontext 0x43ee0e06 2 15000
+waitforgump 0x6abce12 300
+replygump 0x6abce12 0
+headmsg 'DONE DONE'

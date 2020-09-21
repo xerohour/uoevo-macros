@@ -1,0 +1,41 @@
+if skill "spellweaving" == 100
+  sysmsg "Spellweaving is 100!"
+  stop
+elseif mana >= 50
+  if skill "spellweaving" < 10
+    cast "Nature's Fury"
+    waitfortarget 15000
+    pause 500
+    targettileoffset 0 -1 0
+    pause 5000
+  elseif skill "spellweaving" < 33
+    cast "Immolating Weapon"
+    pause 4500
+  elseif skill "spellweaving" < 60
+    cast "Reaper Form"
+    pause 4000
+  elseif skill "spellweaving" < 74
+    cast "Essence of Wind"
+    pause 4000
+  elseif skill "spellweaving" < 90
+    cast "Wildfire"
+    waitfortarget 15000
+    pause 500
+    target! 'self'
+    pause 3000
+  elseif skill "spellweaving" < 100
+    cast "Word of Death"
+    waitfortarget 15000
+    target! 'self'
+    pause 4000
+    while hits < maxhits
+      pause 50
+    endwhile
+  endif
+else
+  sysmsg "Mana low! Meditating!"
+  useskill "meditation"
+  while mana < maxmana
+    pause 50
+  endwhile
+endif

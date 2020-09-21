@@ -1,0 +1,10 @@
+///- Goblin Gold - Search and Click -
+if @findtype 0xeef 69 'ground' 'any' '3'
+  headmsg 'goblin gold' 35 'found'
+  if inrange 'found' 2
+    useobject 'found'
+    organizer 'GobGold'
+  endif
+  playsound 42
+  pause 250
+endif

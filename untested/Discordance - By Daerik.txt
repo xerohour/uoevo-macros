@@ -1,0 +1,63 @@
+////////////////////////////////////
+//   This macro is designed for   //
+//      training discordance      //
+//                                //
+//      ~~Made by Daerik~~        //
+////////////////////////////////////
+if skill 'discordance' < 100
+  if not @findobject 'instrument' 'any' 'backpack'
+    headmsg 'Instrument NOT found'
+    if not listexists 'instrumentlist'
+      @createlist 'instrumentlist'
+    endif
+    @clearlist 'instrumentlist'
+    @pushlist 'instrumentlist' 0xeb1  // Standing Harp
+    @pushlist 'instrumentlist' 0xeb2  // Lap Harp
+    @pushlist 'instrumentlist' 0xeb3  // Lute
+    @pushlist 'instrumentlist' 0xe9c  // Drum
+    @pushlist 'instrumentlist' 0xe9d  // Tambourine
+    @pushlist 'instrumentlist' 0xe9e  // Tambourine with red tassle
+    @pushlist 'instrumentlist' 0x2805 // Bamboo Flute
+    for 0 to 'instrumentlist'
+      @findtype 'instrumentlist[]'
+      @setalias 'instrument' 'found'
+    endfor
+    useobject 'instrument'
+  endif
+  if skill 'discordance' < 100
+    @getenemy 'gray' 'criminal' 'enemy' 'nearest'
+    @setalias 'target' 'enemy'
+    if @findobject 'target'
+      headmsg 'Disco' 1990 'target'
+      clearjournal
+      useskill 'discordance'
+      waitfortarget 2000
+      target! 'target'
+      pause 1000
+      while @injournal 'You attempt to disrupt your target'
+        headmsg 'Try Again' 1990 'target'
+        clearjournal
+        pause 13000
+        useskill 'discordance'
+        waitfortarget 2000
+        target! 'target'
+        pause 1000
+      endwhile
+      if @injournal 'That creature is already in discord.'
+        while not hidden
+          headmsg 'Hiding' 1990
+          useskill 'hiding'
+          pause 11000
+        endwhile
+        pause 7000
+      else
+        pause 13000
+      endif
+    endif
+  endif
+  replay
+else
+  headmsg 'Discordance Complete!'
+  playsound 'celebration.wav'
+  stop
+endif

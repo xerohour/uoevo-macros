@@ -1,0 +1,23 @@
+for 125
+  if mana < 40
+    useskill 'meditation'
+    pause 15000
+    while mana < maxmana
+      pause 600
+    else
+      cast "Mana Vampire"
+      waitfortarget 1500
+      target! 'Jimmy'
+      pause 15000
+      cast "Mana Vampire"
+      waitfortarget 1500
+      target! 'Jake'
+      pause 15000
+      cast "Mana Vampire"
+      waitfortarget 1500
+      target! 'Jerry'
+      pause 15000
+    endif
+  endfor
+
+//this was configured to target pets, but you could simply witch it to target 'self'

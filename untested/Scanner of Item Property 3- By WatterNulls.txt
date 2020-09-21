@@ -1,0 +1,50 @@
+if not @findobject "lootbag"
+    headmsg "Select Loot Bag" 391
+    promptalias "lootbag"
+endif
+if not @findobject "Lootsource"
+    headmsg "Lootsource" 391
+    promptalias "Lootsource"
+endif
+// Jewelrys
+if not @listexists "Jewelry"
+    @createlist "Jewelry"
+endif
+
+if list "Jewelry" == 0
+    @pushlist "Jewelry" 0x108a
+    @pushlist "Jewelry" 0x1f09
+    @pushlist "Jewelry" 0x1086
+    @pushlist "Jewelry" 0x1f06
+endif
+
+// Properties
+if not @listexists "Properties"
+    @createlist "Properties"
+endif
+
+if list "Properties" == 0
+    @pushlist "Properties" "Faster Cast Recovery"
+    @pushlist "Properties" "Magery"
+    @pushlist "Properties" "Luck"
+endif
+
+// Start
+for 0 to Jewelry
+    if @findtype Jewelry[] "any" "Lootsource"
+        while @findtype Jewelry[] "any" "Lootsource"
+            @setalias "scanner" "found"
+            for 0 to Properties
+                if @property Properties[] "scanner" > 1
+                    headmsg "Found One Interesting.." 55
+                    @moveitem "scanner" "lootbag"
+                    @ignoreobject "scanner"
+                    pause 600
+                endif
+            endfor
+            @ignoreobject "found"
+        endwhile
+    endif
+endfor
+@clearignorelist
+@unsetalias "Lootsource"

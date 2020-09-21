@@ -1,0 +1,25 @@
+ msg [ffp
+@setalias! 'loot' 0x40a81528
+if not @findtype '0x2006' 'any' 'ground' '1' '2'
+  sysmsg ' **No Corpse Found**' '1'
+  stop
+else
+  @setalias! 'o' 'found'
+  usetype 0x13f6
+  waitfortarget 15000
+  target! 'o'
+endif
+//ignoreobject 'o'
+msg '[claim'
+waitfortarget 2500
+target! 'o'
+pause 250
+canceltarget!
+waitforcontext 0x40c874db 2 15000
+waitforgump 0x6abce12 15000
+pause 250
+canceltarget!
+pause 100
+waitforcontext 0x401d0375 2 15000
+waitforgump 0x6abce12 15000
+pause 200
