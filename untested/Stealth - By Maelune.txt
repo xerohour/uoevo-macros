@@ -1,0 +1,14 @@
+//Simple stealth trainer. With no armor on you will get to around 60-65 stealth. At this point it is rather controversial on what you need to do. Wiki suggests adding studded leather pieces. Bone armor worked best for me (breastplate, arms, and gloves).
+//This macro could be improved by adding some lines to auto-equip
+//heavier armors as your stealth gets higher. I'll leave that up to you
+//to decide if you'd like to macro it or do it manually
+while skill 'stealth' < 100
+  if not hidden 'self'
+    useskill 'Hiding'
+    pause 11000
+  endif
+  if hidden 'self'
+    useskill 'Stealth'
+    pause 11000
+  endif
+endwhile

@@ -1,0 +1,103 @@
+//Record casting summon fey, then  record dismissing one, put pause between summoning of like 5 sec. Then do a findtype  fey graphic and replace the serial with found in the dissmissing one you can put checks in to meditate and stuff to get mana back faster and ect  but  that will get ya going... you might have to tweak it or what not
+
+
+
+if mana < 24
+  useskill "Meditation"
+  pause 10500
+  while mana < 110
+    if @injournal 'You cannot focus your concentration.'
+      @clearjournal
+      useskill "Meditation"
+      pause 10500
+    endif
+  endwhile
+else
+  if skill 'Spellweaving' <= 45
+    @cast "Immolating Weapon"
+    pause 1200
+    if mana < 24
+      useskill "Meditation"
+      pause 10500
+      while mana < 110
+        if @injournal 'You cannot focus your concentration.'
+          @clearjournal
+          useskill "Meditation"
+          pause 10500
+        endif
+      endwhile
+    endif
+  elseif skill 'Spellweaving' <= 72
+    //   @cast "Gift of Life"
+    //   pause 7500
+    //   waitingfortarget 10000
+    //   target! 'self'
+    if @findtype 0x80 '0' 'ground'
+      waitforcontext 'found' 5 15000
+    endif
+    cast "Summon Fey"
+    pause 2000
+    if mana < 10
+      useskill "Meditation"
+      pause 10500
+      while mana < 110
+        if @injournal 'You cannot focus your concentration.'
+          @clearjournal
+          useskill "Meditation"
+          pause 10500
+        endif
+      endwhile
+    endif
+  elseif skill 'Spellweaving' <= 85
+    @cast "Essence of Wind"
+    pause 3500
+    if mana < 40
+      useskill "Meditation"
+      pause 10500
+      while mana < 115
+        if @injournal 'You cannot focus your concentration.'
+          @clearjournal
+          useskill "Meditation"
+          pause 10500
+        endif
+      endwhile
+    endif
+  elseif skill 'Spellweaving' <= 100
+    @cast "Wildfire"
+    pause 3000
+    waitingfortarget 10000
+    target! 'self'
+    pause 2500
+    if mana < 50
+      useskill "Meditation"
+      pause 10500
+      while mana < 110
+        if @injournal 'You cannot focus your concentration.'
+          @clearjournal
+          useskill "Meditation"
+          pause 10500
+        endif
+      endwhile
+    endif
+  elseif skill 'Spellweaving' <= 110
+    @cast "Word of Death"
+    pause 5000
+    waitingfortarget 10000
+    target! 'self'
+    pause 5500
+    if mana < 50
+      useskill "Meditation"
+      pause 10500
+      while mana < 110
+        if @injournal 'You cannot focus your concentration.'
+          @clearjournal
+          useskill "Meditation"
+          pause 10500
+        endif
+      endwhile
+    endif
+  elseif skill 'Spellweaving' <= 110
+  else
+    stop
+  endif
+endif

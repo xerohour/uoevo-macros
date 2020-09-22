@@ -1,0 +1,30 @@
+@createlist 'grounditems'
+if list 'grounditems' == 0
+  //@pushlist 'grounditems'
+  //Corn
+  @pushlist 'grounditems' 0x3d1a
+  @pushlist 'grounditems' 0x3d1b
+  //Wheat
+  @pushlist 'grounditems' 0x1ebe
+  //Acorn
+  @pushlist 'grounditems' 0x1aa2
+  //Mushroom
+  @pushlist 'grounditems' 0xd17
+  @pushlist 'grounditems' 0xd18
+  @pushlist 'grounditems' 0xd19
+endif
+for 0 to 'grounditems'
+  if @findtype grounditems[] 'any' 'ground'
+    waitforproperties 'found' 15000
+    if @property 'Nobody' 'found'
+      playsound 'notification.mp3'
+      sysmsg 'Ground Item Found!' '1259'
+      headmsg '***X***' '1990' 'found'
+    else
+      headmsg 'Ignoring' '23' 'found'
+      ignoreobject 'found'
+    endif
+  endif
+endfor
+pause 2000
+replay

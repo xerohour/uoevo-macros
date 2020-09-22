@@ -1,0 +1,35 @@
+if not @findobject 'goldledger' or not @findalias 'goldledger'
+  @clearignorelist
+  while @findtype 0x1e22 'any' 'backpack'
+    if @property 'A Gold Ledger' 'found'
+      setalias 'goldledger' 'found'
+      break
+    else
+      ignoreobject 'found'
+    endif
+  endwhile
+  if not @findobject 'goldledger'
+    headmsg 'NO GOLD LEDGER Found' 34 'self'
+	stop
+  endif
+endif
+useobject 'goldledger'
+pause 300
+headmsg 'GET YOUR GOLD 5k' 34 'self'
+while not @findtype 0xeed 0 'backpack' '5000'
+  pause 10
+endwhile
+replygump 0x9021dd59 0 2
+useobject 0xc1
+waitforgump 0x4c4c6db0 15000
+replygump 0x4c4c6db0 4
+waitforcontext 'self' 5 15000
+waitfortarget 15000
+target! 'found'
+waitfortarget 15000
+canceltarget
+useobject 0xc1
+waitforgump 0x4c4c6db0 15000
+replygump 0x4c4c6db0 8
+waitforgump 0x4c4c6db0 15000
+replygump 0x4c4c6db0 5

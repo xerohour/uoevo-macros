@@ -1,0 +1,17 @@
+ if not hidden 'self'
+  headmsg 'hide'
+  useskill 'hiding'
+  pause 1000
+else
+  headmsg 'stealth'
+  useskill 'stealth'
+  pause 1000
+  walk 'north'
+  pause 600
+  walk 'north'
+  pause 600
+  walk 'south'
+  pause 600
+  walk 'south'
+  pause 600
+endif

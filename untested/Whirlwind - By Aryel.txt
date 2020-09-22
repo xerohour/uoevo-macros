@@ -1,0 +1,32 @@
+//
+if not timerexists 'casttime'
+  createtimer 'casttime'
+  settimer 'casttime' 3000
+endif
+if not timerexists 'castconcentrate'
+  createtimer 'castconcentrate'
+  settimer 'castconcentrate' 100000
+endif
+
+if not buffexists "Consecrate Weapon" and timer 'casttime' > 1490
+  if timer 'castconcentrate' > 9000
+    cast 'Consecrate Weapon'
+    settimer 'casttime' 0
+    settimer 'castconcentrate' 0
+  endif
+endif
+//if not buffexists "Immolating Weapon" and timer 'casttime' > 1490
+//cast "Immolating Weapon"
+//  settimer 'casttime' 0
+//endif
+//@setability 'primary' 'on'
+//@getenemy 'murderer' 'enemy' 'criminal' 'gray'
+//pause 300
+if not buffexists "Divine Fury" and timer 'casttime' > 1490
+  cast "Divine Fury"
+  settimer 'casttime' 0
+endif
+if not buffexists "Bless" and timer 'casttime' > 1490
+  //  cast "Bless" "self"
+  settimer 'casttime' 0
+endif

@@ -1,0 +1,83 @@
+//Tinkering Trainer by Merlina - UO Evolution
+//Loop & play
+if not @listexists 'tinkjunk'
+  createlist 'tinkjunk'
+  pushlist 'tinkjunk' 0xf9d // Sewing Kits
+  pushlist 'tinkjunk' 0xfbb // Tongs
+  pushlist 'tinkjunk' 0x14fc // Lockpicks
+  pushlist 'tinkjunk' 0xa27 // Candelabra
+endif
+//Trash Barrel
+if not @findobject 'trash'
+  headmsg 'Select your trash barrel'
+  promptalias 'trash'
+endif
+//Training
+if skill 'tinkering' < 21
+  headmsg 'Buy more tinkering skill!'
+  stop
+  //Sewing Kits (2 ingots)
+elseif skill 'tinkering' < 35
+  if usetype 0x1eb8 0x0 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 8
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 44
+    waitforgump 0x38920abd 2000
+  endif
+  //Tongs (1 ingot)
+elseif skill 'tinkering' < 50
+  if usetype 0x1eb8 0x0 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 8
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 86
+    waitforgump 0x38920abd 2000
+  endif
+  //Lockpicks
+elseif skill 'tinkering' < 95
+  if usetype 0x1eb8 0x0 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 8
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 121
+    waitforgump 0x38920abd 2000
+  endif
+  //Candelabra
+elseif skill 'tinkering' < 100
+  if usetype 0x1eb8 0x0 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 29
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 9
+    waitforgump 0x38920abd 2000
+  endif
+///////100-120 CAN DO THE SATYR TRICK AND WILL SPEND LESS MATERIAL///////
+  //Spyglass
+elseif skill 'tinkering' < 108
+  if usetype 0x1eb8 0x0 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 8
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 121
+    waitforgump 0x38920abd 2000
+  endif
+  //Fancy Wind Chimes
+elseif skill 'tinkering' < 120
+  if usetype 0x1eb8 0x0 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 29
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 86
+    waitforgump 0x38920abd 2000
+  endif
+else
+  headmsg 'Your are an expert tinker!'
+  stop
+endif
+if contents 'backpack' > 10
+  for 0 to tinkjunk
+    while @movetype tinkjunk[] 'backpack' 'trash'
+    endwhile
+  endfor
+endif

@@ -1,0 +1,18 @@
+if not @timerexists 'consecrate'
+  createtimer 'consecrate'
+endif
+if not @timerexists 'curse weapon'
+  createtimer 'curse weapon'
+endif
+if @stam <= 50
+  cast 'divine fury'
+endif
+if @timer 'consecrate' >= 10000
+  cast 'consecrate weapon'
+  settimer 'consecrate' 0
+endif
+if @timer 'curse weapon' >= 30000
+  cast 'curse weapon'
+  settimer 'curse weapon' 0
+endif
+@setability 'secondary' 'on'

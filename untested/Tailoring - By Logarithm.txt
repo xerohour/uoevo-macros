@@ -1,0 +1,52 @@
+ usetype '0xf9d' 'any' 'backpack'
+pause 1000
+// MAKE PANTS
+if skill 'Tailoring' < 35
+  replygump 0x38920abd 15
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 2
+  waitforgump 0x38920abd 15000
+elseif skill 'Tailoring' < 41.4
+  // MAKE FURCAPE
+  replygump 0x38920abd 8
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 72
+  waitforgump 0x38920abd 15000
+elseif skill 'Tailoring' < 54
+  // MAKE CLOAKS
+  replygump 0x38920abd 8
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 51
+  waitforgump 0x38920abd 15000
+elseif skill 'Tailoring' < 72
+  // MAKE ROBES
+  replygump 0x38920abd 8
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 58
+  waitforgump 0x38920abd 15000
+elseif skill 'Tailoring' < 78
+  // MAKE NINJA TABI
+  replygump 0x38920abd 29
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 9
+  waitforgump 0x38920abd 15000
+elseif skill 'Tailoring' < 110
+  // MAKE OIL CLOTH
+  replygump 0x38920abd 22
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 79
+  waitforgump 0x38920abd 15000
+endif
+pause 2000
+if @counttype 0x1766 'any' 'backpack' < 30
+  headmsg ' NOT ENOUGH CLOTH'
+  if @counttype 0xf95 'any' 'backpack' > 1
+    usetype '0xf9f'
+    waitfortarget 2000
+    @targettype! 0xf95
+  else
+    msg 'Vendor buy'
+  endif
+  pause 2000
+endif
+msg 'vendor sell'

@@ -1,0 +1,10 @@
+getenemy 'closest' 'nearest' 'murderer' 'enemy' 'criminal' 'gray'
+if @inrange 'enemy' 10
+  cast "Evil Omen" 'enemy'
+  while waitingfortarget 'harmful'
+  endwhile
+  if @inrange 'enemy' 10
+    cast "Poison Strike" 'enemy'
+    while waitingfortarget 'harmful'
+    endwhile
+  endif

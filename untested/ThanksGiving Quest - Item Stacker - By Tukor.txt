@@ -1,0 +1,69 @@
+//To Use this macro you must first combine 2 of the quest items to make a stack.  Then use the object inspector in steam on those stacks. Use the SERIAL NUMBERs for the coresponding item. Notice there are several items that require same number (multiple Mushrooms and Corns)
+//corn = $$$$$$$
+//Wheat = ######
+//Mushroom = *******
+//Acorn = &&&&&&&
+//////////////////////////////////////////////////
+//tg Stacker
+//wheat
+ignoreobject ######
+while @findtype 0x1ebe 0 'backpack'
+  useobject ######
+  waitfortarget 15000
+  target! 'found'
+  ignoreobject 'found'
+endwhile
+//Corn
+ignoreobject $$$$$$$$
+while @findtype 0x3d1a 0 'backpack'
+  useobject $$$$$$$$
+  waitfortarget 15000
+  target! 'found'
+  ignoreobject 'found'
+endwhile
+//mushroom
+clearignorelist
+ignoreobject *******
+while @findtype 0xd19 0 'backpack'
+  useobject *******
+  waitfortarget 15000
+  target! 'found'
+  ignoreobject 'found'
+endwhile
+//mushroom
+clearignorelist
+ignoreobject *******
+while @findtype 0xd18 0 'backpack'
+  useobject *******
+  waitfortarget 15000
+  target! 'found'
+  ignoreobject 'found'
+endwhile
+//Acorn
+clearignorelist
+ignoreobject &&&&&&&&
+while @findtype 0x1aa2 0 'backpack'
+  useobject &&&&&&&&
+  waitfortarget 15000
+  target! 'found'
+  ignoreobject 'found'
+endwhile
+//mushroom
+clearignorelist
+ignoreobject *******
+while @findtype 0xd17 0 'backpack'
+  useobject *******
+  waitfortarget 15000
+  target! 'found'
+  ignoreobject 'found'
+endwhile
+clearignorelist
+//corn
+ignoreobject $$$$$$$$
+while @findtype 0x3d1b 0 'backpack'
+  useobject $$$$$$$$
+  waitfortarget 15000
+  target! 'found'
+  ignoreobject 'found'
+endwhile
+clearignorelist

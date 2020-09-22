@@ -1,0 +1,18 @@
+// go to Felluca, take a Pack Lama with you. Put 200 bandages 
+//inside the Pack Lama. Hit play
+//Enjoy
+if not findalias 'bag'
+  headmsg 'Select Pack Lama'
+  promptalias 'bag'
+endif
+if not findalias 'bandages'
+  headmsg 'Select bandages'
+  promptalias 'bandages'
+endif
+if @findtype 0xe21 'any' 'backpack'
+  movetype 0xe21 'backpack' 'bag'
+endif
+useskill 'Stealing'
+waitfortarget 1500
+@target 'bandages'
+pause 10000

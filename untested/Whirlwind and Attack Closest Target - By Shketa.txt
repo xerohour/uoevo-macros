@@ -1,0 +1,25 @@
+setability 'secondary'
+@Getenemy 'murderer' 'Enemy' 'criminal' 'gray' 'closest'
+if @findobject 'enemy'
+  autotargetobject! 'enemy'
+  attack! 'enemy'
+endif
+@clearusequeue
+@cancelautotarget
+pause 1000
+This macro for solo targets, uses Honor Virtue and attack closest target, also use Discordance on that target. UO Steam
+
+@Getenemy 'murderer' 'Enemy' 'criminal' 'gray' 'closest'
+virtue 'Honor'
+waitfortarget 10000
+target! 'enemy'
+pause 300
+if @findobject 'enemy'
+  autotargetobject! 'enemy'
+  attack! 'enemy'
+endif
+useskill 'Discordance'
+waitfortarget 10000
+target! 'enemy'
+@clearusequeue
+@cancelautotarget

@@ -1,0 +1,110 @@
+//Prompt for the pack animal that will be stolen from. Stand in felucca and have the pack animal follow you before starting this macro. Also have at least 110 bandages in your backpack. This macro will train you to 120 stealing from 30.
+if not @findalias "Steal Animal"
+  promptalias "Steal Animal"
+endif
+//Training 0-30
+if skill "stealing" < 30
+  sysmsg "Buy stealing skill from a thief NPC up to 30 first."
+  stop
+endif
+//Training 30-40
+while skill "stealing" < 40
+  if @findtype 0xe21 "any" "backpack" and counttype 0xe21 "any" "Steal Animal"   < 30
+    moveitem "found" "Steal Animal" 0 0 0 30
+  else
+    useskill "Stealing"
+    waitfortarget 15000
+    @target "Steal Animal"
+    pause 11000
+  endif
+endwhile
+//Training 40-50
+while skill "stealing" < 50
+  if @findtype 0xe21 "any" "backpack" and counttype 0xe21 "any" "Steal Animal"   < 40
+    moveitem "found" "Steal Animal" 0 0 0 40
+  else
+    useskill "Stealing"
+    waitfortarget 15000
+    @target "Steal Animal"
+    pause 11000
+  endif
+endwhile
+//Training 50-60
+while skill "stealing" < 60
+  if @findtype 0xe21 "any" "backpack" and counttype 0xe21 "any" "Steal Animal"   < 50
+    moveitem "found" "Steal Animal" 0 0 0 50
+  else
+    useskill "Stealing"
+    waitfortarget 15000
+    @target "Steal Animal"
+    pause 11000
+  endif
+endwhile
+//Training 60-70
+while skill "stealing" < 70
+  if @findtype 0xe21 "any" "backpack" and counttype 0xe21 "any" "Steal Animal"   < 60
+    moveitem "found" "Steal Animal" 0 0 0 60
+  else
+    useskill "Stealing"
+    waitfortarget 15000
+    @target "Steal Animal"
+    pause 11000
+  endif
+endwhile
+//Training 70-80
+while skill "stealing" < 80
+  if @findtype 0xe21 "any" "backpack" and counttype 0xe21 "any" "Steal Animal"   < 70
+    moveitem "found" "Steal Animal" 0 0 0 70
+  else
+    useskill "Stealing"
+    waitfortarget 15000
+    @target "Steal Animal"
+    pause 11000
+  endif
+endwhile
+while skill "stealing" < 90
+  if @findtype 0xe21 "any" "backpack" and counttype 0xe21 "any" "Steal Animal"   < 80
+    moveitem "found" "Steal Animal" 0 0 0 80
+  else
+    useskill "Stealing"
+    waitfortarget 15000
+    @target "Steal Animal"
+    pause 11000
+  endif
+endwhile
+while skill "stealing" < 100
+  if @findtype 0xe21 "any" "backpack" and counttype 0xe21 "any" "Steal Animal"   < 90
+    moveitem "found" "Steal Animal" 0 0 0 90
+  else
+    useskill "Stealing"
+    waitfortarget 15000
+    @target "Steal Animal"
+    pause 11000
+  endif
+endwhile
+//Training 100-110
+while skill "stealing" < 110
+  if @findtype 0xe21 "any" "backpack" and counttype 0xe21 "any" "Steal Animal"   < 100
+    moveitem "found" "Steal Animal" 0 0 0 100
+  else
+    useskill "Stealing"
+    waitfortarget 15000
+    @target "Steal Animal"
+    pause 11000
+  endif
+endwhile
+//Training 110-120
+while skill "stealing" < 120
+  if @findtype 0xe21 "any" "backpack" and counttype 0xe21 "any" "Steal Animal"   < 110
+    moveitem "found" "Steal Animal" 0 0 0 110
+  else
+    useskill "Stealing"
+    waitfortarget 15000
+    @target "Steal Animal"
+    pause 11000
+  endif
+endwhile
+if skill "stealing" == 120
+  sysmsg "You are now a master thief"
+  stop
+endif

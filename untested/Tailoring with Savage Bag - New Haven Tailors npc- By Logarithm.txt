@@ -1,0 +1,225 @@
+//-------------------------------------------------------
+// Tailoring Gump: 0x38920abd => Reply: 0x38920abd [N: button id] | 0: Exit]
+//	|01|- Hats				|36|- Leather Armor
+//	|08|- Shirts			|43|- Studded Armor
+//	|15|- Pants				|50|- Female Armor
+//	|22|- Misccs.			|57|- Bone Armor
+//	|29|- Footwear			|64|- Cloth Armor
+//*******************************************************
+// Item Detail Gump: 0x1220462e => Reply: 0x1220462e [1: confirm | 0: Return]
+//-------------------------------------------------------
+
+//== Fail Safe Check ==
+if skill "Tailoring" < 30
+	headmsg "Please buy 30 Tailoring skill from an NPC." 55
+	stop
+endif
+
+//== Setup ==
+// Prompt for a salvage bag
+if not @findalias "sbag"
+	headmsg "Please select an Salvage Bag." 150
+	promptalias "sbag"
+	waitfortarget 3000
+endif
+
+// == Validation ==
+// 29.0 - 41.4: Short Pants (6 Cloth) after 35 Fur cape (13 Cloth)
+// 41.4 - 54: Cloaks (14 Cloth) after 50 Fur Boots (12 Cloth)
+// 54 - 72: Robes (16 Cloth)
+// 72 - 78: Ninja Tabi (10 Cloth) (This will save some cloth until oil cloth is craftable.)
+// 78 - 110: Oil Cloths (1 Cloth) This part is very slow at times
+// 110 - 115.0: Elven Shirt (Brown) (10 Cloth)
+// 115.0 - 120.0: Studded Hiro Sode (8 Leather)
+
+// Search for an scissor to use on the Salvage Bag
+if not @findtype 0xf9f "any" "backpack"
+	headmsg "Please buy or craft an scissor from an NPC." 55
+	stop
+
+endif
+// == Start ==
+// Salvage Cloths from Salvage Bag
+if contents "sbag" >= 5
+	@clearignorelist
+	waitforcontext 0x42a93ad8 1 2000
+endif
+
+
+// Search for Sewing Kit (0xf9d)
+if @findtype 0xf9d "any" "backpack"
+	// Set alias tailortool
+	@setalias "tailortool" "found"
+	
+	// Search for Cloth (0x1766)
+	if @findtype 0x1766 "any" "backpack"
+		// Keeps 2 Tailoring Tools at all times [Removed]
+		
+		// Train Making Stuffs
+		
+		// If GUMP's open do select craft tab
+		if not @gumpexists 0x38920abd
+			// do open gump using tool
+			useobject! "tailortool"
+			waitforgump 0x38920abd 5000
+			if not @gumpexists 0x38920abd
+				sysmsg "Retrying open GUMP." 30
+				replay
+			endif
+		endif
+		
+		// LvL 30~41.4
+		if skill "Tailoring" >= 30 and skill "Tailoring" < 41.4
+			// Short Pants (0x152e)
+				replygump 0x38920abd 15
+				waitforgump 0x38920abd 5000
+				replygump 0x38920abd 3
+				waitforgump 0x1220462e 5000
+				replygump 0x1220462e 1
+				waitforgump 0x38920abd 5000
+			
+			// Move to Salvage Bag
+				pause 300
+				if @findtype 0x152e "any" "backpack"
+				sysmsg "Moving item to Salvage Bag.." 40
+					while @findtype 0x152e "any" "backpack"
+						moveitem! "found" "sbag"
+						ignoreobject "found"
+						pause 300
+					endwhile
+					
+				endif
+		endif
+		
+		// LvL 41.4~54
+		if skill "Tailoring" >= 41.4 and skill "Tailoring" < 54
+			// Cloaks (0x1515)
+				replygump 0x38920abd 8
+				waitforgump 0x38920abd 5000
+				replygump 0x38920abd 52
+				waitforgump 0x1220462e 5000
+				replygump 0x1220462e 1
+				waitforgump 0x38920abd 5000
+			
+			// Move to Salvage Bag
+				pause 300
+				if @findtype 0x1515  "any" "backpack"
+				sysmsg "Moving item to Salvage Bag.." 40
+					while @findtype 0x1515  "any" "backpack"
+						moveitem! "found" "sbag"
+						ignoreobject "found"
+						pause 300
+					endwhile
+					
+				endif
+		endif
+		
+		// LvL 54~72
+		if skill "Tailoring" >= 54 and skill "Tailoring" < 72
+			// Robes (0x1f03)
+				replygump 0x38920abd 8
+				waitforgump 0x38920abd 5000
+				replygump 0x38920abd 59
+				waitforgump 0x1220462e 5000
+				replygump 0x1220462e 1
+				waitforgump 0x38920abd 5000
+			
+			// Move to Salvage Bag
+				pause 300
+				if @findtype 0x1f03 "any" "backpack"
+				sysmsg "Moving item to Salvage Bag.." 40
+					while @findtype 0x1f03  "any" "backpack"
+						moveitem! "found" "sbag"
+						ignoreobject "found"
+						pause 300
+					endwhile
+					
+				endif
+		endif
+	
+		// LvL 72~78
+		if skill "Tailoring" >= 72 and skill "Tailoring" < 78
+			// Ninja Tabi (0x2797)
+				replygump 0x38920abd 29
+				waitforgump 0x38920abd 5000
+				replygump 0x38920abd 10
+				waitforgump 0x1220462e 5000
+				replygump 0x1220462e 1
+				waitforgump 0x38920abd 5000
+			
+			// Move to Salvage Bag
+				pause 300
+				if @findtype 0x2797  "any" "backpack"
+				sysmsg "Moving item to Salvage Bag.." 40
+					while @findtype 0x2797 "any" "backpack"
+						moveitem! "found" "sbag"
+						ignoreobject "found"
+						pause 300
+					endwhile
+					
+				endif
+		endif
+		
+		// LvL 78~110
+		if skill "Tailoring" >= 78 and skill "Tailoring" < 110
+			// Oil Cloths (0x175d)
+				replygump 0x38920abd 22
+				waitforgump 0x38920abd 5000
+				replygump 0x38920abd 80
+				waitforgump 0x1220462e 5000
+				replygump 0x1220462e 1
+				waitforgump 0x38920abd 5000
+				
+			// Move to Salvage Bag
+				pause 300
+				if @findtype 0x175d  "any" "backpack"
+				sysmsg "Moving item to Salvage Bag.." 40
+					while @findtype 0x175d "any" "backpack"
+						moveitem! "found" "sbag"
+						ignoreobject "found"
+						pause 300
+					endwhile
+					
+				endif	
+		endif
+				
+		// LvL 100
+		if skill "Tailoring" == 100
+			// Close GUMP
+				if @gumpexists 0x38920abd
+					replygump 0x38920abd 0
+				endif
+				
+			sysmsg "Master Tailoringer. [LvL.100]" 473
+			headmsg "Master Tailoringer. [LvL.100]" 473
+			@unsetalias "sbag"
+			@unsetalias "tailortool"
+			@clearignorelist
+			stop
+		endif
+	else
+		// Close GUMP
+			if @gumpexists 0x38920abd
+				replygump 0x38920abd 0
+			endif
+		sysmsg "No Cloths found." 38
+		headmsg "No Cloths found." 38
+		@unsetalias "tailortool"
+		@clearignorelist
+		stop
+	endif
+else
+	// Close GUMP
+		if @gumpexists 0x38920abd
+			replygump 0x38920abd 0
+		endif
+	
+	sysmsg "No Tailoring Tools found." 38
+	headmsg "No Tailoring Tools found." 38
+	@clearignorelist
+	stop
+endif
+// == Wait a little bit
+pause 1000
+
+

@@ -1,0 +1,35 @@
+////////////////////////////////////
+//   This macro is designed for   //
+//    training stealth from 0.    //
+//                                //
+//  Turn on loop and click play!  //
+//                                //
+//      ~~Made by Daerik~~        //
+////////////////////////////////////
+if not dead and skill 'stealth' < 100
+  @createlist 'directions'
+  @clearlist 'directions'
+  @pushlist 'directions' 'west'
+  @pushlist 'directions' 'north'
+  @pushlist 'directions' 'east'
+  @pushlist 'directions' 'south'
+  for 0 to 'directions'
+    for 5
+      while not hidden 'self'
+        useskill 'hiding'
+        pause 11000
+      endwhile
+      walk directions[]
+      pause 500
+    endfor
+  endfor
+else
+  headmsg 'Stealth complete!'
+  stop
+endif
+
+//Stealth Gains
+0-60: naked
+60-68: wear studded arms
+68-80: add studded legs
+80-100: add studded tunic

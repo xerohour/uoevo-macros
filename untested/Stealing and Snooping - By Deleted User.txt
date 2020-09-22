@@ -1,0 +1,92 @@
+//works best in fel
+ 
+while skill 'Stealing' < 120 or skill 'Snooping' < 100
+  //0x407c8819 = my alt's pack
+  if skill 'Snooping' < 100
+    useobject 0x407c8819
+    pause 6000
+  endif
+  @clearjournal
+  //0x17a879 = my packie
+  //3 stones - bone harvester
+  if skill 'Stealing' < 38
+    useskill 'Stealing'
+    waitfortarget 15000
+    target! 0x4100eb0a
+    pause 11000
+    if @injournal 'You successfully steal the item.' 'system'
+      moveitem 0x4100eb0a 0x17a879 48 70 0
+      pause 2000
+    endif
+    //4 stones - shepard's crook
+  elseif skill 'Stealing' < 48
+    useskill 'Stealing'
+    waitfortarget 15000
+    target! 0x4113b2ae
+    pause 11000
+    if @injournal 'You successfully steal the item.' 'system'
+      moveitem 0x4113b2ae 0x17a879 48 70 0
+      pause 2000
+    endif
+    //5 stones - buckler
+  elseif skill 'Stealing' < 58
+    useskill 'Stealing'
+    waitfortarget 15000
+    target! 0x4113b2b0
+    pause 11000
+    if @injournal 'You successfully steal the item.' 'system'
+      moveitem 0x4113b2b0 0x17a879 48 70 0
+      pause 2000
+    endif
+    //6 stones - katana
+  elseif skill 'Stealing' < 68
+    useskill 'Stealing'
+    waitfortarget 15000
+    target! 0x42a5d7e6
+    pause 11000
+    if @injournal 'You successfully steal the item.' 'system'
+      moveitem 0x42a5d7e6 0x17a879 48 70 0
+      pause 2000
+    endif
+    //7 stones - crossbow
+  elseif skill 'Stealing' < 78
+    useskill 'Stealing'
+    waitfortarget 15000
+    target! 0x451f87f6
+    pause 11000
+    if @injournal 'You successfully steal the item.' 'system'
+      moveitem 0x451f87f6 0x17a879 48 70 0
+      pause 2000
+    endif
+    //8 stones - war axe
+  elseif skill 'Stealing' < 88
+    useskill 'Stealing'
+    waitfortarget 15000
+    target! 0x45208373
+    pause 11000
+    if @injournal 'You successfully steal the item.' 'system'
+      moveitem 0x45208373 0x17a879 48 70 0
+      pause 2000
+    endif
+    //9 stones - heavy crossbow
+  elseif skill 'Stealing' < 98
+    useskill 'Stealing'
+    waitfortarget 15000
+    target! 0x409f100c
+    pause 11000
+    if @injournal 'You successfully steal the item.' 'system'
+      moveitem 0x409f100c 0x17a879 48 70 0
+      pause 2000
+    endif
+    //10 stones - war hammer
+  elseif skill 'Stealing' < 120
+    useskill 'Stealing'
+    waitfortarget 15000
+    target! 0x42a5d7e7
+    pause 11000
+    if @injournal 'You successfully steal the item.' 'system'
+      moveitem 0x42a5d7e7 0x17a879 48 70 0
+      pause 2000
+    endif
+  endif
+endwhile

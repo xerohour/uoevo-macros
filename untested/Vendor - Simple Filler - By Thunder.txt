@@ -1,0 +1,6 @@
+if @injournal 'type in a price' 'system'
+  promptmsg '50000'
+  clearjournal
+endif
+pause 100
+//Just change the 50000 to what ever price you want

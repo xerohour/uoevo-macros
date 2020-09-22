@@ -1,0 +1,15 @@
+////////////////////////////////////
+//   This macro is designed for   //
+//       training strength        //
+//                                //
+//      ~~Made by Daerik~~        //
+////////////////////////////////////
+headmsg 'Select the item to train arms lore on'
+promptalias 'lore'
+while str < 142
+  useskill 'arms lore'
+  waitfortarget 2000
+  target! 'lore'
+  pause 1000
+endwhile
+headmsg 'Strength Training Complete!'

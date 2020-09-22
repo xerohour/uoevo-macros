@@ -1,0 +1,41 @@
+//-------Silly Apprentice ----------Quest Items
+if @findtype 0x13f8 '1153' 'ground'
+  headmsg 'Whitewood Stick' 35 'found'
+  playsound 43
+  pause 1000
+endif
+if @findtype 0x1366 '0' 'ground'
+  headmsg 'Sharpening Stone' 35 'found'
+  playsound 43
+  pause 1000
+endif
+if @findtype 0x122a '2151' 'ground'
+  headmsg 'Melted Blue Wax' 35 'found'
+  playsound 43
+  pause 1000
+endif
+if @findtype 0x122c '2151' 'ground'
+  headmsg 'Melted Blue Wax' 35 'found'
+  playsound 43
+  pause 1000
+endif
+if @findtype 0x122d '2151' 'ground'
+  headmsg 'Melted Blue Wax' 35 'found'
+  playsound 43
+  pause 1000
+endif
+if @findtype 0x122e '2151' 'ground'
+  headmsg 'Melted Blue Wax' 35 'found'
+  playsound 43
+  pause 1000
+endif
+if @findtype 0x122b '2151' 'ground'
+  headmsg 'Melted Blue Wax' 35 'found'
+  playsound 43
+  pause 1000
+endif
+if @findtype 0x18df '1822' 'ground'
+  headmsg 'Sandlewood Root' 35 'found'
+  playsound 43
+  pause 1000
+endif
